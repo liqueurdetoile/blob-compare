@@ -1,0 +1,39 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "includes": ["\\.(js|jsdoc)$"],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "test": {
+          "source": "./tests/"
+        },
+        "brand": {
+            "logo": "./docs/assets/logo.png",
+            "title": "Fetch-mock-fixtures | Fetch API for testing"
+          }
+      }
+    },
+    {
+      "name": "esdoc-ecmascript-proposal-plugin",
+      "option": {
+        "all": true
+      }
+    },
+    {
+      "name": "esdoc-inject-style-plugin",
+      "option": {
+        "enable": true,
+        "styles": ["./docs/assets/styles.css"]
+      }
+    },
+    {
+      "name": "esdoc-inject-script-plugin",
+      "option": {
+        "enable": true,
+        "scripts": ["./docs/assets/docs.js"]
+      }
+    }
+  ]
+}

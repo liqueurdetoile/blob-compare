@@ -1,0 +1,22 @@
+{
+  "presets": [
+    ["@babel/env", {
+      "targets": {
+        "browsers": "> 5%, not dead"
+      }
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "istanbul",
+          {"exclude": ["tests/**/*.js"]}
+        ]
+      ]
+    }
+  }
+}

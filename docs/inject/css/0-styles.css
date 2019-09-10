@@ -1,0 +1,224 @@
+.layout-container > header {
+  background-color: rgb(138, 31, 5)
+}
+.layout-container > header > a {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 2em
+}
+
+.search-box img {
+  padding-right: 1em;
+}
+
+.search-input {
+  border-color:#fff;
+  color: #fff
+}
+
+.search-result li.search-separator {
+  background-color: rgb(138, 31, 5);
+  padding:0.5em;
+  text-transform:uppercase
+}
+
+.search-result a {
+  color:rgb(138, 31, 5)
+}
+
+.search-input-edge {
+  background-color: #fff;
+}
+
+.content-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width:60%;
+  max-width: 1200px;
+}
+
+.navigation {
+  overflow-y: scroll;
+  left:auto;
+  background-color: #fff
+}
+
+.navigation li {
+  white-space: normal
+}
+
+.content {
+  min-width: 320px;
+  font-size: 1.1em;
+}
+
+@media screen and (max-width: 480px) {
+  .content-wrapper {
+    margin-top: 3rem
+    width: 100%
+  }
+
+  .navigation {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border-right: none;
+    padding: 1rem;
+    margin: 0;
+    margin-bottom: 2rem
+  }
+
+  .content {
+    margin: 1rem;
+    width: 100%
+  }
+}
+
+.content .detail > div {
+    margin-left: 0;
+}
+
+.content h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+.content h2 {
+  margin-top: 3em;
+  font-size: 1.2em;
+  text-transform: uppercase
+}
+
+.content .detail > h3 {
+  color: #fff !important;
+  background-color: #5a100d !important;
+  font-size: 1.2em;
+  padding: 0.3em 0.5em !important
+}
+
+.content .detail > h3 span.access {
+  font-size: 0.8em;
+  font-weight:400;
+  margin-right: 1em;
+  font-family: monospace;
+}
+
+h3 .right-info {
+  font-size: 0.6em;
+  position: relative;
+  display: block;
+  text-align: right;
+  padding-top: 0.5em;
+}
+
+.version, .since {
+  margin-right: 0.5em;
+}
+
+.version + .since:before {
+  content:'';
+}
+
+.content a {
+  color: #ce7412;
+  font-weight: bold;
+}
+
+.content .inner-link-active {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.content table td {
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.content table td[data-ice="appendix"] ul li {
+  list-style-type: square;
+}
+
+.content thead td {
+  color: #333
+}
+
+.content td[data-ice="title"] {
+  font-weight: bold;
+}
+
+.manual-root .content-wrapper {
+  width: 80%
+}
+
+.manual-root .navigation {
+  width: 300px;
+}
+
+.manual-root .content {
+  margin-left: 300px;
+}
+
+.manual-toc {
+  font-size:0.85em;
+}
+
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
+pre.prettyprint,
+pre.raw-source-code > code,
+pre > code {
+  background:#1d1f21;
+  line-height: 1.8;
+  font-size: 0.85rem !important
+  overflow: auto;
+}
+
+pre.source-code li {
+  background:#1d1f21;
+  font-size: 0.8rem
+}
+
+pre.source-code.line-number li.active {
+  background-color: #5a3a1d !important
+}
+
+.code {
+  font-size: 0.9rem
+}
+
+.prettyprint{
+  margin: 1rem;
+  display: block;
+  background:#1d1f21;
+  font-family:Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;
+  border:0!important
+}
+.pln{
+  color:#c5c8c6
+}
+
+ol.linenums{
+  margin-top:0;margin-bottom:0;color:#969896
+}
+
+li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9  {
+  padding-left:1em;
+  background-color:#1d1f21;
+  list-style-type:decimal
+}
+
+@media screen{
+  .str{color:#b5bd68}
+  .kwd{color:#b294bb}
+  .com{color:#969896}
+  .typ{color:#81a2be}
+  .lit{color:#de935f}
+  .pun{color:#c5c8c6}
+  .opn{color:#c5c8c6}
+  .clo{color:#c5c8c6}
+  .tag{color:#c66}
+  .atn{color:#de935f}
+  .atv{color:#8abeb7}
+  .dec{color:#de935f}
+  .var{color:#c66}
+  .fun{color:#81a2be}
+}

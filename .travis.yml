@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "11"
+sudo: required
+cache: "npm"
+addons:
+  chrome: stable
+before_deploy:
+  - npm run build
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script:
+     - npx semantic-release
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: "dist/index.min.js"
+    skip_cleanup: true
+    on:
+      tags: true

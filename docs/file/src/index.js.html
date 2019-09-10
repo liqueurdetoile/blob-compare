@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/index.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/blob-compare"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~blobCompare.html">blobCompare</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export class blobCompare {
+  /**
+   * Convert a blob to a binary string
+   *
+   * The blob can optionnaly be sliced with the size arguments
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  blob Blob to convert and optionnally sample
+   * @param   {Number}  size Size in bytes to slice blob
+   * @return  {Promise&lt;String&gt;}       Binary data as a string
+   */
+  static toBinaryString(blob, size) {
+    return new Promise((resolve, reject) =&gt; {
+      const reader = new FileReader();
+      const s = size ? Math.min(size, blob.size) : blob.size;
+      const b = blob.slice(0, s);
+
+      reader.onload = () =&gt; resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsBinaryString(b);
+    });
+  }
+
+  /**
+   * Convert a blob to an ArrayBuffer
+   *
+   * The blob can optionnally be sliced with the `size`argument
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  blob Blob
+   * @param   {Number}  size Size in bytes to slice blob
+   * @return  {Promise&lt;ArrayBuffer&gt;}       Binary data as a buffer
+   */
+  static toArrayBuffer(blob, size) {
+    return new Promise((resolve, reject) =&gt; {
+      const reader = new FileReader();
+      const s = size ? Math.min(size, blob.size) : blob.size;
+      const b = blob.slice(0, s);
+
+      reader.onload = () =&gt; resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(b);
+    });
+  }
+
+  /**
+   * Compare size of two blobs
+   *
+   * Obviously, two different blobs in content can have the same size and this method is only useful
+   * to discriminate blobs
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1 First blob
+   * @param   {Blob}  b2 Second Blob
+   * @return  {Boolean}     `true` if sizes are equal
+   */
+  static sizeEqual(b1, b2) {
+    return b1.size === b2.size;
+  }
+
+  /**
+   * Compare type of two blobs
+   *
+   * Never rely solely on this method to discriminate blobs or, worse, consider them as equal
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1 First blob
+   * @param   {Blob}  b2 Second blob
+   * @return  {Boolean}     `true` if types are equal
+   */
+  static typeEqual(b1, b2) {
+    return b1.type === b2.type;
+  }
+
+  /**
+   * Compares the magic numbers of two blobs
+   *
+   * This method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite
+   * exhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)
+   *
+   * It does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse
+   * more informations about data if needed.
+   *
+   * Be warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1 First blob
+   * @param   {Blob}  b2 Second blob
+   * @return  {Promise&lt;Boolean&gt;}    `true` if magic numbers string is matching between two blogs
+   */
+  static async magicNumbersEqual(b1, b2) {
+    const sizes = [24, 16, 14, 12, 8, 6, 4];
+
+    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24), this.toBinaryString(b2, 24)]);
+
+    for(let size of sizes) {
+      /* istanbul ignore else */
+      if (s1.substring(0, size) === s2.substring(0, size)) return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Compares two blobs by using binary strings
+   *
+   * This is not the default method to byte compare two blobs as benchmarks shows it&apos;s a little bit slower than using array buffers in most cases.
+   *
+   * There&apos;s still at least two cases where using binary string is much faster :
+   * - Empty blobs
+   * - Blobs much prone to have difference at the start of the data
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1   First blob
+   * @param   {Blob}  b2   Second blob
+   * @param   {Number}  size Size in bytes to slice blobs
+   * @return  {Promise&lt;Boolean&gt;}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte
+   */
+  static async bytesEqualWithBinaryString(b1, b2, size) {
+    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size), this.toBinaryString(b2, size)]);
+
+    return s1 === s2;
+  }
+
+  /**
+   * Compares two blobs by using arraybuffers
+   *
+   * This is the default comparison method
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1   First blob
+   * @param   {Blob}  b2   Second blob
+   * @param   {Number}  size Size in bytes to slice blobs
+   * @return  {Promise&lt;Boolean&gt;}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte
+   */
+  static async bytesEqualWithArrayBuffer(b1, b2, size) {
+    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size), this.toArrayBuffer(b2, size)]);
+    const d1 = new DataView(buf1), d2 = new DataView(buf2);
+
+    var i = buf1.byteLength;
+    while (i--) {
+      if (d1.getUint8(i) !== d2.getUint8(i)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Automatically compares two blobs by using the given methods
+   *
+   * Allowed methods are with aliases :
+   * - `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes
+   * to perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;
+   * - `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;
+   * - `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;
+   * - `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.
+   *
+   *
+   * Using the `partial` option can be tricky as it&apos;s easy to have false positive.
+   *
+   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  b1                First blob
+   * @param   {Blob}  b2                Second blob
+   * @param   {Object}  [options]   Configuration to use when performing comparison
+   * @param   {Array}   [options.methods=[&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;]] Default methods used for comparison. Methods will be applied in the same order
+   * @param   {String}  [options.byte=&apos;buffer&apos;]   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings
+   * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately
+   * @param   {Array}   [options.sizes=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive
+   * @return  {Promise&lt;Boolean&gt;}                   If `true`, blobs are equals given the used methods
+   */
+  static async isEqual(b1, b2, {methods = [&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;], byte = &apos;buffer&apos;, partial = false, sizes = null} = {}) {
+    const passed = new Set();
+
+    for(let method of methods) {
+      let cmp;
+
+      switch(method) {
+        case &apos;byte&apos;:
+        case &apos;bytes&apos;:
+        case &apos;content&apos;:
+          sizes = sizes instanceof Array ? sizes : [b1.size];
+          for(let size of sizes) {
+            cmp = byte === &apos;buffer&apos; ? await this.bytesEqualWithArrayBuffer(b1, b2, size) : await this.bytesEqualWithBinaryString(b1, b2, size);
+            if(cmp === partial) return cmp;
+            passed.add(cmp);
+          }
+          break;
+
+        case &apos;magic&apos;:
+        case &apos;headers&apos;:
+        case &apos;numbers&apos;:
+        case &apos;mime&apos;:
+          cmp = await this.magicNumbersEqual(b1, b2);
+          if(cmp === partial) return cmp;
+          passed.add(cmp);
+          break;
+
+        case &apos;size&apos;:
+        case &apos;sizes&apos;:
+          cmp = this.sizeEqual(b1, b2);
+          if(cmp === partial) return cmp;
+          passed.add(cmp);
+          break;
+
+        case &apos;type&apos;:
+        case &apos;types&apos;:
+          cmp = this.typeEqual(b1, b2);
+          if(cmp === partial) return cmp;
+          passed.add(cmp);
+          break;
+
+        default: throw new Error(&apos;Unknown comparison method&apos;);
+      }
+    }
+
+    return !passed.has(false);
+  }
+}
+
+export default blobCompare;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,1280 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "export class blobCompare {\n  /**\n   * Convert a blob to a binary string\n   *\n   * The blob can optionnaly be sliced with the size arguments\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob to convert and optionnally sample\n   * @param   {Number}  size Size in bytes to slice blob\n   * @return  {Promise<String>}       Binary data as a string\n   */\n  static toBinaryString(blob, size) {\n    return new Promise((resolve, reject) => {\n      const reader = new FileReader();\n      const s = size ? Math.min(size, blob.size) : blob.size;\n      const b = blob.slice(0, s);\n\n      reader.onload = () => resolve(reader.result);\n      reader.onerror = reject;\n      reader.readAsBinaryString(b);\n    });\n  }\n\n  /**\n   * Convert a blob to an ArrayBuffer\n   *\n   * The blob can optionnally be sliced with the `size`argument\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob\n   * @param   {Number}  size Size in bytes to slice blob\n   * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n   */\n  static toArrayBuffer(blob, size) {\n    return new Promise((resolve, reject) => {\n      const reader = new FileReader();\n      const s = size ? Math.min(size, blob.size) : blob.size;\n      const b = blob.slice(0, s);\n\n      reader.onload = () => resolve(reader.result);\n      reader.onerror = reject;\n      reader.readAsArrayBuffer(b);\n    });\n  }\n\n  /**\n   * Compare size of two blobs\n   *\n   * Obviously, two different blobs in content can have the same size and this method is only useful\n   * to discriminate blobs\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second Blob\n   * @return  {Boolean}     `true` if sizes are equal\n   */\n  static sizeEqual(b1, b2) {\n    return b1.size === b2.size;\n  }\n\n  /**\n   * Compare type of two blobs\n   *\n   * Never rely solely on this method to discriminate blobs or, worse, consider them as equal\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second blob\n   * @return  {Boolean}     `true` if types are equal\n   */\n  static typeEqual(b1, b2) {\n    return b1.type === b2.type;\n  }\n\n  /**\n   * Compares the magic numbers of two blobs\n   *\n   * This method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite\n   * exhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)\n   *\n   * It does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse\n   * more informations about data if needed.\n   *\n   * Be warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second blob\n   * @return  {Promise<Boolean>}    `true` if magic numbers string is matching between two blogs\n   */\n  static async magicNumbersEqual(b1, b2) {\n    const sizes = [24, 16, 14, 12, 8, 6, 4];\n\n    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24), this.toBinaryString(b2, 24)]);\n\n    for(let size of sizes) {\n      /* istanbul ignore else */\n      if (s1.substring(0, size) === s2.substring(0, size)) return true;\n    }\n\n    return false;\n  }\n\n  /**\n   * Compares two blobs by using binary strings\n   *\n   * This is not the default method to byte compare two blobs as benchmarks shows it's a little bit slower than using array buffers in most cases.\n   *\n   * There's still at least two cases where using binary string is much faster :\n   * - Empty blobs\n   * - Blobs much prone to have difference at the start of the data\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithBinaryString(b1, b2, size) {\n    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size), this.toBinaryString(b2, size)]);\n\n    return s1 === s2;\n  }\n\n  /**\n   * Compares two blobs by using arraybuffers\n   *\n   * This is the default comparison method\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithArrayBuffer(b1, b2, size) {\n    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size), this.toArrayBuffer(b2, size)]);\n    const d1 = new DataView(buf1), d2 = new DataView(buf2);\n\n    var i = buf1.byteLength;\n    while (i--) {\n      if (d1.getUint8(i) !== d2.getUint8(i)) {\n        return false;\n      }\n    }\n\n    return true;\n  }\n\n  /**\n   * Automatically compares two blobs by using the given methods\n   *\n   * Allowed methods are with aliases :\n   * - `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\n   * to perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n   * - `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n   * - `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n   * - `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n   *\n   *\n   * Using the `partial` option can be tricky as it's easy to have false positive.\n   *\n   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1                First blob\n   * @param   {Blob}  b2                Second blob\n   * @param   {Object}  [options]   Configuration to use when performing comparison\n   * @param   {Array}   [options.methods=['size', 'type', 'byte']] Default methods used for comparison. Methods will be applied in the same order\n   * @param   {String}  [options.byte='buffer']   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings\n   * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately\n   * @param   {Array}   [options.sizes=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive\n   * @return  {Promise<Boolean>}                   If `true`, blobs are equals given the used methods\n   */\n  static async isEqual(b1, b2, {methods = ['size', 'type', 'byte'], byte = 'buffer', partial = false, sizes = null} = {}) {\n    const passed = new Set();\n\n    for(let method of methods) {\n      let cmp;\n\n      switch(method) {\n        case 'byte':\n        case 'bytes':\n        case 'content':\n          sizes = sizes instanceof Array ? sizes : [b1.size];\n          for(let size of sizes) {\n            cmp = byte === 'buffer' ? await this.bytesEqualWithArrayBuffer(b1, b2, size) : await this.bytesEqualWithBinaryString(b1, b2, size);\n            if(cmp === partial) return cmp;\n            passed.add(cmp);\n          }\n          break;\n\n        case 'magic':\n        case 'headers':\n        case 'numbers':\n        case 'mime':\n          cmp = await this.magicNumbersEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'size':\n        case 'sizes':\n          cmp = this.sizeEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'type':\n        case 'types':\n          cmp = this.typeEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        default: throw new Error('Unknown comparison method');\n      }\n    }\n\n    return !passed.has(false);\n  }\n}\n\nexport default blobCompare;\n",
+    "static": true,
+    "longname": "F:/Projets/blob-compare/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "blobCompare",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~blobCompare",
+    "access": "public",
+    "export": true,
+    "importPath": "blob-compare",
+    "importStyle": "{blobCompare}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "name": "toBinaryString",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toBinaryString",
+    "access": "public",
+    "description": "Convert a blob to a binary string\n\nThe blob can optionnaly be sliced with the size arguments",
+    "lineNumber": 13,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob to convert and optionnally sample"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "size",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<String>"
+      ],
+      "spread": false,
+      "description": "Binary data as a string"
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "toArrayBuffer",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toArrayBuffer",
+    "access": "public",
+    "description": "Convert a blob to an ArrayBuffer\n\nThe blob can optionnally be sliced with the `size`argument",
+    "lineNumber": 36,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "size",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<ArrayBuffer>"
+      ],
+      "spread": false,
+      "description": "Binary data as a buffer"
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "name": "sizeEqual",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.sizeEqual",
+    "access": "public",
+    "description": "Compare size of two blobs\n\nObviously, two different blobs in content can have the same size and this method is only useful\nto discriminate blobs",
+    "lineNumber": 60,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second Blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": "`true` if sizes are equal"
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "name": "typeEqual",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.typeEqual",
+    "access": "public",
+    "description": "Compare type of two blobs\n\nNever rely solely on this method to discriminate blobs or, worse, consider them as equal",
+    "lineNumber": 75,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": "`true` if types are equal"
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "method",
+    "name": "magicNumbersEqual",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.magicNumbersEqual",
+    "access": "public",
+    "description": "Compares the magic numbers of two blobs\n\nThis method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite\nexhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)\n\nIt does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse\nmore informations about data if needed.\n\nBe warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.",
+    "lineNumber": 96,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>"
+      ],
+      "spread": false,
+      "description": "`true` if magic numbers string is matching between two blogs"
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
+    "name": "bytesEqualWithBinaryString",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.bytesEqualWithBinaryString",
+    "access": "public",
+    "description": "Compares two blobs by using binary strings\n\nThis is not the default method to byte compare two blobs as benchmarks shows it's a little bit slower than using array buffers in most cases.\n\nThere's still at least two cases where using binary string is much faster :\n- Empty blobs\n- Blobs much prone to have difference at the start of the data",
+    "lineNumber": 125,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "size",
+        "description": "Size in bytes to slice blobs"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>"
+      ],
+      "spread": false,
+      "description": "Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte"
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "name": "bytesEqualWithArrayBuffer",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.bytesEqualWithArrayBuffer",
+    "access": "public",
+    "description": "Compares two blobs by using arraybuffers\n\nThis is the default comparison method",
+    "lineNumber": 143,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "size",
+        "description": "Size in bytes to slice blobs"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>"
+      ],
+      "spread": false,
+      "description": "Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte"
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "name": "isEqual",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.isEqual",
+    "access": "public",
+    "description": "Automatically compares two blobs by using the given methods\n\nAllowed methods are with aliases :\n- `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\nto perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n- `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n- `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n- `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n\n\nUsing the `partial` option can be tricky as it's easy to have false positive.\n\nAs default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.",
+    "lineNumber": 183,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b1",
+        "description": "First blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "b2",
+        "description": "Second blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Configuration to use when performing comparison"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "['size', 'type', 'byte']",
+        "defaultRaw": "['size', 'type', 'byte']",
+        "name": "options.methods",
+        "description": "Default methods used for comparison. Methods will be applied in the same order"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'buffer'",
+        "defaultRaw": "'buffer'",
+        "name": "options.byte",
+        "description": "If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.partial",
+        "description": "When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "options.sizes",
+        "description": "Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>"
+      ],
+      "spread": false,
+      "description": "If `true`, blobs are equals given the used methods"
+    }
+  },
+  {
+    "kind": "index",
+    "content": "[![Build Status](https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master)](https://travis-ci.org/liqueurdetoile/blob-compare)\n[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master)\n[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)\n[![Documentation](https://liqueurdetoile.github.io/blob-compare/badge.svg)](https://liqueurdetoile.github.io/blob-compare/)\n[![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg)](https://greenkeeper.io/)\n[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)\n\n<p align=\"center\"><a href=\"https://liqueurdetoile.com\" target=\"\\_blank\"><img src=\"https://hosting.liqueurdetoile.com/logo_lqdt.png\" alt=\"Liqueur de Toile\"></a></p>\n\n# Blob comparison utility\n`blob-compare` is a small tool with no dependencies designed to provide some useful methods to compare two blobs with various goals :\n\n- Comparison on size of two blobs\n- Comparison on types of two blobs\n- Comparison on data types based on magic numbers of two blobs\n- Comparison byte to byte on full data or sliced subsets\n- A configurable combination of any of above to evaluate blobs equality\n\nTool rely on native browsers buffer implementations and will likely work on any modern browser.\n\n## Usage examples\n```javascript\n// assuming img1 and img2 are two blobs vars\n\n/** Fully compare two blobs */\nblobCompare.isEqual(img1, img2)\n\n/** Compare file types */\nblobCompare.isEqual(img1, img2, {methods: ['magic']})\n// or\nblobCompare.magicNumbersEqual(img1, img2)\n\n/** Compare file types AND the last 100 bytes of blobs */\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100]\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) &&\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n\n/** Compare file types OR the last 100 bytes of blobs */\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100],\n  partial: true\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) ||\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n```\nTo speed up things, `isEqual` with its defaults, checks first of sizes are the same, then types and finally performs a byte to byte comparison to ensure blobs equality.\n\n## Installation\nYou can install it from `npm` or `yarn` :\n```bash\nnpm install blob-compare\n\nyarn add blob-compare\n```\n`blob-compare` can also be required as a script from any CDN mirroring NPM or Github, like :\n- [jsDelivr](https://www.jsdelivr.com/?query=blob-compare)\n- [unpkg](https://unpkg.com/)\n\nThe global `blobCompare` will be automatically set after script was downloaded.\n\n## Documentation\nMethods are fully documented and docs are available on [github pages](https://liqueurdetoile.github.io/blob-compare/).\n\n## Issues and PRs\nAny bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/blob-compare/issues).\n\nYou are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.\n",
+    "longname": "F:\\Projets\\blob-compare\\README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\r\n  \"name\": \"blob-compare\",\r\n  \"version\": \"0.0.0\",\r\n  \"description\": \"Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion\",\r\n  \"main\": \"src/index.js\",\r\n  \"sideEffects\": false,\r\n  \"keywords\": [\r\n    \"blob\",\r\n    \"comparison\"\r\n  ],\r\n  \"homepage\": \"https://github.com/liqueurdetoile/blob-compare#readme\",\r\n  \"repository\": \"https://github.com/liqueurdetoile/blob-compare\",\r\n  \"bugs\": \"https://github.com/liqueurdetoile/blob-compare/issues\",\r\n  \"author\": \"Liqueur de Toile <contact@liqueurdetoile.com>\",\r\n  \"license\": \"MIT\",\r\n  \"scripts\": {\r\n    \"build\": \"webpack --config .config/webpack/build.js -p\",\r\n    \"test\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\r\n    \"test:dry\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless\",\r\n    \"test:watch\": \"cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn\",\r\n    \"test:all\": \"cross-env BABEL_ENV=test karma start --single-run --log-level error\",\r\n    \"bench\": \"karma start .config/karma.benchmark.conf.js --browsers ChromeHeadless\",\r\n    \"bench:all\": \"karma start .config/karma.benchmark.conf.js\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.5\",\r\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.4.4\",\r\n    \"@babel/preset-env\": \"^7.4.5\",\r\n    \"arraybuffer-loader\": \"^1.0.7\",\r\n    \"babel-eslint\": \"^10.0.2\",\r\n    \"babel-loader\": \"^8.0.6\",\r\n    \"babel-plugin-istanbul\": \"^5.1.4\",\r\n    \"benchmark\": \"^2.1.4\",\r\n    \"chai\": \"^4.2.0\",\r\n    \"coveralls\": \"^3.0.4\",\r\n    \"cross-env\": \"^5.2.0\",\r\n    \"cz-conventional-changelog\": \"^2.1.0\",\r\n    \"eslint\": \"^6.0.0\",\r\n    \"eslint-loader\": \"^2.1.2\",\r\n    \"json-loader\": \"^0.5.7\",\r\n    \"karma\": \"^4.1.0\",\r\n    \"karma-babel-preprocessor\": \"^8.0.0\",\r\n    \"karma-benchmark\": \"^1.0.4\",\r\n    \"karma-benchmarkjs-reporter\": \"^1.0.0\",\r\n    \"karma-chai\": \"^0.1.0\",\r\n    \"karma-chrome-launcher\": \"^2.2.0\",\r\n    \"karma-coverage\": \"^1.1.2\",\r\n    \"karma-coverage-istanbul-reporter\": \"^2.0.4\",\r\n    \"karma-edge-launcher\": \"^0.4.2\",\r\n    \"karma-firefox-launcher\": \"^1.1.0\",\r\n    \"karma-ie-launcher\": \"^1.0.0\",\r\n    \"karma-mocha\": \"^1.3.0\",\r\n    \"karma-mocha-reporter\": \"^2.2.5\",\r\n    \"karma-sinon\": \"^1.0.5\",\r\n    \"karma-sourcemap-loader\": \"^0.3.7\",\r\n    \"karma-webpack\": \"^4.0.2\",\r\n    \"mocha\": \"^6.1.4\",\r\n    \"mocha-lcov-reporter\": \"^1.3.0\",\r\n    \"pouchdb\": \"^7.1.1\",\r\n    \"semantic-release\": \"^15.13.16\",\r\n    \"sinon\": \"^7.3.2\",\r\n    \"webpack\": \"^4.35.0\",\r\n    \"webpack-bundle-analyzer\": \"^3.3.2\",\r\n    \"webpack-cli\": \"^3.3.4\",\r\n    \"webpack-merge\": \"^4.2.1\"\r\n  }\r\n}\r\n",
+    "longname": "F:\\Projets\\blob-compare\\package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "__docId__": 58,
+    "kind": "testFile",
+    "name": "tests/blob-compare.spec.js",
+    "content": "import blobCompare from '@';\nimport avatarData1 from 'arraybuffer-loader!./data/avatar.jpg';\nimport avatarData2 from 'arraybuffer-loader!./data/avatar2.jpg';\nimport pngData1 from 'arraybuffer-loader!./data/png1.png';\nimport pngData2 from 'arraybuffer-loader!./data/png2.png';\nimport bmpData1 from 'arraybuffer-loader!./data/bmp1.bmp';\nimport bmpData2 from 'arraybuffer-loader!./data/bmp2.bmp';\n\ndescribe('Blob-compare', function() {\n  let dataset = new Map([\n    ['empty', new Blob()],\n    ['smallA', new Blob(['a'], {type: 'text/plain'})],\n    ['smallB', new Blob(['b'], {type: 'text/plain'})],\n    ['midA', new Blob(['a'.repeat(1024)], {type: 'text/plain'})],\n    ['midB', new Blob(['b'.repeat(1024)], {type: 'text/plain'})],\n    ['midAB', new Blob(['a'.repeat(512) + 'b'.repeat(512)], {type: 'text/plain'})],\n    ['jpg1', new Blob([new Uint8Array(avatarData1)], {type: 'image/jpeg'})],\n    ['jpg2', new Blob([new Uint8Array(avatarData2)], {type: 'image/jpeg'})],\n    ['png1', new Blob([new Uint8Array(pngData1)], {type: 'image/png'})],\n    ['png2', new Blob([new Uint8Array(pngData2)], {type: 'image/png'})],\n    ['bmp1', new Blob([new Uint8Array(bmpData1)], {type: 'image/bmp'})],\n    ['bmp2', new Blob([new Uint8Array(bmpData2)], {type: 'image/bmp'})],\n  ]);\n\n  /** @test {blobCompare.sizeEqual} */\n  describe('sizeEqual', function() {\n    it('should return true if size are equal', function() {\n      blobCompare.sizeEqual(dataset.get('bmp1'), dataset.get('bmp2')).should.be.true;\n    })\n\n    it('should return false if size are not equal', function() {\n      blobCompare.sizeEqual(dataset.get('png1'), dataset.get('bmp2')).should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.typeEqual} */\n  describe('typeEqual', function() {\n    it('should return true if type are equal', function() {\n      blobCompare.typeEqual(dataset.get('bmp1'), dataset.get('bmp2')).should.be.true;\n    })\n\n    it('should return false if type are not equal', function() {\n      blobCompare.typeEqual(dataset.get('png1'), dataset.get('bmp2')).should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.magicNumbersEqual} */\n  describe('magicNumbersEqual', function() {\n    it('should return true if magic numbers are equal', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(dataset.get('png1'), dataset.get('png2'))\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if magic numbers are equal', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(dataset.get('jpg1'), dataset.get('png2'))\n\n      cmp.should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.bytesEqualWithArrayBuffer} */\n  describe('bytesEqualWithArrayBuffer', function() {\n    it('should return true if bytes are equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get('jpg1'), dataset.get('jpg1'));\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if bytes are not equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get('jpg1'), dataset.get('jpg2'));\n\n      cmp.should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.isEqual} */\n  describe('isEqual', function() {\n    // build a dataset to run test automatically, [b1, b2, expected, size]\n    const suite = [\n      ['empty', 'empty', true],\n      ['empty', 'smallA', false],\n      ['smallA', 'smallA', true],\n      ['smallA', 'smallB', false],\n      ['midA', 'midAB', false],\n      ['jpg1', 'jpg1', true],\n      ['jpg1', 'jpg2', false],\n      ['jpg1', 'jpg2', true, {methods: ['types']}], // Types are the same\n      ['jpg1', 'jpg2', true, {partial: true}], // Types are the same so partial succeeds\n      ['png1', 'png1', true],\n      ['png1', 'png2', false],\n      ['png1', 'png2', true, {methods: ['magic']}], // Magic numbers are the same\n      ['png1', 'png2', true, {methods: ['magic', 'size'], partial: true}], // Magic numbers are the same\n      ['bmp1', 'bmp1', true],\n      ['bmp1', 'bmp2', false],\n      ['bmp1', 'bmp2', true, {sizes : [512]}], // Sample size is too small to see difference between the two files\n      ['bmp1', 'bmp2', false, {methods: ['bytes']}], // Force using only blob size\n      ['bmp1', 'bmp2', false, {methods: ['bytes'], byte: 'string'}], // Force using only blob size with binary string\n      ['bmp1', 'bmp2', true, {methods: ['size']}], // Sizes are the same though files are different\n      ['jpg1', 'png1', false],\n    ]\n\n    for (let t of suite) {\n      const [n1, n2, expected, options] = t;\n\n      it(`should return ${expected} with ${n1} vs ${n2} and ${options ? JSON.stringify(options) : 'default options'}`, async function() {\n          const res = await blobCompare.isEqual(dataset.get(n1), dataset.get(n2), options);\n\n          expect(res).to.equal(expected);\n      })\n    }\n\n    it('should throw if one method is not recognized', async function() {\n      try {\n        await blobCompare.isEqual(dataset.get('jpg1'), dataset.get('jpg2'), {methods: ['silly']});\n        expect.fail();\n      } catch (err) {\n        err.message.should.equal('Unknown comparison method');\n      }\n    })\n  });\n});\n",
+    "static": true,
+    "longname": "F:/Projets/blob-compare/tests/blob-compare.spec.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 59,
+    "kind": "test",
+    "name": "describe0",
+    "testId": 0,
+    "memberof": "tests/blob-compare.spec.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0",
+    "access": null,
+    "description": "Blob-compare",
+    "lineNumber": 9
+  },
+  {
+    "__docId__": 60,
+    "kind": "test",
+    "name": "describe1",
+    "testId": 1,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe1",
+    "access": null,
+    "description": "sizeEqual",
+    "lineNumber": 26,
+    "testTargets": [
+      "blobCompare.sizeEqual"
+    ]
+  },
+  {
+    "__docId__": 61,
+    "kind": "test",
+    "name": "it2",
+    "testId": 2,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe1",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe1.it2",
+    "access": null,
+    "description": "should return true if size are equal",
+    "lineNumber": 27
+  },
+  {
+    "__docId__": 62,
+    "kind": "test",
+    "name": "it3",
+    "testId": 3,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe1",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe1.it3",
+    "access": null,
+    "description": "should return false if size are not equal",
+    "lineNumber": 31
+  },
+  {
+    "__docId__": 63,
+    "kind": "test",
+    "name": "describe4",
+    "testId": 4,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe4",
+    "access": null,
+    "description": "typeEqual",
+    "lineNumber": 37,
+    "testTargets": [
+      "blobCompare.typeEqual"
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "test",
+    "name": "it5",
+    "testId": 5,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe4",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe4.it5",
+    "access": null,
+    "description": "should return true if type are equal",
+    "lineNumber": 38
+  },
+  {
+    "__docId__": 65,
+    "kind": "test",
+    "name": "it6",
+    "testId": 6,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe4",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe4.it6",
+    "access": null,
+    "description": "should return false if type are not equal",
+    "lineNumber": 42
+  },
+  {
+    "__docId__": 66,
+    "kind": "test",
+    "name": "describe7",
+    "testId": 7,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe7",
+    "access": null,
+    "description": "magicNumbersEqual",
+    "lineNumber": 48,
+    "testTargets": [
+      "blobCompare.magicNumbersEqual"
+    ]
+  },
+  {
+    "__docId__": 67,
+    "kind": "test",
+    "name": "it8",
+    "testId": 8,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe7",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe7.it8",
+    "access": null,
+    "description": "should return true if magic numbers are equal",
+    "lineNumber": 49
+  },
+  {
+    "__docId__": 68,
+    "kind": "test",
+    "name": "it9",
+    "testId": 9,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe7",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe7.it9",
+    "access": null,
+    "description": "should return false if magic numbers are equal",
+    "lineNumber": 55
+  },
+  {
+    "__docId__": 69,
+    "kind": "test",
+    "name": "describe10",
+    "testId": 10,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe10",
+    "access": null,
+    "description": "bytesEqualWithArrayBuffer",
+    "lineNumber": 63,
+    "testTargets": [
+      "blobCompare.bytesEqualWithArrayBuffer"
+    ]
+  },
+  {
+    "__docId__": 70,
+    "kind": "test",
+    "name": "it11",
+    "testId": 11,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe10",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe10.it11",
+    "access": null,
+    "description": "should return true if bytes are equal",
+    "lineNumber": 64
+  },
+  {
+    "__docId__": 71,
+    "kind": "test",
+    "name": "it12",
+    "testId": 12,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe10",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe10.it12",
+    "access": null,
+    "description": "should return false if bytes are not equal",
+    "lineNumber": 70
+  },
+  {
+    "__docId__": 72,
+    "kind": "test",
+    "name": "describe13",
+    "testId": 13,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe13",
+    "access": null,
+    "description": "isEqual",
+    "lineNumber": 78,
+    "testTargets": [
+      "blobCompare.isEqual"
+    ]
+  },
+  {
+    "__docId__": 73,
+    "kind": "test",
+    "name": "it14",
+    "testId": 14,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe13",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe13.it14",
+    "access": null,
+    "lineNumber": 106
+  },
+  {
+    "__docId__": 74,
+    "kind": "test",
+    "name": "it15",
+    "testId": 15,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe13",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe13.it15",
+    "access": null,
+    "description": "should throw if one method is not recognized",
+    "lineNumber": 113
+  }
+]
