@@ -98,7 +98,7 @@ export class blobCompare {
 
     let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24), this.toBinaryString(b2, 24)]);
 
-    for(let size of sizes) {
+    for (let size of sizes) {
       /* istanbul ignore else */
       if (s1.substring(0, size) === s2.substring(0, size)) return true;
     }
@@ -183,17 +183,17 @@ export class blobCompare {
   static async isEqual(b1, b2, {methods = ['size', 'type', 'byte'], byte = 'buffer', partial = false, sizes = null} = {}) {
     const passed = new Set();
 
-    for(let method of methods) {
+    for (let method of methods) {
       let cmp;
 
-      switch(method) {
+      switch (method) {
         case 'byte':
         case 'bytes':
         case 'content':
           sizes = sizes instanceof Array ? sizes : [b1.size];
-          for(let size of sizes) {
+          for (let size of sizes) {
             cmp = byte === 'buffer' ? await this.bytesEqualWithArrayBuffer(b1, b2, size) : await this.bytesEqualWithBinaryString(b1, b2, size);
-            if(cmp === partial) return cmp;
+            if (cmp === partial) return cmp;
             passed.add(cmp);
           }
           break;
@@ -203,21 +203,21 @@ export class blobCompare {
         case 'numbers':
         case 'mime':
           cmp = await this.magicNumbersEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
         case 'size':
         case 'sizes':
           cmp = this.sizeEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
         case 'type':
         case 'types':
           cmp = this.typeEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
