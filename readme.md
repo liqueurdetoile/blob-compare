@@ -58,9 +58,14 @@ npm install blob-compare
 
 yarn add blob-compare
 ```
-`blob-compare` can also be required as a script from any CDN mirroring NPM or Github, like :
-- [jsDelivr](https://www.jsdelivr.com/?query=blob-compare)
-- [unpkg](https://unpkg.com/)
+`blob-compare` can also be required as a script from any CDN mirroring NPM or Github, for instance :
+```html
+<script src="https://cdn.jsdelivr.net/npm/blob-compare@latest"></script>
+
+<script src="https://unpkg.com/blob-compare@latest"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/liqueurdetoile/blob-compare@latest/dist/index.min.js"></script>
+```
 
 The global `blobCompare` will be automatically set after script was downloaded.
 
