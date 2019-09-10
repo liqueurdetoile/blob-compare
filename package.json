@@ -2,7 +2,7 @@
   "name": "blob-compare",
   "version": "0.0.0",
   "description": "Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion",
-  "main": "src/index.js",
+  "main": "dist/index.min.js",
   "sideEffects": false,
   "keywords": [
     "blob",
