@@ -6,7 +6,10 @@
   "sideEffects": false,
   "keywords": [
     "blob",
-    "comparison"
+    "comparison",
+    "comparison-tool",
+    "blobs",
+    "magic numbers"
   ],
   "homepage": "https://github.com/liqueurdetoile/blob-compare#readme",
   "repository": "https://github.com/liqueurdetoile/blob-compare",
@@ -34,7 +37,7 @@
     "chai": "^4.2.0",
     "coveralls": "^3.0.4",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^3.0.2",
+    "cz-conventional-changelog": "3.0.2",
     "eslint": "^6.0.0",
     "eslint-loader": "^3.0.0",
     "json-loader": "^0.5.7",
@@ -63,5 +66,10 @@
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.4",
     "webpack-merge": "^4.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
