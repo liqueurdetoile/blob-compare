@@ -1,4 +1,4 @@
-export class blobCompare {
+export default class blobCompare {
   /**
    * Convert a blob to a binary string
    *
@@ -228,5 +228,3 @@ export class blobCompare {
     return !passed.has(false);
   }
 }
-
-export default blobCompare;

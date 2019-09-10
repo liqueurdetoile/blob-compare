@@ -7,11 +7,10 @@ function resolve(dir) {
 }
 
 module.exports = {
-  entry: {
-    'blob-compare': './src/index.js'
-  },
+  entry: './src/index.js',
   output: {
-    jsonpFunction: 'blob-compare',
+    library: 'blobCompare',
+    libraryExport: 'default',
     libraryTarget: "umd"
   },
   module: {
@@ -30,7 +29,7 @@ module.exports = {
     ],
     extensions: ['.js'],
     alias: {
-      '@': resolve('../src')
+      '@': path.resolve('./src')
     }
   }
 };
