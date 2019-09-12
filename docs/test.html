@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,6 +30,10 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~blobCompare.html">blobCompare</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToArrayBuffer">blobToArrayBuffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToBinaryString">blobToBinaryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compareBuffers">compareBuffers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-workersEnabled">workersEnabled</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -44,96 +48,205 @@
   </thead>
 
   <tbody data-ice="tests"><tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber9"><p>Blob-compare</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber4"><p>Blob-compare</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber26"><p>sizeEqual</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber8"><p>sizeEqual</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-sizeEqual">blobCompare.sizeEqual</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber27"><p>should return true if size are equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber9"><p>should return true if size are equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber31"><p>should return false if size are not equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber13"><p>should return false if size are not equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber37"><p>typeEqual</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber21"><p>typeEqual</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-typeEqual">blobCompare.typeEqual</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber38"><p>should return true if type are equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber22"><p>should return true if type are equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber42"><p>should return false if type are not equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber26"><p>should return false if type are not equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber48"><p>magicNumbersEqual</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber34"><p>magicNumbersEqual</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-magicNumbersEqual">blobCompare.magicNumbersEqual</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber49"><p>should return true if magic numbers are equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber35"><p>should return true if blobs are the same</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber55"><p>should return false if magic numbers are equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber42"><p>should return true if magic numbers are equal (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber48"><p>should return true if magic numbers are equal (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber54"><p>should return false if magic numbers are not equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber63"><p>bytesEqualWithArrayBuffer</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber65"><p>toBinaryString &amp;&amp; toArrayBuffer</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-toBinaryString">blobCompare.toBinaryString</a></span>
+<span><a href="class/src/index.js~blobCompare.html#static-method-toArrayBuffer">blobCompare.toArrayBuffer</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber66"><p>should return a binary string (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber73"><p>should return a binary string (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber80"><p>should return an arrayBuffer (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber87"><p>should return an arrayBuffer (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber98"><p>compareBuffers</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-compareBuffers">blobCompare.compareBuffers</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber99"><p>should return true if buffers are the same (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber106"><p>should return true if buffers are the same (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber113"><p>should return false if buffers are not the same length</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber124"><p>bytesEqualWithBinaryString</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithBinaryString">blobCompare.bytesEqualWithBinaryString</a></span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber125"><p>should return true if blobs are the same</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber132"><p>should return true if bytes are equal (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber138"><p>should return true if bytes are equal (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber144"><p>should return false if bytes are not equal</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber154"><p>bytesEqualWithArrayBuffer</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithArrayBuffer">blobCompare.bytesEqualWithArrayBuffer</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber64"><p>should return true if bytes are equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber155"><p>should return true if blobs are the same</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber70"><p>should return false if bytes are not equal</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber162"><p>should return true if bytes are equal (worker)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber168"><p>should return true if bytes are equal (main thread)</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber174"><p>should return false if bytes are not equal</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber78"><p>isEqual</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber184"><p>isEqual</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span><a href="class/src/index.js~blobCompare.html#static-method-isEqual">blobCompare.isEqual</a></span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber106">tests/blob-compare.spec.js</a></span></td>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber210">tests/blob-compare.spec.js</a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber113"><p>should throw if one method is not recognized</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber217"><p>should throw if one method is not recognized</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>

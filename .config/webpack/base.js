@@ -7,11 +7,9 @@ function resolve(dir) {
 }
 
 module.exports = {
-  entry: {
-    'blob-compare': './src/index.js'
-  },
+  entry: './src/index.js',
   output: {
-    jsonpFunction: 'blob-compare',
+    library: 'blobCompare',
     libraryTarget: "umd"
   },
   module: {
@@ -20,6 +18,16 @@ module.exports = {
         test: /(\.js)$/,
         loader: 'babel-loader',
         exclude: /node_modules|tests|benchmarks/
+      },
+      {
+        test: /(\.worker.js)$/,
+        loader: 'worker-loader',
+        options: { inline: true, fallback: false },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(bmp|png|jpe?g|txt)$/i,
+        loader: 'arraybuffer-loader',
       }
     ]
   },
@@ -30,7 +38,7 @@ module.exports = {
     ],
     extensions: ['.js'],
     alias: {
-      '@': resolve('../src')
+      '@': path.resolve('./src')
     }
   }
 };

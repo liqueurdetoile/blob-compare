@@ -1,12 +1,15 @@
 {
   "name": "blob-compare",
   "version": "0.0.0",
-  "description": "Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion",
-  "main": "src/index.js",
+  "description": "Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion",
+  "main": "dist/index.min.js",
   "sideEffects": false,
   "keywords": [
     "blob",
-    "comparison"
+    "comparison",
+    "comparison-tool",
+    "blobs",
+    "magic numbers"
   ],
   "homepage": "https://github.com/liqueurdetoile/blob-compare#readme",
   "repository": "https://github.com/liqueurdetoile/blob-compare",
@@ -19,8 +22,8 @@
     "test:dry": "cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless",
     "test:watch": "cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn",
     "test:all": "cross-env BABEL_ENV=test karma start --single-run --log-level error",
-    "bench": "karma start .config/karma.benchmark.conf.js --browsers ChromeHeadless",
-    "bench:all": "karma start .config/karma.benchmark.conf.js"
+    "bench": "cross-env NODE_OPTIONS='--max-old-space-size=8192' karma start .config/karma.benchmark.conf.js --browsers ChromeHeadless",
+    "bench:all": "cross-env NODE_OPTIONS='--max-old-space-size=8192' karma start .config/karma.benchmark.conf.js"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -34,13 +37,15 @@
     "chai": "^4.2.0",
     "coveralls": "^3.0.4",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^3.0.2",
+    "cz-conventional-changelog": "3.0.2",
     "eslint": "^6.0.0",
     "eslint-loader": "^3.0.0",
+    "file-loader": "^4.2.0",
     "json-loader": "^0.5.7",
     "karma": "^4.1.0",
     "karma-babel-preprocessor": "^8.0.0",
     "karma-benchmark": "^1.0.4",
+    "karma-benchmark-json-reporter": "^1.0.1",
     "karma-benchmarkjs-reporter": "^1.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -62,6 +67,15 @@
     "webpack": "^4.35.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.4",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "worker-loader": "^2.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "webworker-promise": "^0.4.2"
   }
 }

@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,18 +30,22 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~blobCompare.html">blobCompare</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToArrayBuffer">blobToArrayBuffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToBinaryString">blobToBinaryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compareBuffers">compareBuffers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-workersEnabled">workersEnabled</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {blobCompare} from &apos;<span><a href="file/src/index.js.html#lineNumber1">blob-compare</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import blobCompare from &apos;<span><a href="file/src/index.js.html#lineNumber15">blob-compare/src/index.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/index.js.html#lineNumber1">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/index.js.html#lineNumber15">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -61,7 +65,8 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>Utility class to nest all methods</p>
+</div>
   
 
   
@@ -92,7 +97,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithArrayBuffer">bytesEqualWithArrayBuffer</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithArrayBuffer">bytesEqualWithArrayBuffer</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -121,13 +126,100 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithBinaryString">bytesEqualWithBinaryString</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-bytesEqualWithBinaryString">bytesEqualWithBinaryString</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Compares two blobs by using binary strings</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-compareBuffers">compareBuffers</a></span></span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt; | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Compares two buffers byte to byte</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-compareBuffersWithWorker">compareBuffersWithWorker</a></span></span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Compares two buffers byte through web worker</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-compareBuffersWithoutWorker">compareBuffersWithoutWorker</a></span></span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Compares two buffers byte to byte through main thread</p>
 </div>
       </div>
     </td>
@@ -179,7 +271,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-magicNumbersEqual">magicNumbersEqual</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-magicNumbersEqual">magicNumbersEqual</a></span></span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -237,7 +329,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toArrayBuffer">toArrayBuffer</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toArrayBuffer">toArrayBuffer</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -264,15 +356,131 @@
       <div>
         <p>
           
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toArrayBufferWithWorker">toArrayBufferWithWorker</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Convert a blob to an ArrayBuffer through a web worker</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toBinaryString">toBinaryString</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toArrayBufferWithoutWorker">toArrayBufferWithoutWorker</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Convert a blob to an ArrayBuffer through main thread</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toBinaryString">toBinaryString</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Convert a blob to a binary string</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toBinaryStringWithWorker">toBinaryStringWithWorker</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Convert a blob to a binary string through a web worker thread</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/index.js~blobCompare.html#static-method-toBinaryStringWithoutWorker">toBinaryStringWithoutWorker</a></span></span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Convert a blob to a binary string through main thread</p>
 </div>
       </div>
     </td>
@@ -330,11 +538,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">bytesEqualWithArrayBuffer</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+    <span class="code" data-ice="name">bytesEqualWithArrayBuffer</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber262">source</a></span></span>
     </span>
   </h3>
 
@@ -376,6 +584,14 @@
       <td data-ice="description"><p>Size in bytes to slice blobs</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use webworkers if available</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -410,7 +626,7 @@
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber63">Blob-compare bytesEqualWithArrayBuffer</a></span></li>
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber154">Blob-compare bytesEqualWithArrayBuffer</a></span></li>
 </ul>
   </div>
 
@@ -425,11 +641,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">bytesEqualWithBinaryString</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+    <span class="code" data-ice="name">bytesEqualWithBinaryString</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber125">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber241">source</a></span></span>
     </span>
   </h3>
 
@@ -476,6 +692,14 @@
       <td data-ice="description"><p>Size in bytes to slice blobs</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use webworkers if available</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -488,6 +712,269 @@
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</td>
           <td class="return-desc" data-ice="returnDescription"><p>Evaluates to <code>true</code> if blobs (or sliced blobs) are equals byte to byte</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber124">Blob-compare bytesEqualWithBinaryString</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-compareBuffers">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">compareBuffers</span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt; | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber156">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Compares two buffers byte to byte</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf1</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>First buffer</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf2</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Second buffer</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Whether to use worker or not</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt; | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p><code>true</code> if buffers are equal</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber98">Blob-compare compareBuffers</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-compareBuffersWithWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">compareBuffersWithWorker</span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber123">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Compares two buffers byte through web worker</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf1</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>First buffer</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf2</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Second buffer</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p><code>true</code> if buffers are equal</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-compareBuffersWithoutWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">compareBuffersWithoutWorker</span><span class="code" data-ice="signature">(buf1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>, buf2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber142">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Compares two buffers byte to byte through main thread</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf1</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>First buffer</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buf2</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Second buffer</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p><code>true</code> if buffers are equal</p>
 </td>
         </tr>
       </tbody>
@@ -523,7 +1010,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber183">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber299">source</a></span></span>
     </span>
   </h3>
 
@@ -541,6 +1028,7 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
 </ul>
 <p>Using the <code>partial</code> option can be tricky as it&apos;s easy to have false positive.</p>
 <p>As default, <code>isEqual</code> performs first a check on <code>size</code> method to discrimate blobs, then <code>type</code> and fallback on <code>byte</code> comparison on full data.</p>
+<p>Workers can be disabled through options</p>
 </div>
 
   
@@ -599,11 +1087,19 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" class="code" data-depth="1">options.sizes</td>
+      <td data-ice="name" class="code" data-depth="1">options.chunks</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: null</li></ul></td>
       <td data-ice="description"><p>Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use web workers if available</p>
 </td>
     </tr>
 </tbody>
@@ -640,7 +1136,7 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber78">Blob-compare isEqual</a></span></li>
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber184">Blob-compare isEqual</a></span></li>
 </ul>
   </div>
 
@@ -655,11 +1151,11 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">magicNumbersEqual</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
+    <span class="code" data-ice="name">magicNumbersEqual</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber96">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber209">source</a></span></span>
     </span>
   </h3>
 
@@ -698,6 +1194,14 @@ more informations about data if needed.</p>
       <td data-ice="description"><p>Second blob</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use webworkers if available</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -709,7 +1213,7 @@ more informations about data if needed.</p>
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p><code>true</code> if magic numbers string is matching between two blogs</p>
+          <td class="return-desc" data-ice="returnDescription"><p><code>true</code> if magic numbers string is matching between two blogs   *</p>
 </td>
         </tr>
       </tbody>
@@ -732,7 +1236,7 @@ more informations about data if needed.</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber48">Blob-compare magicNumbersEqual</a></span></li>
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber34">Blob-compare magicNumbersEqual</a></span></li>
 </ul>
   </div>
 
@@ -751,7 +1255,7 @@ more informations about data if needed.</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber172">source</a></span></span>
     </span>
   </h3>
 
@@ -821,7 +1325,7 @@ to discriminate blobs</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber26">Blob-compare sizeEqual</a></span></li>
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber8">Blob-compare sizeEqual</a></span></li>
 </ul>
   </div>
 
@@ -836,11 +1340,11 @@ to discriminate blobs</p>
     
     
     
-    <span class="code" data-ice="name">toArrayBuffer</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+    <span class="code" data-ice="name">toArrayBuffer</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber110">source</a></span></span>
     </span>
   </h3>
 
@@ -848,7 +1352,7 @@ to discriminate blobs</p>
   
   
   <div data-ice="description"><p>Convert a blob to an ArrayBuffer</p>
-<p>The blob can optionnally be sliced with the <code>size</code>argument</p>
+<p>The blob can optionnally be sliced with the <code>chunk</code>argument</p>
 </div>
 
   
@@ -869,7 +1373,185 @@ to discriminate blobs</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">size</td>
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Size in bytes to slice blob</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use webworkers if available</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>Binary data as a buffer</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber65">Blob-compare toBinaryString &amp;&amp; toArrayBuffer</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-toArrayBufferWithWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">toArrayBufferWithWorker</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber75">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Convert a blob to an ArrayBuffer through a web worker</p>
+<p>The blob can optionnally be sliced with the <code>chunk</code>argument</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">blob</td>
+      <td data-ice="type" class="code"><span>Blob</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Blob</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Size in bytes to slice blob</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>Binary data as a buffer</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-toArrayBufferWithoutWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">toArrayBufferWithoutWorker</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></span>&gt;</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber94">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Convert a blob to an ArrayBuffer through main thread</p>
+<p>The blob can optionnally be sliced with the <code>chunk</code>argument</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">blob</td>
+      <td data-ice="type" class="code"><span>Blob</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Blob</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Size in bytes to slice blob</p>
@@ -918,11 +1600,11 @@ to discriminate blobs</p>
     
     
     
-    <span class="code" data-ice="name">toBinaryString</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+    <span class="code" data-ice="name">toBinaryString</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>, worker: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -930,7 +1612,7 @@ to discriminate blobs</p>
   
   
   <div data-ice="description"><p>Convert a blob to a binary string</p>
-<p>The blob can optionnaly be sliced with the size arguments</p>
+<p>The blob can optionnaly be sliced with the chunk arguments</p>
 </div>
 
   
@@ -951,7 +1633,184 @@ to discriminate blobs</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">size</td>
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Size in bytes to slice blob</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">worker</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Wether to use webworkers if available</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>Binary data as a string</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber65">Blob-compare toBinaryString &amp;&amp; toArrayBuffer</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-toBinaryStringWithWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">toBinaryStringWithWorker</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber25">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Convert a blob to a binary string through a web worker thread</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">blob</td>
+      <td data-ice="type" class="code"><span>Blob</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Blob</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Size in bytes to slice blob</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>Raw binary data as a string</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-toBinaryStringWithoutWorker">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">toBinaryStringWithoutWorker</span><span class="code" data-ice="signature">(blob: <span>Blob</span>, chunk: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber44">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Convert a blob to a binary string through main thread</p>
+<p>The blob can optionnaly be sliced with the chunk arguments</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">blob</td>
+      <td data-ice="type" class="code"><span>Blob</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Blob to convert and optionnally sample</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">chunk</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Size in bytes to slice blob</p>
@@ -1004,7 +1863,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber187">source</a></span></span>
     </span>
   </h3>
 
@@ -1073,7 +1932,7 @@ to discriminate blobs</p>
     <h4>Test:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber37">Blob-compare typeEqual</a></span></li>
+    <li data-ice="test"><span><a href="test-file/tests/blob-compare.spec.js.html#lineNumber21">Blob-compare typeEqual</a></span></li>
 </ul>
   </div>
 

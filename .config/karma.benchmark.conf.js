@@ -1,6 +1,6 @@
 // Karma configuration
 
-var webpackConfig = require('./webpack/build.js');
+var webpackConfig = require('./webpack/bench.js');
 
 module.exports = function (config) {
   config.set({
@@ -24,11 +24,15 @@ module.exports = function (config) {
       'benchmarks/index.js': ['webpack']
     },
 
-    reporters: ['benchmark'],
+    reporters: ['benchmark', 'benchmark-json'],
 
     benchmarkReporter: {
       showBrowser: true,
       terminalWidth: 90
+    },
+
+    benchmarkJsonReporter: {
+      pathToJson: 'benchmarks/results.json'
     },
 
     port: 9876,
@@ -43,6 +47,10 @@ module.exports = function (config) {
 
     singleRun: true,
 
-    concurrency: 1
+    concurrency: 1,
+
+    browserDisconnectTimeout: 60000,
+
+    browserNoActivityTimeout : 600000
   });
 };

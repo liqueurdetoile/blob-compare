@@ -1,103 +1,235 @@
 window.esdocSearchIndex = [
   [
-    "blob-compare~blobcompare",
+    "blob-compare/src/index.js~blobcompare",
     "class/src/index.js~blobCompare.html",
-    "<span>blobCompare</span> <span class=\"search-result-import-path\">blob-compare</span>",
+    "<span>blobCompare</span> <span class=\"search-result-import-path\">blob-compare/src/index.js</span>",
     "class"
   ],
   [
+    "blob-compare/src/lib.js~blobtoarraybuffer",
+    "function/index.html#static-function-blobToArrayBuffer",
+    "<span>blobToArrayBuffer</span> <span class=\"search-result-import-path\">blob-compare/src/lib.js</span>",
+    "function"
+  ],
+  [
+    "blob-compare/src/lib.js~blobtobinarystring",
+    "function/index.html#static-function-blobToBinaryString",
+    "<span>blobToBinaryString</span> <span class=\"search-result-import-path\">blob-compare/src/lib.js</span>",
+    "function"
+  ],
+  [
+    "blob-compare/src/lib.js~comparebuffers",
+    "function/index.html#static-function-compareBuffers",
+    "<span>compareBuffers</span> <span class=\"search-result-import-path\">blob-compare/src/lib.js</span>",
+    "function"
+  ],
+  [
+    "blob-compare/src/index.js~workersenabled",
+    "variable/index.html#static-variable-workersEnabled",
+    "<span>workersEnabled</span> <span class=\"search-result-import-path\">blob-compare/src/index.js</span>",
+    "variable"
+  ],
+  [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber9",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber4",
     "Blob-compare",
     "test"
   ],
   [
     "blobcompare.bytesequalwitharraybuffer src/index.js~blobcompare.bytesequalwitharraybuffer,blobcompare.bytesequalwitharraybuffer",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber63",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber154",
     "Blob-compare bytesEqualWithArrayBuffer",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber70",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber174",
     "Blob-compare bytesEqualWithArrayBuffer should return false if bytes are not equal",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber64",
-    "Blob-compare bytesEqualWithArrayBuffer should return true if bytes are equal",
-    "test"
-  ],
-  [
-    "blobcompare.isequal src/index.js~blobcompare.isequal,blobcompare.isequal",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber78",
-    "Blob-compare isEqual",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber155",
+    "Blob-compare bytesEqualWithArrayBuffer should return true if blobs are the same",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber106",
-    "Blob-compare isEqual ",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber168",
+    "Blob-compare bytesEqualWithArrayBuffer should return true if bytes are equal (main thread)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber162",
+    "Blob-compare bytesEqualWithArrayBuffer should return true if bytes are equal (worker)",
+    "test"
+  ],
+  [
+    "blobcompare.bytesequalwithbinarystring src/index.js~blobcompare.bytesequalwithbinarystring,blobcompare.bytesequalwithbinarystring",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber124",
+    "Blob-compare bytesEqualWithBinaryString",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber144",
+    "Blob-compare bytesEqualWithBinaryString should return false if bytes are not equal",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber125",
+    "Blob-compare bytesEqualWithBinaryString should return true if blobs are the same",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber138",
+    "Blob-compare bytesEqualWithBinaryString should return true if bytes are equal (main thread)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber132",
+    "Blob-compare bytesEqualWithBinaryString should return true if bytes are equal (worker)",
+    "test"
+  ],
+  [
+    "blobcompare.comparebuffers src/index.js~blobcompare.comparebuffers,blobcompare.comparebuffers",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber98",
+    "Blob-compare compareBuffers",
     "test"
   ],
   [
     "",
     "test-file/tests/blob-compare.spec.js.html#lineNumber113",
+    "Blob-compare compareBuffers should return false if buffers are not the same length",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber106",
+    "Blob-compare compareBuffers should return true if buffers are the same (main thread)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber99",
+    "Blob-compare compareBuffers should return true if buffers are the same (worker)",
+    "test"
+  ],
+  [
+    "blobcompare.isequal src/index.js~blobcompare.isequal,blobcompare.isequal",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber184",
+    "Blob-compare isEqual",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber210",
+    "Blob-compare isEqual ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber217",
     "Blob-compare isEqual should throw if one method is not recognized",
     "test"
   ],
   [
     "blobcompare.magicnumbersequal src/index.js~blobcompare.magicnumbersequal,blobcompare.magicnumbersequal",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber48",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber34",
     "Blob-compare magicNumbersEqual",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber55",
-    "Blob-compare magicNumbersEqual should return false if magic numbers are equal",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber54",
+    "Blob-compare magicNumbersEqual should return false if magic numbers are not equal",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber49",
-    "Blob-compare magicNumbersEqual should return true if magic numbers are equal",
-    "test"
-  ],
-  [
-    "blobcompare.sizeequal src/index.js~blobcompare.sizeequal,blobcompare.sizeequal",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber26",
-    "Blob-compare sizeEqual",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber35",
+    "Blob-compare magicNumbersEqual should return true if blobs are the same",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber31",
-    "Blob-compare sizeEqual should return false if size are not equal",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber27",
-    "Blob-compare sizeEqual should return true if size are equal",
-    "test"
-  ],
-  [
-    "blobcompare.typeequal src/index.js~blobcompare.typeequal,blobcompare.typeequal",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber37",
-    "Blob-compare typeEqual",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber48",
+    "Blob-compare magicNumbersEqual should return true if magic numbers are equal (main thread)",
     "test"
   ],
   [
     "",
     "test-file/tests/blob-compare.spec.js.html#lineNumber42",
+    "Blob-compare magicNumbersEqual should return true if magic numbers are equal (worker)",
+    "test"
+  ],
+  [
+    "blobcompare.sizeequal src/index.js~blobcompare.sizeequal,blobcompare.sizeequal",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber8",
+    "Blob-compare sizeEqual",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber13",
+    "Blob-compare sizeEqual should return false if size are not equal",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber9",
+    "Blob-compare sizeEqual should return true if size are equal",
+    "test"
+  ],
+  [
+    "blobcompare.tobinarystring blobcompare.toarraybuffer src/index.js~blobcompare.tobinarystring,blobcompare.tobinarystring src/index.js~blobcompare.toarraybuffer,blobcompare.toarraybuffer",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber65",
+    "Blob-compare toBinaryString && toArrayBuffer",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber73",
+    "Blob-compare toBinaryString && toArrayBuffer should return a binary string (main thread)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber66",
+    "Blob-compare toBinaryString && toArrayBuffer should return a binary string (worker)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber87",
+    "Blob-compare toBinaryString && toArrayBuffer should return an arrayBuffer (main thread)",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber80",
+    "Blob-compare toBinaryString && toArrayBuffer should return an arrayBuffer (worker)",
+    "test"
+  ],
+  [
+    "blobcompare.typeequal src/index.js~blobcompare.typeequal,blobcompare.typeequal",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber21",
+    "Blob-compare typeEqual",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber26",
     "Blob-compare typeEqual should return false if type are not equal",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber38",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber22",
     "Blob-compare typeEqual should return true if type are equal",
     "test"
   ],
@@ -402,6 +534,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/index.js~blobcompare.comparebuffers",
+    "class/src/index.js~blobCompare.html#static-method-compareBuffers",
+    "src/index.js~blobCompare.compareBuffers",
+    "method"
+  ],
+  [
+    "src/index.js~blobcompare.comparebufferswithworker",
+    "class/src/index.js~blobCompare.html#static-method-compareBuffersWithWorker",
+    "src/index.js~blobCompare.compareBuffersWithWorker",
+    "method"
+  ],
+  [
+    "src/index.js~blobcompare.comparebufferswithoutworker",
+    "class/src/index.js~blobCompare.html#static-method-compareBuffersWithoutWorker",
+    "src/index.js~blobCompare.compareBuffersWithoutWorker",
+    "method"
+  ],
+  [
     "src/index.js~blobcompare.isequal",
     "class/src/index.js~blobCompare.html#static-method-isEqual",
     "src/index.js~blobCompare.isEqual",
@@ -426,9 +576,33 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/index.js~blobcompare.toarraybufferwithworker",
+    "class/src/index.js~blobCompare.html#static-method-toArrayBufferWithWorker",
+    "src/index.js~blobCompare.toArrayBufferWithWorker",
+    "method"
+  ],
+  [
+    "src/index.js~blobcompare.toarraybufferwithoutworker",
+    "class/src/index.js~blobCompare.html#static-method-toArrayBufferWithoutWorker",
+    "src/index.js~blobCompare.toArrayBufferWithoutWorker",
+    "method"
+  ],
+  [
     "src/index.js~blobcompare.tobinarystring",
     "class/src/index.js~blobCompare.html#static-method-toBinaryString",
     "src/index.js~blobCompare.toBinaryString",
+    "method"
+  ],
+  [
+    "src/index.js~blobcompare.tobinarystringwithworker",
+    "class/src/index.js~blobCompare.html#static-method-toBinaryStringWithWorker",
+    "src/index.js~blobCompare.toBinaryStringWithWorker",
+    "method"
+  ],
+  [
+    "src/index.js~blobcompare.tobinarystringwithoutworker",
+    "class/src/index.js~blobCompare.html#static-method-toBinaryStringWithoutWorker",
+    "src/index.js~blobCompare.toBinaryStringWithoutWorker",
     "method"
   ],
   [
@@ -436,6 +610,18 @@ window.esdocSearchIndex = [
     "class/src/index.js~blobCompare.html#static-method-typeEqual",
     "src/index.js~blobCompare.typeEqual",
     "method"
+  ],
+  [
+    "src/lib.js",
+    "file/src/lib.js.html",
+    "src/lib.js",
+    "file"
+  ],
+  [
+    "src/main.worker.js",
+    "file/src/main.worker.js.html",
+    "src/main.worker.js",
+    "file"
   ],
   [
     "tests/blob-compare.spec.js",
