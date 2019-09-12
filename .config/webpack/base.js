@@ -10,7 +10,6 @@ module.exports = {
   entry: './src/index.js',
   output: {
     library: 'blobCompare',
-    libraryExport: 'default',
     libraryTarget: "umd"
   },
   module: {
@@ -19,6 +18,16 @@ module.exports = {
         test: /(\.js)$/,
         loader: 'babel-loader',
         exclude: /node_modules|tests|benchmarks/
+      },
+      {
+        test: /(\.worker.js)$/,
+        loader: 'worker-loader',
+        options: { inline: true, fallback: false },
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(bmp|png|jpe?g|txt)$/i,
+        loader: 'arraybuffer-loader',
       }
     ]
   },
