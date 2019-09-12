@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,118 +30,226 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~blobCompare.html">blobCompare</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToArrayBuffer">blobToArrayBuffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToBinaryString">blobToBinaryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compareBuffers">compareBuffers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-workersEnabled">workersEnabled</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/blob-compare.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import blobCompare from &apos;@&apos;;
-import avatarData1 from &apos;arraybuffer-loader!./data/avatar.jpg&apos;;
-import avatarData2 from &apos;arraybuffer-loader!./data/avatar2.jpg&apos;;
-import pngData1 from &apos;arraybuffer-loader!./data/png1.png&apos;;
-import pngData2 from &apos;arraybuffer-loader!./data/png2.png&apos;;
-import bmpData1 from &apos;arraybuffer-loader!./data/bmp1.bmp&apos;;
-import bmpData2 from &apos;arraybuffer-loader!./data/bmp2.bmp&apos;;
+import blobs from &apos;../data&apos;;
 
 describe(&apos;Blob-compare&apos;, function() {
-  let dataset = new Map([
-    [&apos;empty&apos;, new Blob()],
-    [&apos;smallA&apos;, new Blob([&apos;a&apos;], {type: &apos;text/plain&apos;})],
-    [&apos;smallB&apos;, new Blob([&apos;b&apos;], {type: &apos;text/plain&apos;})],
-    [&apos;midA&apos;, new Blob([&apos;a&apos;.repeat(1024)], {type: &apos;text/plain&apos;})],
-    [&apos;midB&apos;, new Blob([&apos;b&apos;.repeat(1024)], {type: &apos;text/plain&apos;})],
-    [&apos;midAB&apos;, new Blob([&apos;a&apos;.repeat(512) + &apos;b&apos;.repeat(512)], {type: &apos;text/plain&apos;})],
-    [&apos;jpg1&apos;, new Blob([new Uint8Array(avatarData1)], {type: &apos;image/jpeg&apos;})],
-    [&apos;jpg2&apos;, new Blob([new Uint8Array(avatarData2)], {type: &apos;image/jpeg&apos;})],
-    [&apos;png1&apos;, new Blob([new Uint8Array(pngData1)], {type: &apos;image/png&apos;})],
-    [&apos;png2&apos;, new Blob([new Uint8Array(pngData2)], {type: &apos;image/png&apos;})],
-    [&apos;bmp1&apos;, new Blob([new Uint8Array(bmpData1)], {type: &apos;image/bmp&apos;})],
-    [&apos;bmp2&apos;, new Blob([new Uint8Array(bmpData2)], {type: &apos;image/bmp&apos;})],
-  ]);
-
-  /** @test {blobCompare.sizeEqual} */
+  /**
+   * @test {blobCompare.sizeEqual}
+  */
   describe(&apos;sizeEqual&apos;, function() {
     it(&apos;should return true if size are equal&apos;, function() {
-      blobCompare.sizeEqual(dataset.get(&apos;bmp1&apos;), dataset.get(&apos;bmp2&apos;)).should.be.true;
+      blobCompare.sizeEqual(blobs.get(&apos;bmp1.bmp&apos;), blobs.get(&apos;bmp2.bmp&apos;)).should.be.true;
     })
 
     it(&apos;should return false if size are not equal&apos;, function() {
-      blobCompare.sizeEqual(dataset.get(&apos;png1&apos;), dataset.get(&apos;bmp2&apos;)).should.be.false;
+      blobCompare.sizeEqual(blobs.get(&apos;png1.png&apos;), blobs.get(&apos;png2.png&apos;)).should.be.false;
     })
   });
 
-  /** @test {blobCompare.typeEqual} */
+  /**
+   * @test {blobCompare.typeEqual}
+   */
   describe(&apos;typeEqual&apos;, function() {
     it(&apos;should return true if type are equal&apos;, function() {
-      blobCompare.typeEqual(dataset.get(&apos;bmp1&apos;), dataset.get(&apos;bmp2&apos;)).should.be.true;
+      blobCompare.typeEqual(blobs.get(&apos;bmp1.bmp&apos;, &apos;image/bmp&apos;), blobs.get(&apos;bmp2.bmp&apos;, &apos;image/bmp&apos;)).should.be.true;
     })
 
     it(&apos;should return false if type are not equal&apos;, function() {
-      blobCompare.typeEqual(dataset.get(&apos;png1&apos;), dataset.get(&apos;bmp2&apos;)).should.be.false;
+      blobCompare.typeEqual(blobs.get(&apos;png1.png&apos;, &apos;image/png&apos;), blobs.get(&apos;bmp2.bmp&apos;, &apos;image/png&apos;)).should.be.false;
     })
   });
 
-  /** @test {blobCompare.magicNumbersEqual} */
+  /**
+   * @test {blobCompare.magicNumbersEqual}
+  */
   describe(&apos;magicNumbersEqual&apos;, function() {
-    it(&apos;should return true if magic numbers are equal&apos;, async function() {
-      let cmp = await blobCompare.magicNumbersEqual(dataset.get(&apos;png1&apos;), dataset.get(&apos;png2&apos;))
+    it(&apos;should return true if blobs are the same&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let cmp = await blobCompare.magicNumbersEqual(b, b);
 
       cmp.should.be.true;
     })
 
-    it(&apos;should return false if magic numbers are equal&apos;, async function() {
-      let cmp = await blobCompare.magicNumbersEqual(dataset.get(&apos;jpg1&apos;), dataset.get(&apos;png2&apos;))
+    it(&apos;should return true if magic numbers are equal (worker)&apos;, async function() {
+      let cmp = await blobCompare.magicNumbersEqual(blobs.get(&apos;png1.png&apos;), blobs.get(&apos;png2.png&apos;))
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return true if magic numbers are equal (main thread)&apos;, async function() {
+      let cmp = await blobCompare.magicNumbersEqual(blobs.get(&apos;png1.png&apos;), blobs.get(&apos;png2.png&apos;), false)
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return false if magic numbers are not equal&apos;, async function() {
+      let cmp = await blobCompare.magicNumbersEqual(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;png2.png&apos;))
 
       cmp.should.be.false;
     })
   });
 
-  /** @test {blobCompare.bytesEqualWithArrayBuffer} */
-  describe(&apos;bytesEqualWithArrayBuffer&apos;, function() {
-    it(&apos;should return true if bytes are equal&apos;, async function() {
-      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get(&apos;jpg1&apos;), dataset.get(&apos;jpg1&apos;));
+  /**
+   * @test {blobCompare.toBinaryString}
+   * @test {blobCompare.toArrayBuffer}
+  */
+  describe(&apos;toBinaryString &amp;&amp; toArrayBuffer&apos;, function() {
+    it(&apos;should return a binary string (worker)&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let s = await blobCompare.toBinaryString(b);
+
+      expect(typeof s).to.equal(&apos;string&apos;);
+    })
+
+    it(&apos;should return a binary string (main thread)&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let s = await blobCompare.toBinaryString(b, false, false);
+
+      expect(typeof s).to.equal(&apos;string&apos;);
+    })
+
+    it(&apos;should return an arrayBuffer (worker)&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let s = await blobCompare.toArrayBuffer(b);
+
+      s.should.be.instanceof(ArrayBuffer);
+    })
+
+    it(&apos;should return an arrayBuffer (main thread)&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let s = await blobCompare.toArrayBuffer(b, false, false);
+
+      s.should.be.instanceof(ArrayBuffer);
+    })
+  });
+
+  /**
+   * @test {blobCompare.compareBuffers}
+  */
+  describe(&apos;compareBuffers&apos;, function() {
+    it(&apos;should return true if buffers are the same (worker)&apos;, async function() {
+      const b = new ArrayBuffer(8);
+      const res = await blobCompare.compareBuffers(b, b)
+
+      res.should.be.true;
+    })
+
+    it(&apos;should return true if buffers are the same (main thread)&apos;, async function() {
+      const b = new ArrayBuffer(8);
+      const res = await blobCompare.compareBuffers(b, b, false)
+
+      res.should.be.true;
+    })
+
+    it(&apos;should return false if buffers are not the same length&apos;, async function() {
+      const b1 = new ArrayBuffer(8);
+      const b2 = new ArrayBuffer(10);
+
+      blobCompare.compareBuffers(b1, b2, false).should.be.false;
+    })
+  });
+
+  /**
+   * @test {blobCompare.bytesEqualWithBinaryString}
+  */
+  describe(&apos;bytesEqualWithBinaryString&apos;, function() {
+    it(&apos;should return true if blobs are the same&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let cmp = await blobCompare.bytesEqualWithBinaryString(b, b);
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return true if bytes are equal (worker)&apos;, async function() {
+      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg1.jpg&apos;));
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return true if bytes are equal (main thread)&apos;, async function() {
+      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg1.jpg&apos;), false, false);
 
       cmp.should.be.true;
     })
 
     it(&apos;should return false if bytes are not equal&apos;, async function() {
-      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get(&apos;jpg1&apos;), dataset.get(&apos;jpg2&apos;));
+      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg2.jpg&apos;));
 
       cmp.should.be.false;
     })
   });
 
-  /** @test {blobCompare.isEqual} */
+  /**
+   * @test {blobCompare.bytesEqualWithArrayBuffer}
+  */
+  describe(&apos;bytesEqualWithArrayBuffer&apos;, function() {
+    it(&apos;should return true if blobs are the same&apos;, async function() {
+      let b = blobs.get(&apos;jpeg1.jpg&apos;);
+      let cmp = await blobCompare.bytesEqualWithArrayBuffer(b, b);
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return true if bytes are equal (worker)&apos;, async function() {
+      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg1.jpg&apos;));
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return true if bytes are equal (main thread)&apos;, async function() {
+      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg1.jpg&apos;), false, false);
+
+      cmp.should.be.true;
+    })
+
+    it(&apos;should return false if bytes are not equal&apos;, async function() {
+      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg2.jpg&apos;));
+
+      cmp.should.be.false;
+    })
+  });
+
+  /**
+   * @test {blobCompare.isEqual}
+  */
   describe(&apos;isEqual&apos;, function() {
-    // build a dataset to run test automatically, [b1, b2, expected, size]
+    // build a blobs to run test automatically, [b1, b2, expected, size]
     const suite = [
       [&apos;empty&apos;, &apos;empty&apos;, true],
-      [&apos;empty&apos;, &apos;smallA&apos;, false],
-      [&apos;smallA&apos;, &apos;smallA&apos;, true],
-      [&apos;smallA&apos;, &apos;smallB&apos;, false],
-      [&apos;midA&apos;, &apos;midAB&apos;, false],
-      [&apos;jpg1&apos;, &apos;jpg1&apos;, true],
-      [&apos;jpg1&apos;, &apos;jpg2&apos;, false],
-      [&apos;jpg1&apos;, &apos;jpg2&apos;, true, {methods: [&apos;types&apos;]}], // Types are the same
-      [&apos;jpg1&apos;, &apos;jpg2&apos;, true, {partial: true}], // Types are the same so partial succeeds
-      [&apos;png1&apos;, &apos;png1&apos;, true],
-      [&apos;png1&apos;, &apos;png2&apos;, false],
-      [&apos;png1&apos;, &apos;png2&apos;, true, {methods: [&apos;magic&apos;]}], // Magic numbers are the same
-      [&apos;png1&apos;, &apos;png2&apos;, true, {methods: [&apos;magic&apos;, &apos;size&apos;], partial: true}], // Magic numbers are the same
-      [&apos;bmp1&apos;, &apos;bmp1&apos;, true],
-      [&apos;bmp1&apos;, &apos;bmp2&apos;, false],
-      [&apos;bmp1&apos;, &apos;bmp2&apos;, true, {sizes : [512]}], // Sample size is too small to see difference between the two files
-      [&apos;bmp1&apos;, &apos;bmp2&apos;, false, {methods: [&apos;bytes&apos;]}], // Force using only blob size
-      [&apos;bmp1&apos;, &apos;bmp2&apos;, false, {methods: [&apos;bytes&apos;], byte: &apos;string&apos;}], // Force using only blob size with binary string
-      [&apos;bmp1&apos;, &apos;bmp2&apos;, true, {methods: [&apos;size&apos;]}], // Sizes are the same though files are different
-      [&apos;jpg1&apos;, &apos;png1&apos;, false],
+      [&apos;jpeg1.jpg&apos;, &apos;jpeg1.jpg&apos;, true],
+      [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, false],
+      [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, true, {methods: [&apos;types&apos;]}], // Types are the same
+      [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, true, {partial: true}], // Types are the same so partial succeeds
+      [&apos;png1.png&apos;, &apos;png1.png&apos;, true],
+      [&apos;png1.png&apos;, &apos;png2.png&apos;, false],
+      [&apos;png1.png&apos;, &apos;png2.png&apos;, true, {methods: [&apos;magic&apos;]}], // Magic numbers are the same
+      [&apos;png1.png&apos;, &apos;png2.png&apos;, true, {methods: [&apos;magic&apos;, &apos;size&apos;], partial: true}], // Magic numbers are the same
+      [&apos;bmp1.bmp&apos;, &apos;bmp1.bmp&apos;, true],
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false],
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, true, {chunks : [512]}], // Sample size is too small to see difference between the two files
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {chunks : [512, 2048]}], // Second sample size is enough to see difference between the two files
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {methods: [&apos;bytes&apos;]}], // Force using only blob size
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {methods: [&apos;bytes&apos;], byte: &apos;string&apos;}], // Force using only blob size with binary string
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {methods: [&apos;bytes&apos;], worker: false}], // Force using only blob size with buffer in main thread
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, true, {methods: [&apos;size&apos;]}], // Sizes are the same though files are different
+      [&apos;jpeg1.jpg&apos;, &apos;png1.png&apos;, false],
     ]
 
     for (let t of suite) {
       const [n1, n2, expected, options] = t;
 
       it(`should return ${expected} with ${n1} vs ${n2} and ${options ? JSON.stringify(options) : &apos;default options&apos;}`, async function() {
-          const res = await blobCompare.isEqual(dataset.get(n1), dataset.get(n2), options);
+          const res = await blobCompare.isEqual(blobs.get(n1), blobs.get(n2), options);
 
           expect(res).to.equal(expected);
       })
@@ -149,7 +257,7 @@ describe(&apos;Blob-compare&apos;, function() {
 
     it(&apos;should throw if one method is not recognized&apos;, async function() {
       try {
-        await blobCompare.isEqual(dataset.get(&apos;jpg1&apos;), dataset.get(&apos;jpg2&apos;), {methods: [&apos;silly&apos;]});
+        await blobCompare.isEqual(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg2.jpg&apos;), {methods: [&apos;silly&apos;]});
         expect.fail();
       } catch (err) {
         err.message.should.equal(&apos;Unknown comparison method&apos;);

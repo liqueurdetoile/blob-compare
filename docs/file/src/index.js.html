@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,56 +30,172 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/index.js~blobCompare.html">blobCompare</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToArrayBuffer">blobToArrayBuffer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blobToBinaryString">blobToBinaryString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-compareBuffers">compareBuffers</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-workersEnabled">workersEnabled</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export class blobCompare {
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {blobToBinaryString, blobToArrayBuffer, compareBuffers} from &apos;./lib&apos;;
+import WebworkerPromise from &apos;webworker-promise&apos;;
+import Worker from &apos;./main.worker&apos;;
+
+/**
+ * Detect if workers are enabled in current browser
+ * @type {Boolean}
+ */
+
+export let workersEnabled = Boolean(window.Worker);
+
+/**
+ * Utility class to nest all methods
+ */
+export default class blobCompare {
+
   /**
-   * Convert a blob to a binary string
+   * Convert a blob to a binary string through a web worker thread
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}    blob      Blob
+   * @param   {Number}  chunk     Size in bytes to slice blob
+   * @return  {Promise&lt;String&gt;}   Raw binary data as a string
+   */
+  static async toBinaryStringWithWorker(blob, chunk) {
+    const worker = new WebworkerPromise(new Worker());
+    const response = await worker.exec(&apos;binary&apos;, {blob, chunk});
+
+    worker.terminate();
+    return response;
+  }
+
+  /**
+   * Convert a blob to a binary string through main thread
    *
-   * The blob can optionnaly be sliced with the size arguments
+   * The blob can optionnaly be sliced with the chunk arguments
    *
    * @version 1.0.0
    * @since   1.0.0
    * @param   {Blob}  blob Blob to convert and optionnally sample
-   * @param   {Number}  size Size in bytes to slice blob
+   * @param   {Number}  chunk Size in bytes to slice blob
    * @return  {Promise&lt;String&gt;}       Binary data as a string
    */
-  static toBinaryString(blob, size) {
-    return new Promise((resolve, reject) =&gt; {
-      const reader = new FileReader();
-      const s = size ? Math.min(size, blob.size) : blob.size;
-      const b = blob.slice(0, s);
+  static toBinaryStringWithoutWorker(blob, chunk) {
+    return blobToBinaryString(blob, chunk);
+  }
 
-      reader.onload = () =&gt; resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsBinaryString(b);
-    });
+  /**
+   * Convert a blob to a binary string
+   *
+   * The blob can optionnaly be sliced with the chunk arguments
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  blob Blob to convert and optionnally sample
+   * @param   {Number}  chunk Size in bytes to slice blob
+   * @param   {Boolean} [worker=true] Wether to use webworkers if available
+   * @return  {Promise&lt;String&gt;}       Binary data as a string
+   */
+  static toBinaryString(blob, chunk, worker = true) {
+    return (worker &amp;&amp; workersEnabled) ? this.toBinaryStringWithWorker(blob, chunk) : this.toBinaryStringWithoutWorker(blob, chunk);
+  }
+
+  /**
+   * Convert a blob to an ArrayBuffer through a web worker
+   *
+   * The blob can optionnally be sliced with the `chunk`argument
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  blob Blob
+   * @param   {Number}  chunk Size in bytes to slice blob
+   * @return  {Promise&lt;ArrayBuffer&gt;}       Binary data as a buffer
+   */
+  static async toArrayBufferWithWorker(blob, chunk) {
+    const worker = new WebworkerPromise(new Worker());
+    const response = await worker.exec(&apos;buffer&apos;, {blob, chunk});
+
+    worker.terminate();
+    return response;
+  }
+
+  /**
+   * Convert a blob to an ArrayBuffer through main thread
+   *
+   * The blob can optionnally be sliced with the `chunk`argument
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Blob}  blob Blob
+   * @param   {Number}  chunk Size in bytes to slice blob
+   * @return  {Promise&lt;ArrayBuffer&gt;}       Binary data as a buffer
+   */
+  static toArrayBufferWithoutWorker(blob, chunk) {
+    return blobToArrayBuffer(blob, chunk);
   }
 
   /**
    * Convert a blob to an ArrayBuffer
    *
-   * The blob can optionnally be sliced with the `size`argument
+   * The blob can optionnally be sliced with the `chunk`argument
    *
    * @version 1.0.0
    * @since   1.0.0
    * @param   {Blob}  blob Blob
-   * @param   {Number}  size Size in bytes to slice blob
+   * @param   {Number}  chunk Size in bytes to slice blob
+   * @param   {Boolean} [worker=true] Wether to use webworkers if available
    * @return  {Promise&lt;ArrayBuffer&gt;}       Binary data as a buffer
    */
-  static toArrayBuffer(blob, size) {
-    return new Promise((resolve, reject) =&gt; {
-      const reader = new FileReader();
-      const s = size ? Math.min(size, blob.size) : blob.size;
-      const b = blob.slice(0, s);
+  static toArrayBuffer(blob, chunk, worker = true) {
+    return (worker &amp;&amp; workersEnabled) ? this.toArrayBufferWithWorker(blob, chunk) : this.toArrayBufferWithoutWorker(blob, chunk);
+  }
 
-      reader.onload = () =&gt; resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(b);
-    });
+  /**
+   * Compares two buffers byte through web worker
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {ArrayBuffer}  buf1          First buffer
+   * @param   {ArrayBuffer}  buf2          Second buffer
+   * @return  {Promise&lt;Boolean&gt;}           `true` if buffers are equal
+   */
+  static async compareBuffersWithWorker(buf1, buf2) {
+    if (buf1 === buf2) return true;
+
+    const worker = new WebworkerPromise(new Worker());
+    const response = await worker.exec(&apos;compare&apos;, {buf1, buf2}, [buf1, buf2]);
+
+    worker.terminate();
+    return response;
+  }
+
+  /**
+   * Compares two buffers byte to byte through main thread
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {ArrayBuffer}  buf1          First buffer
+   * @param   {ArrayBuffer}  buf2          Second buffer
+   * @return  {Boolean}           `true` if buffers are equal
+   */
+  static compareBuffersWithoutWorker(buf1, buf2) {
+    return compareBuffers(buf1, buf2);
+  }
+
+  /**
+   * Compares two buffers byte to byte
+   *
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {ArrayBuffer}  buf1          First buffer
+   * @param   {ArrayBuffer}  buf2          Second buffer
+   * @param   {Boolean} [worker=true]      Whether to use worker or not
+   * @return  {Promise&lt;Boolean&gt;|Boolean}   `true` if buffers are equal
+   */
+  static compareBuffers(buf1, buf2, worker = true) {
+    return (worker &amp;&amp; workersEnabled) ? this.compareBuffersWithWorker(buf1, buf2) : this.compareBuffersWithoutWorker(buf1, buf2);
   }
 
   /**
@@ -105,8 +221,8 @@
    *
    * @version 1.0.0
    * @since   1.0.0
-   * @param   {Blob}  b1 First blob
-   * @param   {Blob}  b2 Second blob
+   * @param   {Blob}    b1  First blob
+   * @param   {Blob}    b2  Second blob
    * @return  {Boolean}     `true` if types are equal
    */
   static typeEqual(b1, b2) {
@@ -128,14 +244,17 @@
    * @since   1.0.0
    * @param   {Blob}  b1 First blob
    * @param   {Blob}  b2 Second blob
-   * @return  {Promise&lt;Boolean&gt;}    `true` if magic numbers string is matching between two blogs
-   */
-  static async magicNumbersEqual(b1, b2) {
+   * @param   {Boolean} [worker=true] Wether to use webworkers if available
+   * @return  {Promise&lt;Boolean&gt;}   `true` if magic numbers string is matching between two blogs   *
+  */
+  static async magicNumbersEqual(b1, b2, worker = true) {
+    if (b1 === b2) return true;
+
     const sizes = [24, 16, 14, 12, 8, 6, 4];
 
-    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24), this.toBinaryString(b2, 24)]);
+    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24, worker), this.toBinaryString(b2, 24, worker)]);
 
-    for(let size of sizes) {
+    for (let size of sizes) {
       /* istanbul ignore else */
       if (s1.substring(0, size) === s2.substring(0, size)) return true;
     }
@@ -157,10 +276,13 @@
    * @param   {Blob}  b1   First blob
    * @param   {Blob}  b2   Second blob
    * @param   {Number}  size Size in bytes to slice blobs
+   * @param   {Boolean} [worker=true] Wether to use webworkers if available
    * @return  {Promise&lt;Boolean&gt;}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte
    */
-  static async bytesEqualWithBinaryString(b1, b2, size) {
-    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size), this.toBinaryString(b2, size)]);
+  static async bytesEqualWithBinaryString(b1, b2, size, worker = true) {
+    if (b1 === b2) return true;
+
+    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size, worker), this.toBinaryString(b2, size, worker)]);
 
     return s1 === s2;
   }
@@ -175,20 +297,15 @@
    * @param   {Blob}  b1   First blob
    * @param   {Blob}  b2   Second blob
    * @param   {Number}  size Size in bytes to slice blobs
+   * @param   {Boolean} [worker=true] Wether to use webworkers if available
    * @return  {Promise&lt;Boolean&gt;}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte
    */
-  static async bytesEqualWithArrayBuffer(b1, b2, size) {
-    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size), this.toArrayBuffer(b2, size)]);
-    const d1 = new DataView(buf1), d2 = new DataView(buf2);
+  static async bytesEqualWithArrayBuffer(b1, b2, size, worker = true) {
+    if (b1 === b2) return true;
 
-    var i = buf1.byteLength;
-    while (i--) {
-      if (d1.getUint8(i) !== d2.getUint8(i)) {
-        return false;
-      }
-    }
+    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size, worker), this.toArrayBuffer(b2, size, worker)]);
 
-    return true;
+    return this.compareBuffers(buf1, buf2, worker);
   }
 
   /**
@@ -206,6 +323,8 @@
    *
    * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.
    *
+   * Workers can be disabled through options
+   *
    * @version 1.0.0
    * @since   1.0.0
    * @param   {Blob}  b1                First blob
@@ -214,23 +333,24 @@
    * @param   {Array}   [options.methods=[&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;]] Default methods used for comparison. Methods will be applied in the same order
    * @param   {String}  [options.byte=&apos;buffer&apos;]   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings
    * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately
-   * @param   {Array}   [options.sizes=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive
+   * @param   {Array}   [options.chunks=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive
+   * @param   {Boolean} [options.worker=true]      Wether to use web workers if available
    * @return  {Promise&lt;Boolean&gt;}                   If `true`, blobs are equals given the used methods
    */
-  static async isEqual(b1, b2, {methods = [&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;], byte = &apos;buffer&apos;, partial = false, sizes = null} = {}) {
+  static async isEqual(b1, b2, {methods = [&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;], byte = &apos;buffer&apos;, partial = false, chunks = null, worker = true} = {}) {
     const passed = new Set();
 
-    for(let method of methods) {
+    for (let method of methods) {
       let cmp;
 
-      switch(method) {
+      switch (method) {
         case &apos;byte&apos;:
         case &apos;bytes&apos;:
         case &apos;content&apos;:
-          sizes = sizes instanceof Array ? sizes : [b1.size];
-          for(let size of sizes) {
-            cmp = byte === &apos;buffer&apos; ? await this.bytesEqualWithArrayBuffer(b1, b2, size) : await this.bytesEqualWithBinaryString(b1, b2, size);
-            if(cmp === partial) return cmp;
+          chunks = chunks instanceof Array ? chunks : [b1.size];
+          for (let chunk of chunks) {
+            cmp = byte === &apos;buffer&apos; ? await this.bytesEqualWithArrayBuffer(b1, b2, chunk, worker) : await this.bytesEqualWithBinaryString(b1, b2, chunk, worker);
+            if (cmp === partial) return cmp;
             passed.add(cmp);
           }
           break;
@@ -239,22 +359,22 @@
         case &apos;headers&apos;:
         case &apos;numbers&apos;:
         case &apos;mime&apos;:
-          cmp = await this.magicNumbersEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          cmp = await this.magicNumbersEqual(b1, b2, worker);
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
         case &apos;size&apos;:
         case &apos;sizes&apos;:
           cmp = this.sizeEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
         case &apos;type&apos;:
         case &apos;types&apos;:
           cmp = this.typeEqual(b1, b2);
-          if(cmp === partial) return cmp;
+          if (cmp === partial) return cmp;
           passed.add(cmp);
           break;
 
@@ -265,8 +385,6 @@
     return !passed.has(false);
   }
 }
-
-export default blobCompare;
 </code></pre>
 
 </div>

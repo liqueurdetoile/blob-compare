@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/index.js",
-    "content": "export class blobCompare {\n  /**\n   * Convert a blob to a binary string\n   *\n   * The blob can optionnaly be sliced with the size arguments\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob to convert and optionnally sample\n   * @param   {Number}  size Size in bytes to slice blob\n   * @return  {Promise<String>}       Binary data as a string\n   */\n  static toBinaryString(blob, size) {\n    return new Promise((resolve, reject) => {\n      const reader = new FileReader();\n      const s = size ? Math.min(size, blob.size) : blob.size;\n      const b = blob.slice(0, s);\n\n      reader.onload = () => resolve(reader.result);\n      reader.onerror = reject;\n      reader.readAsBinaryString(b);\n    });\n  }\n\n  /**\n   * Convert a blob to an ArrayBuffer\n   *\n   * The blob can optionnally be sliced with the `size`argument\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob\n   * @param   {Number}  size Size in bytes to slice blob\n   * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n   */\n  static toArrayBuffer(blob, size) {\n    return new Promise((resolve, reject) => {\n      const reader = new FileReader();\n      const s = size ? Math.min(size, blob.size) : blob.size;\n      const b = blob.slice(0, s);\n\n      reader.onload = () => resolve(reader.result);\n      reader.onerror = reject;\n      reader.readAsArrayBuffer(b);\n    });\n  }\n\n  /**\n   * Compare size of two blobs\n   *\n   * Obviously, two different blobs in content can have the same size and this method is only useful\n   * to discriminate blobs\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second Blob\n   * @return  {Boolean}     `true` if sizes are equal\n   */\n  static sizeEqual(b1, b2) {\n    return b1.size === b2.size;\n  }\n\n  /**\n   * Compare type of two blobs\n   *\n   * Never rely solely on this method to discriminate blobs or, worse, consider them as equal\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second blob\n   * @return  {Boolean}     `true` if types are equal\n   */\n  static typeEqual(b1, b2) {\n    return b1.type === b2.type;\n  }\n\n  /**\n   * Compares the magic numbers of two blobs\n   *\n   * This method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite\n   * exhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)\n   *\n   * It does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse\n   * more informations about data if needed.\n   *\n   * Be warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second blob\n   * @return  {Promise<Boolean>}    `true` if magic numbers string is matching between two blogs\n   */\n  static async magicNumbersEqual(b1, b2) {\n    const sizes = [24, 16, 14, 12, 8, 6, 4];\n\n    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24), this.toBinaryString(b2, 24)]);\n\n    for(let size of sizes) {\n      /* istanbul ignore else */\n      if (s1.substring(0, size) === s2.substring(0, size)) return true;\n    }\n\n    return false;\n  }\n\n  /**\n   * Compares two blobs by using binary strings\n   *\n   * This is not the default method to byte compare two blobs as benchmarks shows it's a little bit slower than using array buffers in most cases.\n   *\n   * There's still at least two cases where using binary string is much faster :\n   * - Empty blobs\n   * - Blobs much prone to have difference at the start of the data\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithBinaryString(b1, b2, size) {\n    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size), this.toBinaryString(b2, size)]);\n\n    return s1 === s2;\n  }\n\n  /**\n   * Compares two blobs by using arraybuffers\n   *\n   * This is the default comparison method\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithArrayBuffer(b1, b2, size) {\n    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size), this.toArrayBuffer(b2, size)]);\n    const d1 = new DataView(buf1), d2 = new DataView(buf2);\n\n    var i = buf1.byteLength;\n    while (i--) {\n      if (d1.getUint8(i) !== d2.getUint8(i)) {\n        return false;\n      }\n    }\n\n    return true;\n  }\n\n  /**\n   * Automatically compares two blobs by using the given methods\n   *\n   * Allowed methods are with aliases :\n   * - `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\n   * to perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n   * - `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n   * - `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n   * - `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n   *\n   *\n   * Using the `partial` option can be tricky as it's easy to have false positive.\n   *\n   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1                First blob\n   * @param   {Blob}  b2                Second blob\n   * @param   {Object}  [options]   Configuration to use when performing comparison\n   * @param   {Array}   [options.methods=['size', 'type', 'byte']] Default methods used for comparison. Methods will be applied in the same order\n   * @param   {String}  [options.byte='buffer']   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings\n   * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately\n   * @param   {Array}   [options.sizes=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive\n   * @return  {Promise<Boolean>}                   If `true`, blobs are equals given the used methods\n   */\n  static async isEqual(b1, b2, {methods = ['size', 'type', 'byte'], byte = 'buffer', partial = false, sizes = null} = {}) {\n    const passed = new Set();\n\n    for(let method of methods) {\n      let cmp;\n\n      switch(method) {\n        case 'byte':\n        case 'bytes':\n        case 'content':\n          sizes = sizes instanceof Array ? sizes : [b1.size];\n          for(let size of sizes) {\n            cmp = byte === 'buffer' ? await this.bytesEqualWithArrayBuffer(b1, b2, size) : await this.bytesEqualWithBinaryString(b1, b2, size);\n            if(cmp === partial) return cmp;\n            passed.add(cmp);\n          }\n          break;\n\n        case 'magic':\n        case 'headers':\n        case 'numbers':\n        case 'mime':\n          cmp = await this.magicNumbersEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'size':\n        case 'sizes':\n          cmp = this.sizeEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'type':\n        case 'types':\n          cmp = this.typeEqual(b1, b2);\n          if(cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        default: throw new Error('Unknown comparison method');\n      }\n    }\n\n    return !passed.has(false);\n  }\n}\n\nexport default blobCompare;\n",
+    "content": "import {blobToBinaryString, blobToArrayBuffer, compareBuffers} from './lib';\nimport WebworkerPromise from 'webworker-promise';\nimport Worker from './main.worker';\n\n/**\n * Detect if workers are enabled in current browser\n * @type {Boolean}\n */\n\nexport let workersEnabled = Boolean(window.Worker);\n\n/**\n * Utility class to nest all methods\n */\nexport default class blobCompare {\n\n  /**\n   * Convert a blob to a binary string through a web worker thread\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}    blob      Blob\n   * @param   {Number}  chunk     Size in bytes to slice blob\n   * @return  {Promise<String>}   Raw binary data as a string\n   */\n  static async toBinaryStringWithWorker(blob, chunk) {\n    const worker = new WebworkerPromise(new Worker());\n    const response = await worker.exec('binary', {blob, chunk});\n\n    worker.terminate();\n    return response;\n  }\n\n  /**\n   * Convert a blob to a binary string through main thread\n   *\n   * The blob can optionnaly be sliced with the chunk arguments\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob to convert and optionnally sample\n   * @param   {Number}  chunk Size in bytes to slice blob\n   * @return  {Promise<String>}       Binary data as a string\n   */\n  static toBinaryStringWithoutWorker(blob, chunk) {\n    return blobToBinaryString(blob, chunk);\n  }\n\n  /**\n   * Convert a blob to a binary string\n   *\n   * The blob can optionnaly be sliced with the chunk arguments\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob to convert and optionnally sample\n   * @param   {Number}  chunk Size in bytes to slice blob\n   * @param   {Boolean} [worker=true] Wether to use webworkers if available\n   * @return  {Promise<String>}       Binary data as a string\n   */\n  static toBinaryString(blob, chunk, worker = true) {\n    return (worker && workersEnabled) ? this.toBinaryStringWithWorker(blob, chunk) : this.toBinaryStringWithoutWorker(blob, chunk);\n  }\n\n  /**\n   * Convert a blob to an ArrayBuffer through a web worker\n   *\n   * The blob can optionnally be sliced with the `chunk`argument\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob\n   * @param   {Number}  chunk Size in bytes to slice blob\n   * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n   */\n  static async toArrayBufferWithWorker(blob, chunk) {\n    const worker = new WebworkerPromise(new Worker());\n    const response = await worker.exec('buffer', {blob, chunk});\n\n    worker.terminate();\n    return response;\n  }\n\n  /**\n   * Convert a blob to an ArrayBuffer through main thread\n   *\n   * The blob can optionnally be sliced with the `chunk`argument\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob\n   * @param   {Number}  chunk Size in bytes to slice blob\n   * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n   */\n  static toArrayBufferWithoutWorker(blob, chunk) {\n    return blobToArrayBuffer(blob, chunk);\n  }\n\n  /**\n   * Convert a blob to an ArrayBuffer\n   *\n   * The blob can optionnally be sliced with the `chunk`argument\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  blob Blob\n   * @param   {Number}  chunk Size in bytes to slice blob\n   * @param   {Boolean} [worker=true] Wether to use webworkers if available\n   * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n   */\n  static toArrayBuffer(blob, chunk, worker = true) {\n    return (worker && workersEnabled) ? this.toArrayBufferWithWorker(blob, chunk) : this.toArrayBufferWithoutWorker(blob, chunk);\n  }\n\n  /**\n   * Compares two buffers byte through web worker\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {ArrayBuffer}  buf1          First buffer\n   * @param   {ArrayBuffer}  buf2          Second buffer\n   * @return  {Promise<Boolean>}           `true` if buffers are equal\n   */\n  static async compareBuffersWithWorker(buf1, buf2) {\n    if (buf1 === buf2) return true;\n\n    const worker = new WebworkerPromise(new Worker());\n    const response = await worker.exec('compare', {buf1, buf2}, [buf1, buf2]);\n\n    worker.terminate();\n    return response;\n  }\n\n  /**\n   * Compares two buffers byte to byte through main thread\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {ArrayBuffer}  buf1          First buffer\n   * @param   {ArrayBuffer}  buf2          Second buffer\n   * @return  {Boolean}           `true` if buffers are equal\n   */\n  static compareBuffersWithoutWorker(buf1, buf2) {\n    return compareBuffers(buf1, buf2);\n  }\n\n  /**\n   * Compares two buffers byte to byte\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {ArrayBuffer}  buf1          First buffer\n   * @param   {ArrayBuffer}  buf2          Second buffer\n   * @param   {Boolean} [worker=true]      Whether to use worker or not\n   * @return  {Promise<Boolean>|Boolean}   `true` if buffers are equal\n   */\n  static compareBuffers(buf1, buf2, worker = true) {\n    return (worker && workersEnabled) ? this.compareBuffersWithWorker(buf1, buf2) : this.compareBuffersWithoutWorker(buf1, buf2);\n  }\n\n  /**\n   * Compare size of two blobs\n   *\n   * Obviously, two different blobs in content can have the same size and this method is only useful\n   * to discriminate blobs\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second Blob\n   * @return  {Boolean}     `true` if sizes are equal\n   */\n  static sizeEqual(b1, b2) {\n    return b1.size === b2.size;\n  }\n\n  /**\n   * Compare type of two blobs\n   *\n   * Never rely solely on this method to discriminate blobs or, worse, consider them as equal\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}    b1  First blob\n   * @param   {Blob}    b2  Second blob\n   * @return  {Boolean}     `true` if types are equal\n   */\n  static typeEqual(b1, b2) {\n    return b1.type === b2.type;\n  }\n\n  /**\n   * Compares the magic numbers of two blobs\n   *\n   * This method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite\n   * exhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)\n   *\n   * It does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse\n   * more informations about data if needed.\n   *\n   * Be warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1 First blob\n   * @param   {Blob}  b2 Second blob\n   * @param   {Boolean} [worker=true] Wether to use webworkers if available\n   * @return  {Promise<Boolean>}   `true` if magic numbers string is matching between two blogs   *\n  */\n  static async magicNumbersEqual(b1, b2, worker = true) {\n    if (b1 === b2) return true;\n\n    const sizes = [24, 16, 14, 12, 8, 6, 4];\n\n    let [s1, s2] = await Promise.all([this.toBinaryString(b1, 24, worker), this.toBinaryString(b2, 24, worker)]);\n\n    for (let size of sizes) {\n      /* istanbul ignore else */\n      if (s1.substring(0, size) === s2.substring(0, size)) return true;\n    }\n\n    return false;\n  }\n\n  /**\n   * Compares two blobs by using binary strings\n   *\n   * This is not the default method to byte compare two blobs as benchmarks shows it's a little bit slower than using array buffers in most cases.\n   *\n   * There's still at least two cases where using binary string is much faster :\n   * - Empty blobs\n   * - Blobs much prone to have difference at the start of the data\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @param   {Boolean} [worker=true] Wether to use webworkers if available\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithBinaryString(b1, b2, size, worker = true) {\n    if (b1 === b2) return true;\n\n    const [s1, s2] = await Promise.all([this.toBinaryString(b1, size, worker), this.toBinaryString(b2, size, worker)]);\n\n    return s1 === s2;\n  }\n\n  /**\n   * Compares two blobs by using arraybuffers\n   *\n   * This is the default comparison method\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1   First blob\n   * @param   {Blob}  b2   Second blob\n   * @param   {Number}  size Size in bytes to slice blobs\n   * @param   {Boolean} [worker=true] Wether to use webworkers if available\n   * @return  {Promise<Boolean>}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte\n   */\n  static async bytesEqualWithArrayBuffer(b1, b2, size, worker = true) {\n    if (b1 === b2) return true;\n\n    const [buf1, buf2] = await Promise.all([this.toArrayBuffer(b1, size, worker), this.toArrayBuffer(b2, size, worker)]);\n\n    return this.compareBuffers(buf1, buf2, worker);\n  }\n\n  /**\n   * Automatically compares two blobs by using the given methods\n   *\n   * Allowed methods are with aliases :\n   * - `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\n   * to perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n   * - `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n   * - `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n   * - `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n   *\n   *\n   * Using the `partial` option can be tricky as it's easy to have false positive.\n   *\n   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.\n   *\n   * Workers can be disabled through options\n   *\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Blob}  b1                First blob\n   * @param   {Blob}  b2                Second blob\n   * @param   {Object}  [options]   Configuration to use when performing comparison\n   * @param   {Array}   [options.methods=['size', 'type', 'byte']] Default methods used for comparison. Methods will be applied in the same order\n   * @param   {String}  [options.byte='buffer']   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings\n   * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately\n   * @param   {Array}   [options.chunks=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive\n   * @param   {Boolean} [options.worker=true]      Wether to use web workers if available\n   * @return  {Promise<Boolean>}                   If `true`, blobs are equals given the used methods\n   */\n  static async isEqual(b1, b2, {methods = ['size', 'type', 'byte'], byte = 'buffer', partial = false, chunks = null, worker = true} = {}) {\n    const passed = new Set();\n\n    for (let method of methods) {\n      let cmp;\n\n      switch (method) {\n        case 'byte':\n        case 'bytes':\n        case 'content':\n          chunks = chunks instanceof Array ? chunks : [b1.size];\n          for (let chunk of chunks) {\n            cmp = byte === 'buffer' ? await this.bytesEqualWithArrayBuffer(b1, b2, chunk, worker) : await this.bytesEqualWithBinaryString(b1, b2, chunk, worker);\n            if (cmp === partial) return cmp;\n            passed.add(cmp);\n          }\n          break;\n\n        case 'magic':\n        case 'headers':\n        case 'numbers':\n        case 'mime':\n          cmp = await this.magicNumbersEqual(b1, b2, worker);\n          if (cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'size':\n        case 'sizes':\n          cmp = this.sizeEqual(b1, b2);\n          if (cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        case 'type':\n        case 'types':\n          cmp = this.typeEqual(b1, b2);\n          if (cmp === partial) return cmp;\n          passed.add(cmp);\n          break;\n\n        default: throw new Error('Unknown comparison method');\n      }\n    }\n\n    return !passed.has(false);\n  }\n}\n",
     "static": true,
     "longname": "F:/Projets/blob-compare/src/index.js",
     "access": "public",
@@ -576,6 +576,28 @@
   },
   {
     "__docId__": 49,
+    "kind": "variable",
+    "name": "workersEnabled",
+    "memberof": "src/index.js",
+    "static": true,
+    "longname": "src/index.js~workersEnabled",
+    "access": "public",
+    "export": true,
+    "importPath": "blob-compare/src/index.js",
+    "importStyle": "{workersEnabled}",
+    "description": "Detect if workers are enabled in current browser",
+    "lineNumber": 10,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 50,
     "kind": "class",
     "name": "blobCompare",
     "memberof": "src/index.js",
@@ -583,70 +605,24 @@
     "longname": "src/index.js~blobCompare",
     "access": "public",
     "export": true,
-    "importPath": "blob-compare",
-    "importStyle": "{blobCompare}",
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
+    "importPath": "blob-compare/src/index.js",
+    "importStyle": "blobCompare",
+    "description": "Utility class to nest all methods",
+    "lineNumber": 15,
     "interface": false
-  },
-  {
-    "__docId__": 50,
-    "kind": "method",
-    "name": "toBinaryString",
-    "memberof": "src/index.js~blobCompare",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/index.js~blobCompare.toBinaryString",
-    "access": "public",
-    "description": "Convert a blob to a binary string\n\nThe blob can optionnaly be sliced with the size arguments",
-    "lineNumber": 13,
-    "since": "  1.0.0",
-    "version": "1.0.0",
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Blob"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "blob",
-        "description": "Blob to convert and optionnally sample"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "size",
-        "description": "Size in bytes to slice blob"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise<String>"
-      ],
-      "spread": false,
-      "description": "Binary data as a string"
-    }
   },
   {
     "__docId__": 51,
     "kind": "method",
-    "name": "toArrayBuffer",
+    "name": "toBinaryStringWithWorker",
     "memberof": "src/index.js~blobCompare",
     "generator": false,
-    "async": false,
+    "async": true,
     "static": true,
-    "longname": "src/index.js~blobCompare.toArrayBuffer",
+    "longname": "src/index.js~blobCompare.toBinaryStringWithWorker",
     "access": "public",
-    "description": "Convert a blob to an ArrayBuffer\n\nThe blob can optionnally be sliced with the `size`argument",
-    "lineNumber": 36,
+    "description": "Convert a blob to a binary string through a web worker thread",
+    "lineNumber": 25,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -667,7 +643,154 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "size",
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<String>"
+      ],
+      "spread": false,
+      "description": "Raw binary data as a string"
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "name": "toBinaryStringWithoutWorker",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toBinaryStringWithoutWorker",
+    "access": "public",
+    "description": "Convert a blob to a binary string through main thread\n\nThe blob can optionnaly be sliced with the chunk arguments",
+    "lineNumber": 44,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob to convert and optionnally sample"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<String>"
+      ],
+      "spread": false,
+      "description": "Binary data as a string"
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "name": "toBinaryString",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toBinaryString",
+    "access": "public",
+    "description": "Convert a blob to a binary string\n\nThe blob can optionnaly be sliced with the chunk arguments",
+    "lineNumber": 60,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob to convert and optionnally sample"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Wether to use webworkers if available"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<String>"
+      ],
+      "spread": false,
+      "description": "Binary data as a string"
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "method",
+    "name": "toArrayBufferWithWorker",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toArrayBufferWithWorker",
+    "access": "public",
+    "description": "Convert a blob to an ArrayBuffer through a web worker\n\nThe blob can optionnally be sliced with the `chunk`argument",
+    "lineNumber": 75,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
         "description": "Size in bytes to slice blob"
       }
     ],
@@ -681,7 +804,257 @@
     }
   },
   {
-    "__docId__": 52,
+    "__docId__": 55,
+    "kind": "method",
+    "name": "toArrayBufferWithoutWorker",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toArrayBufferWithoutWorker",
+    "access": "public",
+    "description": "Convert a blob to an ArrayBuffer through main thread\n\nThe blob can optionnally be sliced with the `chunk`argument",
+    "lineNumber": 94,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<ArrayBuffer>"
+      ],
+      "spread": false,
+      "description": "Binary data as a buffer"
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "name": "toArrayBuffer",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.toArrayBuffer",
+    "access": "public",
+    "description": "Convert a blob to an ArrayBuffer\n\nThe blob can optionnally be sliced with the `chunk`argument",
+    "lineNumber": 110,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Wether to use webworkers if available"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<ArrayBuffer>"
+      ],
+      "spread": false,
+      "description": "Binary data as a buffer"
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "name": "compareBuffersWithWorker",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/index.js~blobCompare.compareBuffersWithWorker",
+    "access": "public",
+    "description": "Compares two buffers byte through web worker",
+    "lineNumber": 123,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf1",
+        "description": "First buffer"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf2",
+        "description": "Second buffer"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>"
+      ],
+      "spread": false,
+      "description": "`true` if buffers are equal"
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "compareBuffersWithoutWorker",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.compareBuffersWithoutWorker",
+    "access": "public",
+    "description": "Compares two buffers byte to byte through main thread",
+    "lineNumber": 142,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf1",
+        "description": "First buffer"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf2",
+        "description": "Second buffer"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": "`true` if buffers are equal"
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "compareBuffers",
+    "memberof": "src/index.js~blobCompare",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~blobCompare.compareBuffers",
+    "access": "public",
+    "description": "Compares two buffers byte to byte",
+    "lineNumber": 156,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf1",
+        "description": "First buffer"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf2",
+        "description": "Second buffer"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Whether to use worker or not"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Boolean>",
+        "Boolean"
+      ],
+      "spread": false,
+      "description": "`true` if buffers are equal"
+    }
+  },
+  {
+    "__docId__": 60,
     "kind": "method",
     "name": "sizeEqual",
     "memberof": "src/index.js~blobCompare",
@@ -691,7 +1064,7 @@
     "longname": "src/index.js~blobCompare.sizeEqual",
     "access": "public",
     "description": "Compare size of two blobs\n\nObviously, two different blobs in content can have the same size and this method is only useful\nto discriminate blobs",
-    "lineNumber": 60,
+    "lineNumber": 172,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -726,7 +1099,7 @@
     }
   },
   {
-    "__docId__": 53,
+    "__docId__": 61,
     "kind": "method",
     "name": "typeEqual",
     "memberof": "src/index.js~blobCompare",
@@ -736,7 +1109,7 @@
     "longname": "src/index.js~blobCompare.typeEqual",
     "access": "public",
     "description": "Compare type of two blobs\n\nNever rely solely on this method to discriminate blobs or, worse, consider them as equal",
-    "lineNumber": 75,
+    "lineNumber": 187,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -771,7 +1144,7 @@
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 62,
     "kind": "method",
     "name": "magicNumbersEqual",
     "memberof": "src/index.js~blobCompare",
@@ -781,7 +1154,7 @@
     "longname": "src/index.js~blobCompare.magicNumbersEqual",
     "access": "public",
     "description": "Compares the magic numbers of two blobs\n\nThis method simply compare byte to byte at the start of data where magic numbers are usually located in most cases. You can find a quite\nexhaustive list of file signatures on [wikipedia](https://en.wikipedia.org/wiki/List_of_file_signatures)\n\nIt does not provide any informations about file type, but you can easily use a library like [`file-type`](https://www.npmjs.com/package/file-type) to parse\nmore informations about data if needed.\n\nBe warned that this method can lead to false negative/positive for some file types given the currently naive algorithm.",
-    "lineNumber": 96,
+    "lineNumber": 209,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -804,6 +1177,18 @@
         "optional": false,
         "name": "b2",
         "description": "Second blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Wether to use webworkers if available"
       }
     ],
     "return": {
@@ -812,11 +1197,11 @@
         "Promise<Boolean>"
       ],
       "spread": false,
-      "description": "`true` if magic numbers string is matching between two blogs"
+      "description": "`true` if magic numbers string is matching between two blogs   *"
     }
   },
   {
-    "__docId__": 55,
+    "__docId__": 63,
     "kind": "method",
     "name": "bytesEqualWithBinaryString",
     "memberof": "src/index.js~blobCompare",
@@ -826,7 +1211,7 @@
     "longname": "src/index.js~blobCompare.bytesEqualWithBinaryString",
     "access": "public",
     "description": "Compares two blobs by using binary strings\n\nThis is not the default method to byte compare two blobs as benchmarks shows it's a little bit slower than using array buffers in most cases.\n\nThere's still at least two cases where using binary string is much faster :\n- Empty blobs\n- Blobs much prone to have difference at the start of the data",
-    "lineNumber": 125,
+    "lineNumber": 241,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -859,6 +1244,18 @@
         "optional": false,
         "name": "size",
         "description": "Size in bytes to slice blobs"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Wether to use webworkers if available"
       }
     ],
     "return": {
@@ -871,7 +1268,7 @@
     }
   },
   {
-    "__docId__": 56,
+    "__docId__": 64,
     "kind": "method",
     "name": "bytesEqualWithArrayBuffer",
     "memberof": "src/index.js~blobCompare",
@@ -881,7 +1278,7 @@
     "longname": "src/index.js~blobCompare.bytesEqualWithArrayBuffer",
     "access": "public",
     "description": "Compares two blobs by using arraybuffers\n\nThis is the default comparison method",
-    "lineNumber": 143,
+    "lineNumber": 262,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -914,6 +1311,18 @@
         "optional": false,
         "name": "size",
         "description": "Size in bytes to slice blobs"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "worker",
+        "description": "Wether to use webworkers if available"
       }
     ],
     "return": {
@@ -926,7 +1335,7 @@
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 65,
     "kind": "method",
     "name": "isEqual",
     "memberof": "src/index.js~blobCompare",
@@ -935,8 +1344,8 @@
     "static": true,
     "longname": "src/index.js~blobCompare.isEqual",
     "access": "public",
-    "description": "Automatically compares two blobs by using the given methods\n\nAllowed methods are with aliases :\n- `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\nto perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n- `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n- `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n- `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n\n\nUsing the `partial` option can be tricky as it's easy to have false positive.\n\nAs default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.",
-    "lineNumber": 183,
+    "description": "Automatically compares two blobs by using the given methods\n\nAllowed methods are with aliases :\n- `byte`, `bytes`, `content` : Performs a byte comparison between the two blogs. The optional `sizes` option parameter can be used to provide sizes\nto perform comparison on sliced blobs. See {@link blobCompare.bytesEqualWithArrayBuffer} and {@link blobCompare.bytesEqualWithBinaryString} for more informations;\n- `magic`, `headers`, `numbers`, `mime` : Compare two blobs based on magic numbers. See {@link blobCompare.magicNumbersEqual} for more informations;\n- `size`, `sizes` : Compare two blobs based on their size in bytes. See {@link blobCompare.sizeEqual} for more informations;\n- `type`, `types` : Compare two blobs based on their type. See {@link blobCompare.typeEqual} for more informations.\n\n\nUsing the `partial` option can be tricky as it's easy to have false positive.\n\nAs default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.\n\nWorkers can be disabled through options",
+    "lineNumber": 299,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -1015,8 +1424,20 @@
         "optional": true,
         "defaultValue": "null",
         "defaultRaw": null,
-        "name": "options.sizes",
+        "name": "options.chunks",
         "description": "Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "true",
+        "defaultRaw": true,
+        "name": "options.worker",
+        "description": "Wether to use web workers if available"
       }
     ],
     "return": {
@@ -1029,8 +1450,174 @@
     }
   },
   {
+    "__docId__": 66,
+    "kind": "file",
+    "name": "src/lib.js",
+    "content": "/**\n * Convert a blob to a binary string\n *\n * The blob can optionnaly be sliced with the slice arguments\n *\n * @version 1.0.0\n * @since   1.0.0\n * @param   {Blob}  blob Blob to convert and optionnally sample\n * @param   {Number}  chunk Size in bytes to slice blob\n * @return  {Promise<String>}       Binary data as a string\n */\nexport function blobToBinaryString(blob, chunk) {\n  return new Promise((resolve, reject) => {\n    const reader = new FileReader();\n    const s = chunk ? Math.min(chunk, blob.size) : blob.size;\n    const b = blob.slice(0, s);\n\n    reader.onload = () => resolve(reader.result);\n    reader.onerror = reject;\n    reader.readAsBinaryString(b);\n  });\n}\n\n/**\n * Convert a blob to an ArrayBuffer\n *\n * The blob can optionnally be sliced with the `size`argument\n *\n * @version 1.0.0\n * @since   1.0.0\n * @param   {Blob}  blob Blob\n * @param   {Number}  chunk Size in bytes to slice blob\n * @return  {Promise<ArrayBuffer>}       Binary data as a buffer\n */\nexport function blobToArrayBuffer(blob, chunk) {\n  return new Promise((resolve, reject) => {\n    const reader = new FileReader();\n    const s = chunk ? Math.min(chunk, blob.size) : blob.size;\n    const b = blob.slice(0, s);\n\n    reader.onload = () => resolve(reader.result);\n    reader.onerror = reject;\n    reader.readAsArrayBuffer(b);\n  });\n}\n\n/**\n * Compares two buffers byte to byte\n *\n * @version 1.0.0\n * @since   1.0.0\n * @param   {ArrayBuffer}  buf1          First buffer\n * @param   {ArrayBuffer}  buf2          Second buffer\n * @return  {Boolean}           `true` if buffers are equal\n */\nexport function compareBuffers(buf1, buf2) {\n  if (buf1 === buf2) return true;\n  if (buf1.byteLength !== buf2.byteLength) return false;\n\n  const d1 = new DataView(buf1), d2 = new DataView(buf2);\n\n  var i = buf1.byteLength;\n  while (i--) {\n    /* istanbul ignore else */\n    if (d1.getUint8(i) !== d2.getUint8(i)) return false;\n  }\n\n  return true;\n}\n",
+    "static": true,
+    "longname": "F:/Projets/blob-compare/src/lib.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 67,
+    "kind": "function",
+    "name": "blobToBinaryString",
+    "memberof": "src/lib.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib.js~blobToBinaryString",
+    "access": "public",
+    "export": true,
+    "importPath": "blob-compare/src/lib.js",
+    "importStyle": "{blobToBinaryString}",
+    "description": "Convert a blob to a binary string\n\nThe blob can optionnaly be sliced with the slice arguments",
+    "lineNumber": 12,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob to convert and optionnally sample"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<String>"
+      ],
+      "spread": false,
+      "description": "Binary data as a string"
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "function",
+    "name": "blobToArrayBuffer",
+    "memberof": "src/lib.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib.js~blobToArrayBuffer",
+    "access": "public",
+    "export": true,
+    "importPath": "blob-compare/src/lib.js",
+    "importStyle": "{blobToArrayBuffer}",
+    "description": "Convert a blob to an ArrayBuffer\n\nThe blob can optionnally be sliced with the `size`argument",
+    "lineNumber": 35,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Blob"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "blob",
+        "description": "Blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "chunk",
+        "description": "Size in bytes to slice blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<ArrayBuffer>"
+      ],
+      "spread": false,
+      "description": "Binary data as a buffer"
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "function",
+    "name": "compareBuffers",
+    "memberof": "src/lib.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib.js~compareBuffers",
+    "access": "public",
+    "export": true,
+    "importPath": "blob-compare/src/lib.js",
+    "importStyle": "{compareBuffers}",
+    "description": "Compares two buffers byte to byte",
+    "lineNumber": 56,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf1",
+        "description": "First buffer"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ArrayBuffer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buf2",
+        "description": "Second buffer"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": "`true` if buffers are equal"
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "file",
+    "name": "src/main.worker.js",
+    "content": "import {blobToBinaryString, blobToArrayBuffer, compareBuffers} from './lib';\nimport registerWebworker from 'webworker-promise/lib/register';\n\nregisterWebworker()\n  .operation('binary', async ({blob, chunk}) => {\n    return await blobToBinaryString(blob, chunk);\n  })\n  .operation('buffer', async ({blob, chunk}) => {\n    return await blobToArrayBuffer(blob, chunk);\n  })\n  .operation('compare', ({buf1, buf2}) => {\n    return compareBuffers(buf1, buf2);\n  });\n",
+    "static": true,
+    "longname": "F:/Projets/blob-compare/src/main.worker.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
     "kind": "index",
-    "content": "[![Build Status](https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master)](https://travis-ci.org/liqueurdetoile/blob-compare)\n[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master)\n[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)\n[![Documentation](https://liqueurdetoile.github.io/blob-compare/badge.svg)](https://liqueurdetoile.github.io/blob-compare/)\n[![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg)](https://greenkeeper.io/)\n[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)\n\n<p align=\"center\"><a href=\"https://liqueurdetoile.com\" target=\"\\_blank\"><img src=\"https://hosting.liqueurdetoile.com/logo_lqdt.png\" alt=\"Liqueur de Toile\"></a></p>\n\n# Blob comparison utility\n`blob-compare` is a small tool with no dependencies designed to provide some useful methods to compare two blobs with various goals :\n\n- Comparison on size of two blobs\n- Comparison on types of two blobs\n- Comparison on data types based on magic numbers of two blobs\n- Comparison byte to byte on full data or sliced subsets\n- A configurable combination of any of above to evaluate blobs equality\n\nTool rely on native browsers buffer implementations and will likely work on any modern browser.\n\n## Usage examples\n```javascript\n// assuming img1 and img2 are two blobs vars\n\n/** Fully compare two blobs */\nblobCompare.isEqual(img1, img2)\n\n/** Compare file types */\nblobCompare.isEqual(img1, img2, {methods: ['magic']})\n// or\nblobCompare.magicNumbersEqual(img1, img2)\n\n/** Compare file types AND the last 100 bytes of blobs */\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100]\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) &&\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n\n/** Compare file types OR the last 100 bytes of blobs */\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100],\n  partial: true\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) ||\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n```\nTo speed up things, `isEqual` with its defaults, checks first of sizes are the same, then types and finally performs a byte to byte comparison to ensure blobs equality.\n\n## Installation\nYou can install it from `npm` or `yarn` :\n```bash\nnpm install blob-compare\n\nyarn add blob-compare\n```\n`blob-compare` can also be required as a script from any CDN mirroring NPM or Github, like :\n- [jsDelivr](https://www.jsdelivr.com/?query=blob-compare)\n- [unpkg](https://unpkg.com/)\n\nThe global `blobCompare` will be automatically set after script was downloaded.\n\n## Documentation\nMethods are fully documented and docs are available on [github pages](https://liqueurdetoile.github.io/blob-compare/).\n\n## Issues and PRs\nAny bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/blob-compare/issues).\n\nYou are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.\n",
+    "content": "[![Build Status](https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master)](https://travis-ci.org/liqueurdetoile/blob-compare)\n[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master)\n[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)\n[![Documentation](https://liqueurdetoile.github.io/blob-compare/badge.svg)](https://liqueurdetoile.github.io/blob-compare/)\n[![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg)](https://greenkeeper.io/)\n[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)\n\n<p align=\"center\"><a href=\"https://liqueurdetoile.com\" target=\"\\_blank\"><img src=\"https://hosting.liqueurdetoile.com/logo_lqdt.png\" alt=\"Liqueur de Toile\"></a></p>\n\n# Blob comparison utility\n`blob-compare` is a small library designed to provide some useful methods to compare two blobs in browser with various methods :\n\n- Comparison on size of two blobs\n- Comparison on types of two blobs\n- Comparison on data types based on magic numbers of two blobs\n- Comparison byte to byte on full data or sliced subsets\n- A configurable combination of any of above to evaluate blobs or parts of blobs equality\n\nTool rely on native browsers buffer implementations and will likely work on any modern browser. It have been tested and benchmarked on Chrome, Firefox and Edge.\n\nTo provide better performance, `blob-compare` automatically relies on web workers if available when performing operations on blobs.\n\n## Usage examples\n```javascript\n// assuming img1 and img2 are two blobs vars\n\n/**\n * Fully compare two blobs with default methods configuration\n*/\nblobCompare.isEqual(img1, img2)\n\n/**\n * Comparing only file types\n */\nblobCompare.isEqual(img1, img2, {methods: ['magic']})\n// or\nblobCompare.magicNumbersEqual(img1, img2)\n\n/**\n *  Compare file types AND the last 100 bytes of blobs\n *  Never find a use case ^^\n*/\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100]\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) &&\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n\n/**\n * Compare file types OR the last 100 bytes of blobs\n*/\nblobCompare.isEqual(img1, img2, {\n  methods: ['bytes'],\n  sizes: [-100],\n  partial: true\n})\n// or\n(blobCompare.magicNumbersEqual(img1, img2) ||\nblobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))\n```\nTo speed up things, `isEqual` with its default configuration checks first if sizes are equal, then types and finally performs a byte to byte comparison to ensure blobs equality.\n\n## Installation\nYou can install it from `npm` or `yarn` :\n```bash\nnpm install blob-compare\n\nyarn add blob-compare\n```\nThen, simply require/import it to use it :\n\n```javascript\nconst blobCompare = require('blob-compare').default;\n// or\nimport blobCompare from 'blob-compare';\n```\nFor browser direct usage, `blob-compare` can be required as a script from any CDN mirroring NPM or Github, for instance :\n```html\n<script src=\"https://cdn.jsdelivr.net/npm/blob-compare@latest\"></script>\n\n<script src=\"https://unpkg.com/blob-compare@latest\"></script>\n\n<script src=\"https://cdn.jsdelivr.net/gh/liqueurdetoile/blob-compare@latest/dist/index.min.js\"></script>\n```\n\nA global `blobCompare` will be automatically set after script was downloaded.\n\n## About performance\nTrying to compare blobs can be tricky though the only real pitfall is most likely to run out of memory on the VM. There's not much to do with it except working only on smaller data chunks and use device storage to buffer the unprocessed chunks.\n\n### Web workers\nThe other caveat is likely to consume device CPU to perform operations on blobs. Web workers can be very helpful in this case. `blob-compare` is enabling web workers by default for two major reasons :\n1. A worker is constructed each time a blob needs to be converted to raw binary data or array buffer. On a multi-threaded system, it allows efficient concurrency\n2. Huge blobs operations won't freeze the main thread\n\nThe cons is that processing will be slower due to the copy operation. A workaround could be to use directly `ArrayBuffers` and the `blobCompare.compareBuffers` method that take advantage of the [transferable interface](https://developer.mozilla.org/en-US/docs/Web/API/Transferable) of an ArrayBuffer.\n\nDisabling web workers can also help prevent memory issues in some cases.\n\n### Benchmarking\nI've tried to implement some automated bechnmarks around karma and benchmark.js but I'm quickly hitting some troubles with larger blobs, event with small blobs on Edge.\n\nI'm not sure that I'm doing right with my benchmarks _Oo_\n\nIf I find some time, I may try on jsPerf.\n\nAnyway, after cloning and installing the repo, you can play with fixtures and benchmarks.\n\nJust bash `npm run bench:all` to run them into Chrome, Firefox and Edge. You can also make ChromeHeadless accessible and use `npm run bench`\n\nLatest results for Chrome, Firefox and Edge are stored in `results.json`\n\n## Documentation\nMethods are fully documented and docs are available on [github pages](https://liqueurdetoile.github.io/blob-compare/).\n\n## Issues and PRs\nAny bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/blob-compare/issues).\n\nYou are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.\n",
     "longname": "F:\\Projets\\blob-compare\\README.md",
     "name": "./README.md",
     "static": true,
@@ -1038,17 +1625,17 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"blob-compare\",\r\n  \"version\": \"0.0.0\",\r\n  \"description\": \"Small tool with no dependency to quickly compare two blobs based on blob attributes and fallback to binary string conversion\",\r\n  \"main\": \"src/index.js\",\r\n  \"sideEffects\": false,\r\n  \"keywords\": [\r\n    \"blob\",\r\n    \"comparison\"\r\n  ],\r\n  \"homepage\": \"https://github.com/liqueurdetoile/blob-compare#readme\",\r\n  \"repository\": \"https://github.com/liqueurdetoile/blob-compare\",\r\n  \"bugs\": \"https://github.com/liqueurdetoile/blob-compare/issues\",\r\n  \"author\": \"Liqueur de Toile <contact@liqueurdetoile.com>\",\r\n  \"license\": \"MIT\",\r\n  \"scripts\": {\r\n    \"build\": \"webpack --config .config/webpack/build.js -p\",\r\n    \"test\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\r\n    \"test:dry\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless\",\r\n    \"test:watch\": \"cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn\",\r\n    \"test:all\": \"cross-env BABEL_ENV=test karma start --single-run --log-level error\",\r\n    \"bench\": \"karma start .config/karma.benchmark.conf.js --browsers ChromeHeadless\",\r\n    \"bench:all\": \"karma start .config/karma.benchmark.conf.js\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.5\",\r\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.4.4\",\r\n    \"@babel/preset-env\": \"^7.4.5\",\r\n    \"arraybuffer-loader\": \"^1.0.7\",\r\n    \"babel-eslint\": \"^10.0.2\",\r\n    \"babel-loader\": \"^8.0.6\",\r\n    \"babel-plugin-istanbul\": \"^5.1.4\",\r\n    \"benchmark\": \"^2.1.4\",\r\n    \"chai\": \"^4.2.0\",\r\n    \"coveralls\": \"^3.0.4\",\r\n    \"cross-env\": \"^5.2.0\",\r\n    \"cz-conventional-changelog\": \"^2.1.0\",\r\n    \"eslint\": \"^6.0.0\",\r\n    \"eslint-loader\": \"^2.1.2\",\r\n    \"json-loader\": \"^0.5.7\",\r\n    \"karma\": \"^4.1.0\",\r\n    \"karma-babel-preprocessor\": \"^8.0.0\",\r\n    \"karma-benchmark\": \"^1.0.4\",\r\n    \"karma-benchmarkjs-reporter\": \"^1.0.0\",\r\n    \"karma-chai\": \"^0.1.0\",\r\n    \"karma-chrome-launcher\": \"^2.2.0\",\r\n    \"karma-coverage\": \"^1.1.2\",\r\n    \"karma-coverage-istanbul-reporter\": \"^2.0.4\",\r\n    \"karma-edge-launcher\": \"^0.4.2\",\r\n    \"karma-firefox-launcher\": \"^1.1.0\",\r\n    \"karma-ie-launcher\": \"^1.0.0\",\r\n    \"karma-mocha\": \"^1.3.0\",\r\n    \"karma-mocha-reporter\": \"^2.2.5\",\r\n    \"karma-sinon\": \"^1.0.5\",\r\n    \"karma-sourcemap-loader\": \"^0.3.7\",\r\n    \"karma-webpack\": \"^4.0.2\",\r\n    \"mocha\": \"^6.1.4\",\r\n    \"mocha-lcov-reporter\": \"^1.3.0\",\r\n    \"pouchdb\": \"^7.1.1\",\r\n    \"semantic-release\": \"^15.13.16\",\r\n    \"sinon\": \"^7.3.2\",\r\n    \"webpack\": \"^4.35.0\",\r\n    \"webpack-bundle-analyzer\": \"^3.3.2\",\r\n    \"webpack-cli\": \"^3.3.4\",\r\n    \"webpack-merge\": \"^4.2.1\"\r\n  }\r\n}\r\n",
+    "content": "{\n  \"name\": \"blob-compare\",\n  \"version\": \"0.0.0\",\n  \"description\": \"Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion\",\n  \"main\": \"dist/index.min.js\",\n  \"sideEffects\": false,\n  \"keywords\": [\n    \"blob\",\n    \"comparison\",\n    \"comparison-tool\",\n    \"blobs\",\n    \"magic numbers\"\n  ],\n  \"homepage\": \"https://github.com/liqueurdetoile/blob-compare#readme\",\n  \"repository\": \"https://github.com/liqueurdetoile/blob-compare\",\n  \"bugs\": \"https://github.com/liqueurdetoile/blob-compare/issues\",\n  \"author\": \"Liqueur de Toile <contact@liqueurdetoile.com>\",\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"build\": \"webpack --config .config/webpack/build.js -p\",\n    \"test\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\n    \"test:dry\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless\",\n    \"test:watch\": \"cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn\",\n    \"test:all\": \"cross-env BABEL_ENV=test karma start --single-run --log-level error\",\n    \"bench\": \"cross-env NODE_OPTIONS='--max-old-space-size=8192' karma start .config/karma.benchmark.conf.js --browsers ChromeHeadless\",\n    \"bench:all\": \"cross-env NODE_OPTIONS='--max-old-space-size=8192' karma start .config/karma.benchmark.conf.js\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"^7.4.5\",\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.4.4\",\n    \"@babel/preset-env\": \"^7.4.5\",\n    \"arraybuffer-loader\": \"^1.0.7\",\n    \"babel-eslint\": \"^10.0.2\",\n    \"babel-loader\": \"^8.0.6\",\n    \"babel-plugin-istanbul\": \"^5.1.4\",\n    \"benchmark\": \"^2.1.4\",\n    \"chai\": \"^4.2.0\",\n    \"coveralls\": \"^3.0.4\",\n    \"cross-env\": \"^5.2.0\",\n    \"cz-conventional-changelog\": \"3.0.2\",\n    \"eslint\": \"^6.0.0\",\n    \"eslint-loader\": \"^3.0.0\",\n    \"file-loader\": \"^4.2.0\",\n    \"json-loader\": \"^0.5.7\",\n    \"karma\": \"^4.1.0\",\n    \"karma-babel-preprocessor\": \"^8.0.0\",\n    \"karma-benchmark\": \"^1.0.4\",\n    \"karma-benchmark-json-reporter\": \"^1.0.1\",\n    \"karma-benchmarkjs-reporter\": \"^1.0.0\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^3.1.0\",\n    \"karma-coverage\": \"^2.0.1\",\n    \"karma-coverage-istanbul-reporter\": \"^2.0.4\",\n    \"karma-edge-launcher\": \"^0.4.2\",\n    \"karma-firefox-launcher\": \"^1.1.0\",\n    \"karma-ie-launcher\": \"^1.0.0\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-mocha-reporter\": \"^2.2.5\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-sourcemap-loader\": \"^0.3.7\",\n    \"karma-webpack\": \"^4.0.2\",\n    \"mocha\": \"^6.1.4\",\n    \"mocha-lcov-reporter\": \"^1.3.0\",\n    \"pouchdb\": \"^7.1.1\",\n    \"semantic-release\": \"^15.13.16\",\n    \"sinon\": \"^7.3.2\",\n    \"webpack\": \"^4.35.0\",\n    \"webpack-bundle-analyzer\": \"^3.3.2\",\n    \"webpack-cli\": \"^3.3.4\",\n    \"webpack-merge\": \"^4.2.1\",\n    \"worker-loader\": \"^2.0.0\"\n  },\n  \"config\": {\n    \"commitizen\": {\n      \"path\": \"./node_modules/cz-conventional-changelog\"\n    }\n  },\n  \"dependencies\": {\n    \"webworker-promise\": \"^0.4.2\"\n  }\n}\n",
     "longname": "F:\\Projets\\blob-compare\\package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 58,
+    "__docId__": 71,
     "kind": "testFile",
     "name": "tests/blob-compare.spec.js",
-    "content": "import blobCompare from '@';\nimport avatarData1 from 'arraybuffer-loader!./data/avatar.jpg';\nimport avatarData2 from 'arraybuffer-loader!./data/avatar2.jpg';\nimport pngData1 from 'arraybuffer-loader!./data/png1.png';\nimport pngData2 from 'arraybuffer-loader!./data/png2.png';\nimport bmpData1 from 'arraybuffer-loader!./data/bmp1.bmp';\nimport bmpData2 from 'arraybuffer-loader!./data/bmp2.bmp';\n\ndescribe('Blob-compare', function() {\n  let dataset = new Map([\n    ['empty', new Blob()],\n    ['smallA', new Blob(['a'], {type: 'text/plain'})],\n    ['smallB', new Blob(['b'], {type: 'text/plain'})],\n    ['midA', new Blob(['a'.repeat(1024)], {type: 'text/plain'})],\n    ['midB', new Blob(['b'.repeat(1024)], {type: 'text/plain'})],\n    ['midAB', new Blob(['a'.repeat(512) + 'b'.repeat(512)], {type: 'text/plain'})],\n    ['jpg1', new Blob([new Uint8Array(avatarData1)], {type: 'image/jpeg'})],\n    ['jpg2', new Blob([new Uint8Array(avatarData2)], {type: 'image/jpeg'})],\n    ['png1', new Blob([new Uint8Array(pngData1)], {type: 'image/png'})],\n    ['png2', new Blob([new Uint8Array(pngData2)], {type: 'image/png'})],\n    ['bmp1', new Blob([new Uint8Array(bmpData1)], {type: 'image/bmp'})],\n    ['bmp2', new Blob([new Uint8Array(bmpData2)], {type: 'image/bmp'})],\n  ]);\n\n  /** @test {blobCompare.sizeEqual} */\n  describe('sizeEqual', function() {\n    it('should return true if size are equal', function() {\n      blobCompare.sizeEqual(dataset.get('bmp1'), dataset.get('bmp2')).should.be.true;\n    })\n\n    it('should return false if size are not equal', function() {\n      blobCompare.sizeEqual(dataset.get('png1'), dataset.get('bmp2')).should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.typeEqual} */\n  describe('typeEqual', function() {\n    it('should return true if type are equal', function() {\n      blobCompare.typeEqual(dataset.get('bmp1'), dataset.get('bmp2')).should.be.true;\n    })\n\n    it('should return false if type are not equal', function() {\n      blobCompare.typeEqual(dataset.get('png1'), dataset.get('bmp2')).should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.magicNumbersEqual} */\n  describe('magicNumbersEqual', function() {\n    it('should return true if magic numbers are equal', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(dataset.get('png1'), dataset.get('png2'))\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if magic numbers are equal', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(dataset.get('jpg1'), dataset.get('png2'))\n\n      cmp.should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.bytesEqualWithArrayBuffer} */\n  describe('bytesEqualWithArrayBuffer', function() {\n    it('should return true if bytes are equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get('jpg1'), dataset.get('jpg1'));\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if bytes are not equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(dataset.get('jpg1'), dataset.get('jpg2'));\n\n      cmp.should.be.false;\n    })\n  });\n\n  /** @test {blobCompare.isEqual} */\n  describe('isEqual', function() {\n    // build a dataset to run test automatically, [b1, b2, expected, size]\n    const suite = [\n      ['empty', 'empty', true],\n      ['empty', 'smallA', false],\n      ['smallA', 'smallA', true],\n      ['smallA', 'smallB', false],\n      ['midA', 'midAB', false],\n      ['jpg1', 'jpg1', true],\n      ['jpg1', 'jpg2', false],\n      ['jpg1', 'jpg2', true, {methods: ['types']}], // Types are the same\n      ['jpg1', 'jpg2', true, {partial: true}], // Types are the same so partial succeeds\n      ['png1', 'png1', true],\n      ['png1', 'png2', false],\n      ['png1', 'png2', true, {methods: ['magic']}], // Magic numbers are the same\n      ['png1', 'png2', true, {methods: ['magic', 'size'], partial: true}], // Magic numbers are the same\n      ['bmp1', 'bmp1', true],\n      ['bmp1', 'bmp2', false],\n      ['bmp1', 'bmp2', true, {sizes : [512]}], // Sample size is too small to see difference between the two files\n      ['bmp1', 'bmp2', false, {methods: ['bytes']}], // Force using only blob size\n      ['bmp1', 'bmp2', false, {methods: ['bytes'], byte: 'string'}], // Force using only blob size with binary string\n      ['bmp1', 'bmp2', true, {methods: ['size']}], // Sizes are the same though files are different\n      ['jpg1', 'png1', false],\n    ]\n\n    for (let t of suite) {\n      const [n1, n2, expected, options] = t;\n\n      it(`should return ${expected} with ${n1} vs ${n2} and ${options ? JSON.stringify(options) : 'default options'}`, async function() {\n          const res = await blobCompare.isEqual(dataset.get(n1), dataset.get(n2), options);\n\n          expect(res).to.equal(expected);\n      })\n    }\n\n    it('should throw if one method is not recognized', async function() {\n      try {\n        await blobCompare.isEqual(dataset.get('jpg1'), dataset.get('jpg2'), {methods: ['silly']});\n        expect.fail();\n      } catch (err) {\n        err.message.should.equal('Unknown comparison method');\n      }\n    })\n  });\n});\n",
+    "content": "import blobCompare from '@';\nimport blobs from '../data';\n\ndescribe('Blob-compare', function() {\n  /**\n   * @test {blobCompare.sizeEqual}\n  */\n  describe('sizeEqual', function() {\n    it('should return true if size are equal', function() {\n      blobCompare.sizeEqual(blobs.get('bmp1.bmp'), blobs.get('bmp2.bmp')).should.be.true;\n    })\n\n    it('should return false if size are not equal', function() {\n      blobCompare.sizeEqual(blobs.get('png1.png'), blobs.get('png2.png')).should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.typeEqual}\n   */\n  describe('typeEqual', function() {\n    it('should return true if type are equal', function() {\n      blobCompare.typeEqual(blobs.get('bmp1.bmp', 'image/bmp'), blobs.get('bmp2.bmp', 'image/bmp')).should.be.true;\n    })\n\n    it('should return false if type are not equal', function() {\n      blobCompare.typeEqual(blobs.get('png1.png', 'image/png'), blobs.get('bmp2.bmp', 'image/png')).should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.magicNumbersEqual}\n  */\n  describe('magicNumbersEqual', function() {\n    it('should return true if blobs are the same', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let cmp = await blobCompare.magicNumbersEqual(b, b);\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if magic numbers are equal (worker)', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(blobs.get('png1.png'), blobs.get('png2.png'))\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if magic numbers are equal (main thread)', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(blobs.get('png1.png'), blobs.get('png2.png'), false)\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if magic numbers are not equal', async function() {\n      let cmp = await blobCompare.magicNumbersEqual(blobs.get('jpeg1.jpg'), blobs.get('png2.png'))\n\n      cmp.should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.toBinaryString}\n   * @test {blobCompare.toArrayBuffer}\n  */\n  describe('toBinaryString && toArrayBuffer', function() {\n    it('should return a binary string (worker)', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let s = await blobCompare.toBinaryString(b);\n\n      expect(typeof s).to.equal('string');\n    })\n\n    it('should return a binary string (main thread)', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let s = await blobCompare.toBinaryString(b, false, false);\n\n      expect(typeof s).to.equal('string');\n    })\n\n    it('should return an arrayBuffer (worker)', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let s = await blobCompare.toArrayBuffer(b);\n\n      s.should.be.instanceof(ArrayBuffer);\n    })\n\n    it('should return an arrayBuffer (main thread)', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let s = await blobCompare.toArrayBuffer(b, false, false);\n\n      s.should.be.instanceof(ArrayBuffer);\n    })\n  });\n\n  /**\n   * @test {blobCompare.compareBuffers}\n  */\n  describe('compareBuffers', function() {\n    it('should return true if buffers are the same (worker)', async function() {\n      const b = new ArrayBuffer(8);\n      const res = await blobCompare.compareBuffers(b, b)\n\n      res.should.be.true;\n    })\n\n    it('should return true if buffers are the same (main thread)', async function() {\n      const b = new ArrayBuffer(8);\n      const res = await blobCompare.compareBuffers(b, b, false)\n\n      res.should.be.true;\n    })\n\n    it('should return false if buffers are not the same length', async function() {\n      const b1 = new ArrayBuffer(8);\n      const b2 = new ArrayBuffer(10);\n\n      blobCompare.compareBuffers(b1, b2, false).should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.bytesEqualWithBinaryString}\n  */\n  describe('bytesEqualWithBinaryString', function() {\n    it('should return true if blobs are the same', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let cmp = await blobCompare.bytesEqualWithBinaryString(b, b);\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if bytes are equal (worker)', async function() {\n      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get('jpeg1.jpg'), blobs.get('jpeg1.jpg'));\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if bytes are equal (main thread)', async function() {\n      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get('jpeg1.jpg'), blobs.get('jpeg1.jpg'), false, false);\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if bytes are not equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithBinaryString(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'));\n\n      cmp.should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.bytesEqualWithArrayBuffer}\n  */\n  describe('bytesEqualWithArrayBuffer', function() {\n    it('should return true if blobs are the same', async function() {\n      let b = blobs.get('jpeg1.jpg');\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(b, b);\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if bytes are equal (worker)', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get('jpeg1.jpg'), blobs.get('jpeg1.jpg'));\n\n      cmp.should.be.true;\n    })\n\n    it('should return true if bytes are equal (main thread)', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get('jpeg1.jpg'), blobs.get('jpeg1.jpg'), false, false);\n\n      cmp.should.be.true;\n    })\n\n    it('should return false if bytes are not equal', async function() {\n      let cmp = await blobCompare.bytesEqualWithArrayBuffer(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'));\n\n      cmp.should.be.false;\n    })\n  });\n\n  /**\n   * @test {blobCompare.isEqual}\n  */\n  describe('isEqual', function() {\n    // build a blobs to run test automatically, [b1, b2, expected, size]\n    const suite = [\n      ['empty', 'empty', true],\n      ['jpeg1.jpg', 'jpeg1.jpg', true],\n      ['jpeg1.jpg', 'jpeg2.jpg', false],\n      ['jpeg1.jpg', 'jpeg2.jpg', true, {methods: ['types']}], // Types are the same\n      ['jpeg1.jpg', 'jpeg2.jpg', true, {partial: true}], // Types are the same so partial succeeds\n      ['png1.png', 'png1.png', true],\n      ['png1.png', 'png2.png', false],\n      ['png1.png', 'png2.png', true, {methods: ['magic']}], // Magic numbers are the same\n      ['png1.png', 'png2.png', true, {methods: ['magic', 'size'], partial: true}], // Magic numbers are the same\n      ['bmp1.bmp', 'bmp1.bmp', true],\n      ['bmp1.bmp', 'bmp2.bmp', false],\n      ['bmp1.bmp', 'bmp2.bmp', true, {chunks : [512]}], // Sample size is too small to see difference between the two files\n      ['bmp1.bmp', 'bmp2.bmp', false, {chunks : [512, 2048]}], // Second sample size is enough to see difference between the two files\n      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes']}], // Force using only blob size\n      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes'], byte: 'string'}], // Force using only blob size with binary string\n      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes'], worker: false}], // Force using only blob size with buffer in main thread\n      ['bmp1.bmp', 'bmp2.bmp', true, {methods: ['size']}], // Sizes are the same though files are different\n      ['jpeg1.jpg', 'png1.png', false],\n    ]\n\n    for (let t of suite) {\n      const [n1, n2, expected, options] = t;\n\n      it(`should return ${expected} with ${n1} vs ${n2} and ${options ? JSON.stringify(options) : 'default options'}`, async function() {\n          const res = await blobCompare.isEqual(blobs.get(n1), blobs.get(n2), options);\n\n          expect(res).to.equal(expected);\n      })\n    }\n\n    it('should throw if one method is not recognized', async function() {\n      try {\n        await blobCompare.isEqual(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'), {methods: ['silly']});\n        expect.fail();\n      } catch (err) {\n        err.message.should.equal('Unknown comparison method');\n      }\n    })\n  });\n});\n",
     "static": true,
     "longname": "F:/Projets/blob-compare/tests/blob-compare.spec.js",
     "access": null,
@@ -1056,7 +1643,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 59,
+    "__docId__": 72,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -1066,10 +1653,10 @@
     "longname": "tests/blob-compare.spec.js~describe0",
     "access": null,
     "description": "Blob-compare",
-    "lineNumber": 9
+    "lineNumber": 4
   },
   {
-    "__docId__": 60,
+    "__docId__": 73,
     "kind": "test",
     "name": "describe1",
     "testId": 1,
@@ -1079,13 +1666,13 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe1",
     "access": null,
     "description": "sizeEqual",
-    "lineNumber": 26,
+    "lineNumber": 8,
     "testTargets": [
       "blobCompare.sizeEqual"
     ]
   },
   {
-    "__docId__": 61,
+    "__docId__": 74,
     "kind": "test",
     "name": "it2",
     "testId": 2,
@@ -1095,10 +1682,10 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe1.it2",
     "access": null,
     "description": "should return true if size are equal",
-    "lineNumber": 27
+    "lineNumber": 9
   },
   {
-    "__docId__": 62,
+    "__docId__": 75,
     "kind": "test",
     "name": "it3",
     "testId": 3,
@@ -1108,10 +1695,10 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe1.it3",
     "access": null,
     "description": "should return false if size are not equal",
-    "lineNumber": 31
+    "lineNumber": 13
   },
   {
-    "__docId__": 63,
+    "__docId__": 76,
     "kind": "test",
     "name": "describe4",
     "testId": 4,
@@ -1121,13 +1708,13 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe4",
     "access": null,
     "description": "typeEqual",
-    "lineNumber": 37,
+    "lineNumber": 21,
     "testTargets": [
       "blobCompare.typeEqual"
     ]
   },
   {
-    "__docId__": 64,
+    "__docId__": 77,
     "kind": "test",
     "name": "it5",
     "testId": 5,
@@ -1137,10 +1724,10 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe4.it5",
     "access": null,
     "description": "should return true if type are equal",
-    "lineNumber": 38
+    "lineNumber": 22
   },
   {
-    "__docId__": 65,
+    "__docId__": 78,
     "kind": "test",
     "name": "it6",
     "testId": 6,
@@ -1150,10 +1737,10 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe4.it6",
     "access": null,
     "description": "should return false if type are not equal",
-    "lineNumber": 42
+    "lineNumber": 26
   },
   {
-    "__docId__": 66,
+    "__docId__": 79,
     "kind": "test",
     "name": "describe7",
     "testId": 7,
@@ -1163,13 +1750,13 @@
     "longname": "tests/blob-compare.spec.js~describe0.describe7",
     "access": null,
     "description": "magicNumbersEqual",
-    "lineNumber": 48,
+    "lineNumber": 34,
     "testTargets": [
       "blobCompare.magicNumbersEqual"
     ]
   },
   {
-    "__docId__": 67,
+    "__docId__": 80,
     "kind": "test",
     "name": "it8",
     "testId": 8,
@@ -1178,11 +1765,11 @@
     "static": true,
     "longname": "tests/blob-compare.spec.js~describe0.describe7.it8",
     "access": null,
-    "description": "should return true if magic numbers are equal",
-    "lineNumber": 49
+    "description": "should return true if blobs are the same",
+    "lineNumber": 35
   },
   {
-    "__docId__": 68,
+    "__docId__": 81,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -1191,90 +1778,334 @@
     "static": true,
     "longname": "tests/blob-compare.spec.js~describe0.describe7.it9",
     "access": null,
-    "description": "should return false if magic numbers are equal",
-    "lineNumber": 55
+    "description": "should return true if magic numbers are equal (worker)",
+    "lineNumber": 42
   },
   {
-    "__docId__": 69,
+    "__docId__": 82,
     "kind": "test",
-    "name": "describe10",
+    "name": "it10",
     "testId": 10,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe7",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe7.it10",
+    "access": null,
+    "description": "should return true if magic numbers are equal (main thread)",
+    "lineNumber": 48
+  },
+  {
+    "__docId__": 83,
+    "kind": "test",
+    "name": "it11",
+    "testId": 11,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe7",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe7.it11",
+    "access": null,
+    "description": "should return false if magic numbers are not equal",
+    "lineNumber": 54
+  },
+  {
+    "__docId__": 84,
+    "kind": "test",
+    "name": "describe12",
+    "testId": 12,
     "memberof": "tests/blob-compare.spec.js~describe0",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe10",
+    "longname": "tests/blob-compare.spec.js~describe0.describe12",
+    "access": null,
+    "description": "toBinaryString && toArrayBuffer",
+    "lineNumber": 65,
+    "testTargets": [
+      "blobCompare.toBinaryString",
+      "blobCompare.toArrayBuffer"
+    ]
+  },
+  {
+    "__docId__": 85,
+    "kind": "test",
+    "name": "it13",
+    "testId": 13,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe12",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe12.it13",
+    "access": null,
+    "description": "should return a binary string (worker)",
+    "lineNumber": 66
+  },
+  {
+    "__docId__": 86,
+    "kind": "test",
+    "name": "it14",
+    "testId": 14,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe12",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe12.it14",
+    "access": null,
+    "description": "should return a binary string (main thread)",
+    "lineNumber": 73
+  },
+  {
+    "__docId__": 87,
+    "kind": "test",
+    "name": "it15",
+    "testId": 15,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe12",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe12.it15",
+    "access": null,
+    "description": "should return an arrayBuffer (worker)",
+    "lineNumber": 80
+  },
+  {
+    "__docId__": 88,
+    "kind": "test",
+    "name": "it16",
+    "testId": 16,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe12",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe12.it16",
+    "access": null,
+    "description": "should return an arrayBuffer (main thread)",
+    "lineNumber": 87
+  },
+  {
+    "__docId__": 89,
+    "kind": "test",
+    "name": "describe17",
+    "testId": 17,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe17",
+    "access": null,
+    "description": "compareBuffers",
+    "lineNumber": 98,
+    "testTargets": [
+      "blobCompare.compareBuffers"
+    ]
+  },
+  {
+    "__docId__": 90,
+    "kind": "test",
+    "name": "it18",
+    "testId": 18,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe17",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe17.it18",
+    "access": null,
+    "description": "should return true if buffers are the same (worker)",
+    "lineNumber": 99
+  },
+  {
+    "__docId__": 91,
+    "kind": "test",
+    "name": "it19",
+    "testId": 19,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe17",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe17.it19",
+    "access": null,
+    "description": "should return true if buffers are the same (main thread)",
+    "lineNumber": 106
+  },
+  {
+    "__docId__": 92,
+    "kind": "test",
+    "name": "it20",
+    "testId": 20,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe17",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe17.it20",
+    "access": null,
+    "description": "should return false if buffers are not the same length",
+    "lineNumber": 113
+  },
+  {
+    "__docId__": 93,
+    "kind": "test",
+    "name": "describe21",
+    "testId": 21,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe21",
+    "access": null,
+    "description": "bytesEqualWithBinaryString",
+    "lineNumber": 124,
+    "testTargets": [
+      "blobCompare.bytesEqualWithBinaryString"
+    ]
+  },
+  {
+    "__docId__": 94,
+    "kind": "test",
+    "name": "it22",
+    "testId": 22,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe21",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe21.it22",
+    "access": null,
+    "description": "should return true if blobs are the same",
+    "lineNumber": 125
+  },
+  {
+    "__docId__": 95,
+    "kind": "test",
+    "name": "it23",
+    "testId": 23,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe21",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe21.it23",
+    "access": null,
+    "description": "should return true if bytes are equal (worker)",
+    "lineNumber": 132
+  },
+  {
+    "__docId__": 96,
+    "kind": "test",
+    "name": "it24",
+    "testId": 24,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe21",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe21.it24",
+    "access": null,
+    "description": "should return true if bytes are equal (main thread)",
+    "lineNumber": 138
+  },
+  {
+    "__docId__": 97,
+    "kind": "test",
+    "name": "it25",
+    "testId": 25,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe21",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe21.it25",
+    "access": null,
+    "description": "should return false if bytes are not equal",
+    "lineNumber": 144
+  },
+  {
+    "__docId__": 98,
+    "kind": "test",
+    "name": "describe26",
+    "testId": 26,
+    "memberof": "tests/blob-compare.spec.js~describe0",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe26",
     "access": null,
     "description": "bytesEqualWithArrayBuffer",
-    "lineNumber": 63,
+    "lineNumber": 154,
     "testTargets": [
       "blobCompare.bytesEqualWithArrayBuffer"
     ]
   },
   {
-    "__docId__": 70,
+    "__docId__": 99,
     "kind": "test",
-    "name": "it11",
-    "testId": 11,
-    "memberof": "tests/blob-compare.spec.js~describe0.describe10",
+    "name": "it27",
+    "testId": 27,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe26",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe10.it11",
+    "longname": "tests/blob-compare.spec.js~describe0.describe26.it27",
     "access": null,
-    "description": "should return true if bytes are equal",
-    "lineNumber": 64
+    "description": "should return true if blobs are the same",
+    "lineNumber": 155
   },
   {
-    "__docId__": 71,
+    "__docId__": 100,
     "kind": "test",
-    "name": "it12",
-    "testId": 12,
-    "memberof": "tests/blob-compare.spec.js~describe0.describe10",
+    "name": "it28",
+    "testId": 28,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe26",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe10.it12",
+    "longname": "tests/blob-compare.spec.js~describe0.describe26.it28",
+    "access": null,
+    "description": "should return true if bytes are equal (worker)",
+    "lineNumber": 162
+  },
+  {
+    "__docId__": 101,
+    "kind": "test",
+    "name": "it29",
+    "testId": 29,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe26",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe26.it29",
+    "access": null,
+    "description": "should return true if bytes are equal (main thread)",
+    "lineNumber": 168
+  },
+  {
+    "__docId__": 102,
+    "kind": "test",
+    "name": "it30",
+    "testId": 30,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe26",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/blob-compare.spec.js~describe0.describe26.it30",
     "access": null,
     "description": "should return false if bytes are not equal",
-    "lineNumber": 70
+    "lineNumber": 174
   },
   {
-    "__docId__": 72,
+    "__docId__": 103,
     "kind": "test",
-    "name": "describe13",
-    "testId": 13,
+    "name": "describe31",
+    "testId": 31,
     "memberof": "tests/blob-compare.spec.js~describe0",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe13",
+    "longname": "tests/blob-compare.spec.js~describe0.describe31",
     "access": null,
     "description": "isEqual",
-    "lineNumber": 78,
+    "lineNumber": 184,
     "testTargets": [
       "blobCompare.isEqual"
     ]
   },
   {
-    "__docId__": 73,
+    "__docId__": 104,
     "kind": "test",
-    "name": "it14",
-    "testId": 14,
-    "memberof": "tests/blob-compare.spec.js~describe0.describe13",
+    "name": "it32",
+    "testId": 32,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe31",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe13.it14",
+    "longname": "tests/blob-compare.spec.js~describe0.describe31.it32",
     "access": null,
-    "lineNumber": 106
+    "lineNumber": 210
   },
   {
-    "__docId__": 74,
+    "__docId__": 105,
     "kind": "test",
-    "name": "it15",
-    "testId": 15,
-    "memberof": "tests/blob-compare.spec.js~describe0.describe13",
+    "name": "it33",
+    "testId": 33,
+    "memberof": "tests/blob-compare.spec.js~describe0.describe31",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/blob-compare.spec.js~describe0.describe13.it15",
+    "longname": "tests/blob-compare.spec.js~describe0.describe31.it33",
     "access": null,
     "description": "should throw if one method is not recognized",
-    "lineNumber": 113
+    "lineNumber": 217
   }
 ]
