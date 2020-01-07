@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master)](https://travis-ci.org/liqueurdetoile/blob-compare)
 [![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master)
+[![Gzip size](http://img.badgesize.io/https://cdn.jsdelivr.net/npm/blob-compare@latest?compression=gzip&style=flat-square)](https://cdn.jsdelivr.net/npm/blob-compare@latest)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Documentation](https://liqueurdetoile.github.io/blob-compare/badge.svg)](https://liqueurdetoile.github.io/blob-compare/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg)](https://greenkeeper.io/)
@@ -96,13 +97,13 @@ The cons is that processing will be slower due to the copy operation. A workarou
 Disabling web workers can also help prevent memory issues in some cases.
 
 ### Benchmarking
-I've tried to implement some automated bechnmarks around karma and benchmark.js but I'm quickly hitting some troubles with larger blobs, event with small blobs on Edge.
+**Repo is quite heavy due to fixtures.** I've tried to implement some automated bechnmarks around karma and benchmark.js but I'm quickly hitting some troubles with larger blobs, event with small blobs on Edge.
 
 I'm not sure that I'm doing right with my benchmarks _Oo_
 
 If I find some time, I may try on jsPerf.
 
-Anyway, after cloning and installing the repo, you can play with fixtures and benchmarks.
+Anyway, after cloning and installing this repository, you can play with fixtures and benchmarks (they are removed from npm version).
 
 Just bash `npm run bench:all` to run them into Chrome, Firefox and Edge. You can also make ChromeHeadless accessible and use `npm run bench`
 
@@ -114,4 +115,4 @@ Methods are fully documented and docs are available on [github pages](https://li
 ## Issues and PRs
 Any bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/blob-compare/issues).
 
-You are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.
+**You are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.**
