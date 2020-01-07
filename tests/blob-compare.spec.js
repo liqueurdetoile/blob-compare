@@ -188,13 +188,15 @@ describe('Blob-compare', function() {
       ['jpeg1.jpg', 'jpeg1.jpg', true],
       ['jpeg1.jpg', 'jpeg2.jpg', false],
       ['jpeg1.jpg', 'jpeg2.jpg', true, {methods: ['types']}], // Types are the same
-      ['jpeg1.jpg', 'jpeg2.jpg', true, {partial: true}], // Types are the same so partial succeeds
+      ['png1.png', 'png2.png', true, {methods: ['types', 'size'], partial: true}], // Same types so partial succeeds
+      ['png1.png', 'png2.png', false, {methods: ['types', 'size']}], // Sizes are different
       ['png1.png', 'png1.png', true],
       ['png1.png', 'png2.png', false],
       ['png1.png', 'png2.png', true, {methods: ['magic']}], // Magic numbers are the same
       ['png1.png', 'png2.png', true, {methods: ['magic', 'size'], partial: true}], // Magic numbers are the same
       ['bmp1.bmp', 'bmp1.bmp', true],
       ['bmp1.bmp', 'bmp2.bmp', false],
+      ['bmp1.bmp', 'bmp2.bmp', true, {partial: true}], // Same sizes so partial succeeds
       ['bmp1.bmp', 'bmp2.bmp', true, {chunks : [512]}], // Sample size is too small to see difference between the two files
       ['bmp1.bmp', 'bmp2.bmp', false, {chunks : [512, 2048]}], // Second sample size is enough to see difference between the two files
       ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes']}], // Force using only blob size
@@ -219,7 +221,7 @@ describe('Blob-compare', function() {
         await blobCompare.isEqual(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'), {methods: ['silly']});
         expect.fail();
       } catch (err) {
-        err.message.should.equal('Unknown comparison method');
+        err.message.should.equal('Blob-compare : Unknown comparison method');
       }
     })
   });
