@@ -1,0 +1,23 @@
+# Coverage directory
+coverage
+
+# Dependency directory
+node_modules
+
+#remove docs
+docs
+
+# Remove dev folders
+benchmarks
+fixtures
+tests
+src
+
+# Remove config files and folders
+.config
+.github
+.babelrc
+.esdoc.json
+.eslintrc
+.travis.yml
+yarn.lock
