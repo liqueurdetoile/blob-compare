@@ -127,13 +127,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber210",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber212",
     "Blob-compare isEqual ",
     "test"
   ],
   [
     "",
-    "test-file/tests/blob-compare.spec.js.html#lineNumber217",
+    "test-file/tests/blob-compare.spec.js.html#lineNumber219",
     "Blob-compare isEqual should throw if one method is not recognized",
     "test"
   ],

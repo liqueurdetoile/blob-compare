@@ -39,13 +39,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import blobCompare from &apos;<span><a href="file/src/index.js.html#lineNumber15">blob-compare/src/index.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import blobCompare from &apos;<span><a href="file/src/index.js.html#lineNumber32">blob-compare/src/index.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/index.js.html#lineNumber15">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/index.js.html#lineNumber32">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -66,6 +66,66 @@
   
   
   <div class="description" data-ice="description"><p>Utility class to nest all methods</p>
+<h2 id="conversion-tools">Conversion tools</h2><p>All conversions are run asynchronously.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blobCompare::toArrayBuffer</code></td>
+<td>Converts a blob to an ArrayBuffer. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.</td>
+</tr>
+<tr>
+<td><code>blobCompare::toBinaryString</code></td>
+<td>Converts a blob to a BinaryString. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comparison-tools">Comparison tools</h2><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th style="text-align:center">Sync/Async</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blobCompare::sizeEqual</code></td>
+<td>Compares size of two blobs</td>
+<td style="text-align:center">sync</td>
+</tr>
+<tr>
+<td><code>blobCompare::typeEqual</code></td>
+<td>Compares types of two blobs. Types are not really reliable as they can be tricked when creating a blob</td>
+<td style="text-align:center">sync</td>
+</tr>
+<tr>
+<td><code>blobCompare::magicNumbersEqual</code></td>
+<td>Compares magic numbers of two blobs. A quick comparison is done, therefore weird data types may not be compared with 100% accuracy. In that case, simply clone repo and override this function to fit your needs</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::bytesEqualWithArrayBuffer</code></td>
+<td>Converts blobs or chunk blobs to ArrayBuffers and performs a byte to byte comparison</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::bytesEqualWithBinaryString</code></td>
+<td>Converts blobs or chunk blobs to BinaryString and performs a byte to byte comparison</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::isEqual</code></td>
+<td>The swiss army knife to bundle multiple comparison methods above in one single call</td>
+<td style="text-align:center">async</td>
+</tr>
+</tbody>
+</table>
 </div>
   
 
@@ -253,7 +313,7 @@
       </div>
     </td>
     <td>
-      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="version" data-ice="version">version 1.1.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
     </td>
   </tr>
@@ -542,7 +602,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber262">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber280">source</a></span></span>
     </span>
   </h3>
 
@@ -616,7 +676,19 @@
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span>*</span></p></td>
+        <td data-ice="throwDesc"><p>Error When comparison method is not recognized</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -645,7 +717,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber241">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber258">source</a></span></span>
     </span>
   </h3>
 
@@ -753,7 +825,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber156">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber173">source</a></span></span>
     </span>
   </h3>
 
@@ -848,7 +920,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber140">source</a></span></span>
     </span>
   </h3>
 
@@ -929,7 +1001,7 @@
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -1008,9 +1080,9 @@
     
     <span class="code" data-ice="name">isEqual</span><span class="code" data-ice="signature">(b1: <span>Blob</span>, b2: <span>Blob</span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>&gt;</span>
     <span class="right-info">
-      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="version" data-ice="version">version 1.1.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber299">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber318">source</a></span></span>
     </span>
   </h3>
 
@@ -1027,7 +1099,8 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
 <li><code>type</code>, <code>types</code> : Compare two blobs based on their type. See <span><a href="class/src/index.js~blobCompare.html#static-method-typeEqual">blobCompare.typeEqual</a></span> for more informations.</li>
 </ul>
 <p>Using the <code>partial</code> option can be tricky as it&apos;s easy to have false positive.</p>
-<p>As default, <code>isEqual</code> performs first a check on <code>size</code> method to discrimate blobs, then <code>type</code> and fallback on <code>byte</code> comparison on full data.</p>
+<p>As default, <code>isEqual</code> performs first a check on <code>size</code> method to discrimate blobs, then <code>type</code>, then <code>magic</code> and fallback on <code>byte</code> comparison on full data.
+This default order ensures the most optimized resource cost, though performing a complete comparison. For huge blobs, one may think about doing chunks comparison.</p>
 <p>Workers can be disabled through options</p>
 </div>
 
@@ -1066,8 +1139,8 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
       <td data-ice="name" class="code" data-depth="1">options.methods</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
-<li>default: [&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;]</li></ul></td>
-      <td data-ice="description"><p>Default methods used for comparison. Methods will be applied in the same order</p>
+<li>default: [&apos;size&apos;, &apos;type&apos;, &apos;magic&apos;, &apos;byte&apos;]</li></ul></td>
+      <td data-ice="description"><p>Default methods used for comparison. Methods are applied in the same order</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
@@ -1155,7 +1228,7 @@ to perform comparison on sliced blobs. See <span><a href="class/src/index.js~blo
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber209">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber226">source</a></span></span>
     </span>
   </h3>
 
@@ -1255,7 +1328,7 @@ more informations about data if needed.</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber172">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber189">source</a></span></span>
     </span>
   </h3>
 
@@ -1344,7 +1417,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber110">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber127">source</a></span></span>
     </span>
   </h3>
 
@@ -1440,7 +1513,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -1522,7 +1595,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber94">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
@@ -1604,7 +1677,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
@@ -1700,7 +1773,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -1781,7 +1854,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -1863,7 +1936,7 @@ to discriminate blobs</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber187">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/index.js.html#lineNumber204">source</a></span></span>
     </span>
   </h3>
 

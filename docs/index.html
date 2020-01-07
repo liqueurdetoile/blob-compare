@@ -40,6 +40,7 @@
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="https://travis-ci.org/liqueurdetoile/blob-compare"><img src="https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master" alt="Build Status"></a>
 <a href="https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master"><img src="https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://cdn.jsdelivr.net/npm/blob-compare@latest"><img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/blob-compare@latest?compression=gzip&amp;style=flat-square" alt="Gzip size"></a>
 <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
 <a href="https://liqueurdetoile.github.io/blob-compare/"><img src="https://liqueurdetoile.github.io/blob-compare/badge.svg" alt="Documentation"></a>
 <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg" alt="Greenkeeper badge"></a>
@@ -51,51 +52,12 @@
 <ul>
 <li>Comparison on size of two blobs</li>
 <li>Comparison on types of two blobs</li>
-<li>Comparison on data types based on magic numbers of two blobs</li>
+<li>Comparison on data types based on <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">magic numbers</a> of two blobs</li>
 <li>Comparison byte to byte on full data or sliced subsets</li>
 <li>A configurable combination of any of above to evaluate blobs or parts of blobs equality</li>
 </ul>
 <p>Tool rely on native browsers buffer implementations and will likely work on any modern browser. It have been tested and benchmarked on Chrome, Firefox and Edge.</p>
 <p>To provide better performance, <code>blob-compare</code> automatically relies on web workers if available when performing operations on blobs.</p>
-<h2 id="usage-examples">Usage examples</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">// assuming img1 and img2 are two blobs vars
-
-/**
- * Fully compare two blobs with default methods configuration
-*/
-blobCompare.isEqual(img1, img2)
-
-/**
- * Comparing only file types
- */
-blobCompare.isEqual(img1, img2, {methods: [&apos;magic&apos;]})
-// or
-blobCompare.magicNumbersEqual(img1, img2)
-
-/**
- *  Compare file types AND the last 100 bytes of blobs
- *  Never find a use case ^^
-*/
-blobCompare.isEqual(img1, img2, {
-  methods: [&apos;bytes&apos;],
-  sizes: [-100]
-})
-// or
-(blobCompare.magicNumbersEqual(img1, img2) &amp;&amp;
-blobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))
-
-/**
- * Compare file types OR the last 100 bytes of blobs
-*/
-blobCompare.isEqual(img1, img2, {
-  methods: [&apos;bytes&apos;],
-  sizes: [-100],
-  partial: true
-})
-// or
-(blobCompare.magicNumbersEqual(img1, img2) ||
-blobCompare.bytesEqualWithArrayBuffer(img1, img2, -100))</code>
-</code></pre>
-<p>To speed up things, <code>isEqual</code> with its default configuration checks first if sizes are equal, then types and finally performs a byte to byte comparison to ensure blobs equality.</p>
 <h2 id="installation">Installation</h2><p>You can install it from <code>npm</code> or <code>yarn</code> :</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">npm install blob-compare
 
@@ -114,23 +76,122 @@ import blobCompare from &apos;blob-compare&apos;;</code>
 &lt;script src=&quot;https://cdn.jsdelivr.net/gh/liqueurdetoile/blob-compare@latest/dist/index.min.js&quot;&gt;&lt;/script&gt;</code>
 </code></pre>
 <p>A global <code>blobCompare</code> will be automatically set after script was downloaded.</p>
-<h2 id="about-performance">About performance</h2><p>Trying to compare blobs can be tricky though the only real pitfall is most likely to run out of memory on the VM. There&apos;s not much to do with it except working only on smaller data chunks and use device storage to buffer the unprocessed chunks.</p>
-<h3 id="web-workers">Web workers</h3><p>The other caveat is likely to consume device CPU to perform operations on blobs. Web workers can be very helpful in this case. <code>blob-compare</code> is enabling web workers by default for two major reasons :</p>
+<h2 id="quick-reference">Quick reference</h2><p>See <a href="https://liqueurdetoile.github.io/blob-compare/">documentation</a> for a full reference.</p>
+<h3 id="conversion-tools">Conversion tools</h3><p>All conversions are run asynchronously.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blobCompare::toArrayBuffer</code></td>
+<td>Converts a blob to an ArrayBuffer. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.</td>
+</tr>
+<tr>
+<td><code>blobCompare::toBinaryString</code></td>
+<td>Converts a blob to a BinaryString. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comparison-tools">Comparison tools</h3><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th style="text-align:center">Sync/Async</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blobCompare::sizeEqual</code></td>
+<td>Compares size of two blobs</td>
+<td style="text-align:center">sync</td>
+</tr>
+<tr>
+<td><code>blobCompare::typeEqual</code></td>
+<td>Compares types of two blobs. Types are not really reliable as they can be tricked when creating a blob</td>
+<td style="text-align:center">sync</td>
+</tr>
+<tr>
+<td><code>blobCompare::magicNumbersEqual</code></td>
+<td>Compares <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">magic numbers</a> of two blobs. A quick comparison is done, therefore weird data types may not be compared with 100% accuracy. In that case, simply clone repo and override this function to fit your needs</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::bytesEqualWithArrayBuffer</code></td>
+<td>Converts blobs or chunk blobs to ArrayBuffers and performs a byte to byte comparison</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::bytesEqualWithBinaryString</code></td>
+<td>Converts blobs or chunk blobs to BinaryString and performs a byte to byte comparison</td>
+<td style="text-align:center">async</td>
+</tr>
+<tr>
+<td><code>blobCompare::isEqual</code></td>
+<td>The swiss army knife to bundle multiple comparison methods above in one single call</td>
+<td style="text-align:center">async</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage-examples">Usage examples</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">// assuming img1 and img2 are two blobs vars
+
+/**
+ * Fully compare two blobs with default methods configuration
+*/
+blobCompare.isEqual(img1, img2).then(res...)
+
+/**
+ * Comparing only file types
+ */
+blobCompare.isEqual(img1, img2, {methods: [&apos;magic&apos;]}).then(res...)
+// or
+blobCompare.magicNumbersEqual(img1, img2).then(res =&gt; ...)
+
+/**
+ *  Compare file types AND the last 100 bytes of blobs
+ *  Never find a use case ^^
+*/
+blobCompare.isEqual(img1, img2, {
+  methods: [&apos;bytes&apos;],
+  sizes: [-100]
+}).then(res =&gt; ...)
+
+/**
+ * Compare file types OR the last 100 bytes of blobs
+*/
+blobCompare.isEqual(img1, img2, {
+  methods: [&apos;bytes&apos;],
+  sizes: [-100],
+  partial: true
+}).then(res =&gt; ...)</code>
+</code></pre>
+<p>To speed up things, <code>isEqual</code> with its default configuration checks first if sizes are equal, then types, then magic numbers and finally performs a byte to byte comparison to ensure blobs equality.</p>
+<p>All methods working on bytes comparison are asynchronous, use web workers by default if available and works very well with <code>async/await</code> syntax.</p>
+<h2 id="about-performance">About performance</h2><p>Trying to compare blobs can be tricky though the only real pitfall is most likely to run out of memory on the VM. There&apos;s not much to do with it except working only on smaller data chunks and use device storage like IndexedDb to buffer the unprocessed chunks.</p>
+<h3 id="web-workers">Web workers</h3><p>Another caveat is likely to consume device CPU to perform operations on blobs. Web workers can be very helpful in this case. <code>blob-compare</code> is enabling web workers by default for two major reasons :</p>
 <ol>
 <li>A worker is constructed each time a blob needs to be converted to raw binary data or array buffer. On a multi-threaded system, it allows efficient concurrency</li>
 <li>Huge blobs operations won&apos;t freeze the main thread</li>
 </ol>
 <p>The cons is that processing will be slower due to the copy operation. A workaround could be to use directly <code>ArrayBuffers</code> and the <code>blobCompare.compareBuffers</code> method that take advantage of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Transferable">transferable interface</a> of an ArrayBuffer.</p>
 <p>Disabling web workers can also help prevent memory issues in some cases.</p>
-<h3 id="benchmarking">Benchmarking</h3><p>I&apos;ve tried to implement some automated bechnmarks around karma and benchmark.js but I&apos;m quickly hitting some troubles with larger blobs, event with small blobs on Edge.</p>
+<h3 id="benchmarking">Benchmarking</h3><p><strong>Repo is quite heavy due to fixtures.</strong> I&apos;ve tried to implement some automated bechnmarks around karma and benchmark.js but I&apos;m quickly hitting some troubles with larger blobs, event with small blobs on Edge.</p>
 <p>I&apos;m not sure that I&apos;m doing right with my benchmarks _Oo_</p>
 <p>If I find some time, I may try on jsPerf.</p>
-<p>Anyway, after cloning and installing the repo, you can play with fixtures and benchmarks.</p>
+<p>Anyway, after cloning and installing this repository, you can play with fixtures and benchmarks (they are removed from npm version).</p>
 <p>Just bash <code>npm run bench:all</code> to run them into Chrome, Firefox and Edge. You can also make ChromeHeadless accessible and use <code>npm run bench</code></p>
 <p>Latest results for Chrome, Firefox and Edge are stored in <code>results.json</code></p>
 <h2 id="documentation">Documentation</h2><p>Methods are fully documented and docs are available on <a href="https://liqueurdetoile.github.io/blob-compare/">github pages</a>.</p>
 <h2 id="issues-and-prs">Issues and PRs</h2><p>Any bugs and issues can be filed on the <a href="https://github.com/liqueurdetoile/blob-compare/issues">github repository</a>.</p>
-<p>You are free and very welcome to fork the project and submit any PR to fix or improve <code>blob-compare</code>.</p>
+<p><strong>You are free and very welcome to fork the project and submit any PR to fix or improve <code>blob-compare</code>.</strong></p>
+<h2 id="changelog">Changelog</h2><ul>
+<li><strong>1.1.0</strong> : Add magic numbers in default comparison methods as type value can be falsy. <code>blobCompare.isEqual</code> now returns immediately when a falsy value is encountered or at first successful comparison if partial option is set to <code>true</code></li>
+<li><strong>1.0.1</strong> : Fix package content</li>
+</ul>
 </div>
 </div>
 

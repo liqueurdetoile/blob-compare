@@ -40,7 +40,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/blob-compare.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import blobCompare from &apos;@&apos;;
-import blobs from &apos;../data&apos;;
+import blobs from &apos;../fixtures&apos;;
 
 describe(&apos;Blob-compare&apos;, function() {
   /**
@@ -229,13 +229,15 @@ describe(&apos;Blob-compare&apos;, function() {
       [&apos;jpeg1.jpg&apos;, &apos;jpeg1.jpg&apos;, true],
       [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, false],
       [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, true, {methods: [&apos;types&apos;]}], // Types are the same
-      [&apos;jpeg1.jpg&apos;, &apos;jpeg2.jpg&apos;, true, {partial: true}], // Types are the same so partial succeeds
+      [&apos;png1.png&apos;, &apos;png2.png&apos;, true, {methods: [&apos;types&apos;, &apos;size&apos;], partial: true}], // Same types so partial succeeds
+      [&apos;png1.png&apos;, &apos;png2.png&apos;, false, {methods: [&apos;types&apos;, &apos;size&apos;]}], // Sizes are different
       [&apos;png1.png&apos;, &apos;png1.png&apos;, true],
       [&apos;png1.png&apos;, &apos;png2.png&apos;, false],
       [&apos;png1.png&apos;, &apos;png2.png&apos;, true, {methods: [&apos;magic&apos;]}], // Magic numbers are the same
       [&apos;png1.png&apos;, &apos;png2.png&apos;, true, {methods: [&apos;magic&apos;, &apos;size&apos;], partial: true}], // Magic numbers are the same
       [&apos;bmp1.bmp&apos;, &apos;bmp1.bmp&apos;, true],
       [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false],
+      [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, true, {partial: true}], // Same sizes so partial succeeds
       [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, true, {chunks : [512]}], // Sample size is too small to see difference between the two files
       [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {chunks : [512, 2048]}], // Second sample size is enough to see difference between the two files
       [&apos;bmp1.bmp&apos;, &apos;bmp2.bmp&apos;, false, {methods: [&apos;bytes&apos;]}], // Force using only blob size
@@ -260,7 +262,7 @@ describe(&apos;Blob-compare&apos;, function() {
         await blobCompare.isEqual(blobs.get(&apos;jpeg1.jpg&apos;), blobs.get(&apos;jpeg2.jpg&apos;), {methods: [&apos;silly&apos;]});
         expect.fail();
       } catch (err) {
-        err.message.should.equal(&apos;Unknown comparison method&apos;);
+        err.message.should.equal(&apos;Blob-compare : Unknown comparison method&apos;);
       }
     })
   });

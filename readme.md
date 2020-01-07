@@ -13,13 +13,59 @@
 
 - Comparison on size of two blobs
 - Comparison on types of two blobs
-- Comparison on data types based on magic numbers of two blobs
+- Comparison on data types based on [magic numbers](https://en.wikipedia.org/wiki/List_of_file_signatures) of two blobs
 - Comparison byte to byte on full data or sliced subsets
 - A configurable combination of any of above to evaluate blobs or parts of blobs equality
 
 Tool rely on native browsers buffer implementations and will likely work on any modern browser. It have been tested and benchmarked on Chrome, Firefox and Edge.
 
 To provide better performance, `blob-compare` automatically relies on web workers if available when performing operations on blobs.
+
+## Installation
+You can install it from `npm` or `yarn` :
+```bash
+npm install blob-compare
+
+yarn add blob-compare
+```
+Then, simply require/import it to use it :
+
+```javascript
+const blobCompare = require('blob-compare').default;
+// or
+import blobCompare from 'blob-compare';
+```
+For browser direct usage, `blob-compare` can be required as a script from any CDN mirroring NPM or Github, for instance :
+```html
+<script src="https://cdn.jsdelivr.net/npm/blob-compare@latest"></script>
+
+<script src="https://unpkg.com/blob-compare@latest"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/liqueurdetoile/blob-compare@latest/dist/index.min.js"></script>
+```
+
+A global `blobCompare` will be automatically set after script was downloaded.
+
+## Quick reference
+See [documentation](https://liqueurdetoile.github.io/blob-compare/) for a full reference.
+
+### Conversion tools ###
+All conversions are run asynchronously.
+
+Method  |  Description
+--|--
+`blobCompare::toArrayBuffer` |  Converts a blob to an ArrayBuffer. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+`blobCompare::toBinaryString`  |  Converts a blob to a BinaryString. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+
+### Comparison tools ###
+Method  |  Description | Sync/Async
+--|--|:--:
+`blobCompare::sizeEqual` | Compares size of two blobs | sync
+`blobCompare::typeEqual`  | Compares types of two blobs. Types are not really reliable as they can be tricked when creating a blob |  sync
+`blobCompare::magicNumbersEqual`  | Compares [magic numbers](https://en.wikipedia.org/wiki/List_of_file_signatures) of two blobs. A quick comparison is done, therefore weird data types may not be compared with 100% accuracy. In that case, simply clone repo and override this function to fit your needs | async
+`blobCompare::bytesEqualWithArrayBuffer` | Converts blobs or chunk blobs to ArrayBuffers and performs a byte to byte comparison | async
+`blobCompare::bytesEqualWithBinaryString`  | Converts blobs or chunk blobs to BinaryString and performs a byte to byte comparison | async
+`blobCompare::isEqual`  | The swiss army knife to bundle multiple comparison methods above in one single call | async
 
 ## Usage examples
 ```javascript
@@ -55,34 +101,9 @@ blobCompare.isEqual(img1, img2, {
   partial: true
 }).then(res => ...)
 ```
-To speed up things, `isEqual` with its default configuration checks first if sizes are equal, then types and finally performs a byte to byte comparison to ensure blobs equality.
+To speed up things, `isEqual` with its default configuration checks first if sizes are equal, then types, then magic numbers and finally performs a byte to byte comparison to ensure blobs equality.
 
 All methods working on bytes comparison are asynchronous, use web workers by default if available and works very well with `async/await` syntax.
-
-## Installation
-You can install it from `npm` or `yarn` :
-```bash
-npm install blob-compare
-
-yarn add blob-compare
-```
-Then, simply require/import it to use it :
-
-```javascript
-const blobCompare = require('blob-compare').default;
-// or
-import blobCompare from 'blob-compare';
-```
-For browser direct usage, `blob-compare` can be required as a script from any CDN mirroring NPM or Github, for instance :
-```html
-<script src="https://cdn.jsdelivr.net/npm/blob-compare@latest"></script>
-
-<script src="https://unpkg.com/blob-compare@latest"></script>
-
-<script src="https://cdn.jsdelivr.net/gh/liqueurdetoile/blob-compare@latest/dist/index.min.js"></script>
-```
-
-A global `blobCompare` will be automatically set after script was downloaded.
 
 ## About performance
 Trying to compare blobs can be tricky though the only real pitfall is most likely to run out of memory on the VM. There's not much to do with it except working only on smaller data chunks and use device storage like IndexedDb to buffer the unprocessed chunks.
@@ -116,3 +137,7 @@ Methods are fully documented and docs are available on [github pages](https://li
 Any bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/blob-compare/issues).
 
 **You are free and very welcome to fork the project and submit any PR to fix or improve `blob-compare`.**
+
+## Changelog ##
+  - **1.1.0** : Add magic numbers in default comparison methods as type value can be falsy. `blobCompare.isEqual` now returns immediately when a falsy value is encountered or at first successful comparison if partial option is set to `true`
+  - **1.0.1** : Fix package content

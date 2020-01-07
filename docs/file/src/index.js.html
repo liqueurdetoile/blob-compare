@@ -47,11 +47,28 @@ import Worker from &apos;./main.worker&apos;;
  * Detect if workers are enabled in current browser
  * @type {Boolean}
  */
-
 export let workersEnabled = Boolean(window.Worker);
 
 /**
  * Utility class to nest all methods
+ *
+ * ## Conversion tools ###
+ All conversions are run asynchronously.
+
+ Method  |  Description
+ --|--
+ `blobCompare::toArrayBuffer` |  Converts a blob to an ArrayBuffer. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+ `blobCompare::toBinaryString`  |  Converts a blob to a BinaryString. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+
+ ## Comparison tools ###
+ Method  |  Description | Sync/Async
+ --|--|:--:
+ `blobCompare::sizeEqual` | Compares size of two blobs | sync
+ `blobCompare::typeEqual`  | Compares types of two blobs. Types are not really reliable as they can be tricked when creating a blob |  sync
+ `blobCompare::magicNumbersEqual`  | Compares magic numbers of two blobs. A quick comparison is done, therefore weird data types may not be compared with 100% accuracy. In that case, simply clone repo and override this function to fit your needs | async
+ `blobCompare::bytesEqualWithArrayBuffer` | Converts blobs or chunk blobs to ArrayBuffers and performs a byte to byte comparison | async
+ `blobCompare::bytesEqualWithBinaryString`  | Converts blobs or chunk blobs to BinaryString and performs a byte to byte comparison | async
+ `blobCompare::isEqual`  | The swiss army knife to bundle multiple comparison methods above in one single call | async
  */
 export default class blobCompare {
 
@@ -299,6 +316,7 @@ export default class blobCompare {
    * @param   {Number}  size Size in bytes to slice blobs
    * @param   {Boolean} [worker=true] Wether to use webworkers if available
    * @return  {Promise&lt;Boolean&gt;}      Evaluates to `true` if blobs (or sliced blobs) are equals byte to byte
+   * @throws  Error When comparison method is not recognized
    */
   static async bytesEqualWithArrayBuffer(b1, b2, size, worker = true) {
     if (b1 === b2) return true;
@@ -321,37 +339,42 @@ export default class blobCompare {
    *
    * Using the `partial` option can be tricky as it&apos;s easy to have false positive.
    *
-   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type` and fallback on `byte` comparison on full data.
+   * As default, `isEqual` performs first a check on `size` method to discrimate blobs, then `type`, then `magic` and fallback on `byte` comparison on full data.
+   * This default order ensures the most optimized resource cost, though performing a complete comparison. For huge blobs, one may think about doing chunks comparison.
    *
    * Workers can be disabled through options
    *
-   * @version 1.0.0
+   * @version 1.1.0
    * @since   1.0.0
    * @param   {Blob}  b1                First blob
    * @param   {Blob}  b2                Second blob
    * @param   {Object}  [options]   Configuration to use when performing comparison
-   * @param   {Array}   [options.methods=[&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;]] Default methods used for comparison. Methods will be applied in the same order
+   * @param   {Array}   [options.methods=[&apos;size&apos;, &apos;type&apos;, &apos;magic&apos;, &apos;byte&apos;]] Default methods used for comparison. Methods are applied in the same order
    * @param   {String}  [options.byte=&apos;buffer&apos;]   If set to `buffer`, byte comparison will be based on arraybuffers. Otherwise, it will use binary strings
    * @param   {Boolean} [options.partial=false]   When set to `true`, the first successful comparison method will prevent further evaluations and return true immediately
    * @param   {Array}   [options.chunks=null]      Custom sizes to use when performing a byte comparison. It really have few usage as one must ensure a regular pattern in blobs data to avoid false positive
    * @param   {Boolean} [options.worker=true]      Wether to use web workers if available
    * @return  {Promise&lt;Boolean&gt;}                   If `true`, blobs are equals given the used methods
    */
-  static async isEqual(b1, b2, {methods = [&apos;size&apos;, &apos;type&apos;, &apos;byte&apos;], byte = &apos;buffer&apos;, partial = false, chunks = null, worker = true} = {}) {
-    const passed = new Set();
+  static async isEqual(b1, b2, {methods = [&apos;size&apos;, &apos;type&apos;, &apos;magic&apos;, &apos;byte&apos;], byte = &apos;buffer&apos;, partial = false, chunks = null, worker = true} = {}) {
+    let passed = null;
 
     for (let method of methods) {
-      let cmp;
+      if (passed === false) break;
+      if (partial &amp;&amp; passed === true) break;
 
       switch (method) {
         case &apos;byte&apos;:
         case &apos;bytes&apos;:
         case &apos;content&apos;:
           chunks = chunks instanceof Array ? chunks : [b1.size];
+          passed = true;
+
           for (let chunk of chunks) {
-            cmp = byte === &apos;buffer&apos; ? await this.bytesEqualWithArrayBuffer(b1, b2, chunk, worker) : await this.bytesEqualWithBinaryString(b1, b2, chunk, worker);
-            if (cmp === partial) return cmp;
-            passed.add(cmp);
+            let chunkPassed = false;
+
+            chunkPassed = byte === &apos;buffer&apos; ? await this.bytesEqualWithArrayBuffer(b1, b2, chunk, worker) : await this.bytesEqualWithBinaryString(b1, b2, chunk, worker);
+            if (!chunkPassed) passed = false;
           }
           break;
 
@@ -359,30 +382,24 @@ export default class blobCompare {
         case &apos;headers&apos;:
         case &apos;numbers&apos;:
         case &apos;mime&apos;:
-          cmp = await this.magicNumbersEqual(b1, b2, worker);
-          if (cmp === partial) return cmp;
-          passed.add(cmp);
+          passed = await this.magicNumbersEqual(b1, b2, worker);
           break;
 
         case &apos;size&apos;:
         case &apos;sizes&apos;:
-          cmp = this.sizeEqual(b1, b2);
-          if (cmp === partial) return cmp;
-          passed.add(cmp);
+          passed = this.sizeEqual(b1, b2);
           break;
 
         case &apos;type&apos;:
         case &apos;types&apos;:
-          cmp = this.typeEqual(b1, b2);
-          if (cmp === partial) return cmp;
-          passed.add(cmp);
+          passed = this.typeEqual(b1, b2);
           break;
 
-        default: throw new Error(&apos;Unknown comparison method&apos;);
+        default: throw new Error(&apos;Blob-compare : Unknown comparison method&apos;);
       }
     }
 
-    return !passed.has(false);
+    return passed;
   }
 }
 </code></pre>

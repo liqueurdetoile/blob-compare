@@ -6,11 +6,28 @@ import Worker from './main.worker';
  * Detect if workers are enabled in current browser
  * @type {Boolean}
  */
-
 export let workersEnabled = Boolean(window.Worker);
 
 /**
  * Utility class to nest all methods
+ *
+ * ## Conversion tools ###
+ All conversions are run asynchronously.
+
+ Method  |  Description
+ --|--
+ `blobCompare::toArrayBuffer` |  Converts a blob to an ArrayBuffer. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+ `blobCompare::toBinaryString`  |  Converts a blob to a BinaryString. it can be optionnally chunked and assigned to a web worker. Conversion is run asynchronously.
+
+ ## Comparison tools ###
+ Method  |  Description | Sync/Async
+ --|--|:--:
+ `blobCompare::sizeEqual` | Compares size of two blobs | sync
+ `blobCompare::typeEqual`  | Compares types of two blobs. Types are not really reliable as they can be tricked when creating a blob |  sync
+ `blobCompare::magicNumbersEqual`  | Compares magic numbers of two blobs. A quick comparison is done, therefore weird data types may not be compared with 100% accuracy. In that case, simply clone repo and override this function to fit your needs | async
+ `blobCompare::bytesEqualWithArrayBuffer` | Converts blobs or chunk blobs to ArrayBuffers and performs a byte to byte comparison | async
+ `blobCompare::bytesEqualWithBinaryString`  | Converts blobs or chunk blobs to BinaryString and performs a byte to byte comparison | async
+ `blobCompare::isEqual`  | The swiss army knife to bundle multiple comparison methods above in one single call | async
  */
 export default class blobCompare {
 
