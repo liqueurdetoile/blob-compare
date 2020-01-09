@@ -1,6 +1,12 @@
+[![NPM](https://nodei.co/npm/blob-compare.png)](https://nodei.co/npm/blob-compare/)
+
+[![GitHub license](https://img.shields.io/github/license/liqueurdetoile/blob-compare)](https://github.com/liqueurdetoile/blob-compare/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liqueurdetoile/blob-compare.svg?branch=master)](https://travis-ci.org/liqueurdetoile/blob-compare)
 [![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/blob-compare/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/blob-compare?branch=master)
 [![Gzip size](http://img.badgesize.io/https://cdn.jsdelivr.net/npm/blob-compare@latest?compression=gzip&style=flat-square)](https://cdn.jsdelivr.net/npm/blob-compare@latest)
+[![Known Vulnerabilities](https://snyk.io/test/github/liqueurdetoile/blob-compare/badge.svg)](https://snyk.io/test/github/liqueurdetoile/blob-compare)
+
+![npm](https://img.shields.io/npm/dm/blob-compare)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Documentation](https://liqueurdetoile.github.io/blob-compare/badge.svg)](https://liqueurdetoile.github.io/blob-compare/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/blob-compare.svg)](https://greenkeeper.io/)
