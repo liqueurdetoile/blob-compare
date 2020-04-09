@@ -42,7 +42,7 @@
     "eslint-loader": "^4.0.0",
     "file-loader": "^6.0.0",
     "json-loader": "^0.5.7",
-    "karma": "^4.1.0",
+    "karma": "^5.0.0",
     "karma-babel-preprocessor": "^8.0.0",
     "karma-benchmark": "^1.0.4",
     "karma-benchmark-json-reporter": "^1.0.1",
