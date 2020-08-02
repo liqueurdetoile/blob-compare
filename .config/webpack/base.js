@@ -22,7 +22,6 @@ module.exports = {
       {
         test: /(\.worker.js)$/,
         loader: 'worker-loader',
-        options: { inline: true, fallback: false },
         exclude: /node_modules/
       },
       {
