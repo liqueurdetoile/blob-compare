@@ -1,8 +1,7 @@
 // Karma configuration
-
 var webpackConfig = require('./webpack/tests.js');
 
-module.exports = function (config) {
+module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,7 +9,7 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['mocha', 'chai', 'sinon', 'webpack'],
 
     webpack: webpackConfig,
 
@@ -26,8 +25,7 @@ module.exports = function (config) {
     ],
 
     // list of files / patterns to exclude
-    exclude: [
-    ],
+    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -43,10 +41,10 @@ module.exports = function (config) {
     reporters: ['mocha', 'coverage'],
 
     coverageReporter: {
-      dir: './coverage',
+      dir: 'coverage',
       reporters: [
-        { type: 'html', subdir: '.'},
-        { type: 'lcov', subdir: '.'},
+        { type: 'html', subdir: '.' },
+        { type: 'lcov', subdir: '.' },
         { type: 'text-summary' }
       ]
     },

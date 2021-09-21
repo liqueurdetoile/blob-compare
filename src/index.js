@@ -1,6 +1,6 @@
-import {blobToBinaryString, blobToArrayBuffer, compareBuffers} from './lib';
+import { blobToBinaryString, blobToArrayBuffer, compareBuffers } from './lib';
 import WebworkerPromise from 'webworker-promise';
-import Worker from './main.worker';
+import Worker from './worker';
 
 /**
  * Detect if workers are enabled in current browser
@@ -30,6 +30,9 @@ export let workersEnabled = Boolean(window.Worker);
  `blobCompare::isEqual`  | The swiss army knife to bundle multiple comparison methods above in one single call | async
  */
 export default class blobCompare {
+  static _getWorker() {
+    return new WebworkerPromise(new Worker());
+  }
 
   /**
    * Convert a blob to a binary string through a web worker thread
@@ -40,8 +43,8 @@ export default class blobCompare {
    * @return  {Promise<String>}   Raw binary data as a string
    */
   static async toBinaryStringWithWorker(blob, chunk) {
-    const worker = new WebworkerPromise(new Worker());
-    const response = await worker.exec('binary', {blob, chunk});
+    const worker = this._getWorker();
+    const response = await worker.exec('binary', { blob, chunk });
 
     worker.terminate();
     return response;
@@ -90,8 +93,8 @@ export default class blobCompare {
    * @return  {Promise<ArrayBuffer>}       Binary data as a buffer
    */
   static async toArrayBufferWithWorker(blob, chunk) {
-    const worker = new WebworkerPromise(new Worker());
-    const response = await worker.exec('buffer', {blob, chunk});
+    const worker = this._getWorker();;
+    const response = await worker.exec('buffer', { blob, chunk });
 
     worker.terminate();
     return response;
@@ -140,8 +143,8 @@ export default class blobCompare {
   static async compareBuffersWithWorker(buf1, buf2) {
     if (buf1 === buf2) return true;
 
-    const worker = new WebworkerPromise(new Worker());
-    const response = await worker.exec('compare', {buf1, buf2}, [buf1, buf2]);
+    const worker = this._getWorker();
+    const response = await worker.exec('compare', { buf1, buf2 }, [buf1, buf2]);
 
     worker.terminate();
     return response;
@@ -222,7 +225,7 @@ export default class blobCompare {
    * @param   {Blob}  b2 Second blob
    * @param   {Boolean} [worker=true] Wether to use webworkers if available
    * @return  {Promise<Boolean>}   `true` if magic numbers string is matching between two blogs   *
-  */
+   */
   static async magicNumbersEqual(b1, b2, worker = true) {
     if (b1 === b2) return true;
 
@@ -315,7 +318,7 @@ export default class blobCompare {
    * @param   {Boolean} [options.worker=true]      Wether to use web workers if available
    * @return  {Promise<Boolean>}                   If `true`, blobs are equals given the used methods
    */
-  static async isEqual(b1, b2, {methods = ['size', 'type', 'magic', 'byte'], byte = 'buffer', partial = false, chunks = null, worker = true} = {}) {
+  static async isEqual(b1, b2, { methods = ['size', 'type', 'magic', 'byte'], byte = 'buffer', partial = false, chunks = null, worker = true } = {}) {
     let passed = null;
 
     for (let method of methods) {
@@ -354,7 +357,8 @@ export default class blobCompare {
           passed = this.typeEqual(b1, b2);
           break;
 
-        default: throw new Error('Blob-compare : Unknown comparison method');
+        default:
+          throw new Error('Blob-compare : Unknown comparison method');
       }
     }
 

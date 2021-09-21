@@ -4,7 +4,7 @@ import blobs from '../fixtures';
 describe('Blob-compare', function() {
   /**
    * @test {blobCompare.sizeEqual}
-  */
+   */
   describe('sizeEqual', function() {
     it('should return true if size are equal', function() {
       blobCompare.sizeEqual(blobs.get('bmp1.bmp'), blobs.get('bmp2.bmp')).should.be.true;
@@ -30,7 +30,7 @@ describe('Blob-compare', function() {
 
   /**
    * @test {blobCompare.magicNumbersEqual}
-  */
+   */
   describe('magicNumbersEqual', function() {
     it('should return true if blobs are the same', async function() {
       let b = blobs.get('jpeg1.jpg');
@@ -61,7 +61,7 @@ describe('Blob-compare', function() {
   /**
    * @test {blobCompare.toBinaryString}
    * @test {blobCompare.toArrayBuffer}
-  */
+   */
   describe('toBinaryString && toArrayBuffer', function() {
     it('should return a binary string (worker)', async function() {
       let b = blobs.get('jpeg1.jpg');
@@ -94,7 +94,7 @@ describe('Blob-compare', function() {
 
   /**
    * @test {blobCompare.compareBuffers}
-  */
+   */
   describe('compareBuffers', function() {
     it('should return true if buffers are the same (worker)', async function() {
       const b = new ArrayBuffer(8);
@@ -120,7 +120,7 @@ describe('Blob-compare', function() {
 
   /**
    * @test {blobCompare.bytesEqualWithBinaryString}
-  */
+   */
   describe('bytesEqualWithBinaryString', function() {
     it('should return true if blobs are the same', async function() {
       let b = blobs.get('jpeg1.jpg');
@@ -150,7 +150,7 @@ describe('Blob-compare', function() {
 
   /**
    * @test {blobCompare.bytesEqualWithArrayBuffer}
-  */
+   */
   describe('bytesEqualWithArrayBuffer', function() {
     it('should return true if blobs are the same', async function() {
       let b = blobs.get('jpeg1.jpg');
@@ -180,29 +180,29 @@ describe('Blob-compare', function() {
 
   /**
    * @test {blobCompare.isEqual}
-  */
+   */
   describe('isEqual', function() {
     // build a blobs to run test automatically, [b1, b2, expected, size]
     const suite = [
       ['empty', 'empty', true],
       ['jpeg1.jpg', 'jpeg1.jpg', true],
       ['jpeg1.jpg', 'jpeg2.jpg', false],
-      ['jpeg1.jpg', 'jpeg2.jpg', true, {methods: ['types']}], // Types are the same
-      ['png1.png', 'png2.png', true, {methods: ['types', 'size'], partial: true}], // Same types so partial succeeds
-      ['png1.png', 'png2.png', false, {methods: ['types', 'size']}], // Sizes are different
+      ['jpeg1.jpg', 'jpeg2.jpg', true, { methods: ['types'] }], // Types are the same
+      ['png1.png', 'png2.png', true, { methods: ['types', 'size'], partial: true }], // Same types so partial succeeds
+      ['png1.png', 'png2.png', false, { methods: ['types', 'size'] }], // Sizes are different
       ['png1.png', 'png1.png', true],
       ['png1.png', 'png2.png', false],
-      ['png1.png', 'png2.png', true, {methods: ['magic']}], // Magic numbers are the same
-      ['png1.png', 'png2.png', true, {methods: ['magic', 'size'], partial: true}], // Magic numbers are the same
+      ['png1.png', 'png2.png', true, { methods: ['magic'] }], // Magic numbers are the same
+      ['png1.png', 'png2.png', true, { methods: ['magic', 'size'], partial: true }], // Magic numbers are the same
       ['bmp1.bmp', 'bmp1.bmp', true],
       ['bmp1.bmp', 'bmp2.bmp', false],
-      ['bmp1.bmp', 'bmp2.bmp', true, {partial: true}], // Same sizes so partial succeeds
-      ['bmp1.bmp', 'bmp2.bmp', true, {chunks : [512]}], // Sample size is too small to see difference between the two files
-      ['bmp1.bmp', 'bmp2.bmp', false, {chunks : [512, 2048]}], // Second sample size is enough to see difference between the two files
-      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes']}], // Force using only blob size
-      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes'], byte: 'string'}], // Force using only blob size with binary string
-      ['bmp1.bmp', 'bmp2.bmp', false, {methods: ['bytes'], worker: false}], // Force using only blob size with buffer in main thread
-      ['bmp1.bmp', 'bmp2.bmp', true, {methods: ['size']}], // Sizes are the same though files are different
+      ['bmp1.bmp', 'bmp2.bmp', true, { partial: true }], // Same sizes so partial succeeds
+      ['bmp1.bmp', 'bmp2.bmp', true, { chunks: [512] }], // Sample size is too small to see difference between the two files
+      ['bmp1.bmp', 'bmp2.bmp', false, { chunks: [512, 2048] }], // Second sample size is enough to see difference between the two files
+      ['bmp1.bmp', 'bmp2.bmp', false, { methods: ['bytes'] }], // Force using only blob size
+      ['bmp1.bmp', 'bmp2.bmp', false, { methods: ['bytes'], byte: 'string' }], // Force using only blob size with binary string
+      ['bmp1.bmp', 'bmp2.bmp', false, { methods: ['bytes'], worker: false }], // Force using only blob size with buffer in main thread
+      ['bmp1.bmp', 'bmp2.bmp', true, { methods: ['size'] }], // Sizes are the same though files are different
       ['jpeg1.jpg', 'png1.png', false],
     ]
 
@@ -210,15 +210,15 @@ describe('Blob-compare', function() {
       const [n1, n2, expected, options] = t;
 
       it(`should return ${expected} with ${n1} vs ${n2} and ${options ? JSON.stringify(options) : 'default options'}`, async function() {
-          const res = await blobCompare.isEqual(blobs.get(n1), blobs.get(n2), options);
+        const res = await blobCompare.isEqual(blobs.get(n1), blobs.get(n2), options);
 
-          expect(res).to.equal(expected);
+        expect(res).to.equal(expected);
       })
     }
 
     it('should throw if one method is not recognized', async function() {
       try {
-        await blobCompare.isEqual(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'), {methods: ['silly']});
+        await blobCompare.isEqual(blobs.get('jpeg1.jpg'), blobs.get('jpeg2.jpg'), { methods: ['silly'] });
         expect.fail();
       } catch (err) {
         err.message.should.equal('Blob-compare : Unknown comparison method');

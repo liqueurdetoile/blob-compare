@@ -57,7 +57,8 @@ export function compareBuffers(buf1, buf2) {
   if (buf1 === buf2) return true;
   if (buf1.byteLength !== buf2.byteLength) return false;
 
-  const d1 = new DataView(buf1), d2 = new DataView(buf2);
+  const d1 = new DataView(buf1),
+    d2 = new DataView(buf2);
 
   var i = buf1.byteLength;
   while (i--) {
