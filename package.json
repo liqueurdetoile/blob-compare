@@ -1,6 +1,6 @@
 {
   "name": "blob-compare",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "description": "Small library to quickly compare two blobs based on blob attributes and fallback to binary string conversion",
   "main": "dist/index.min.js",
   "sideEffects": false,
@@ -18,7 +18,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config .config/webpack/build.js",
-    "test": "cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "test": "cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless",
     "test:dry": "cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless",
     "test:watch": "cross-env BABEL_ENV=test karma start --browsers ChromeHeadless --log-level warn",
     "test:all": "cross-env BABEL_ENV=test karma start --single-run --log-level error",
@@ -38,7 +38,6 @@
     "chai": "^4.2.0",
     "circular-dependency-plugin": "^5.2.2",
     "core-js": "^3.18.0",
-    "coveralls": "^3.0.4",
     "cross-env": "^7.0.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.6.0",
