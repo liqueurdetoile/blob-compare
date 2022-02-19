@@ -9,7 +9,9 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'sinon', 'webpack'],
+    frameworks: [
+      'mocha', 'chai', 'sinon', 'webpack'
+    ],
 
     webpack: webpackConfig,
 
@@ -20,9 +22,7 @@ module.exports = function(config) {
     },
 
     // list of files / patterns to load in the browser
-    files: [
-      'tests/index.js'
-    ],
+    files: ['tests/index.js'],
 
     // list of files / patterns to exclude
     exclude: [],
@@ -38,14 +38,22 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     // reporters: ['progress', 'coverage-istanbul', 'coveralls'],
     // reporters: ['progress', 'mocha', 'coverage-istanbul'],
-    reporters: ['mocha', 'coverage'],
+    reporters: [
+      'mocha', 'coverage'
+    ],
 
     coverageReporter: {
       dir: 'coverage',
       reporters: [
-        { type: 'html', subdir: '.' },
-        { type: 'lcov', subdir: '.' },
-        { type: 'text-summary' }
+        {
+          type: 'html',
+          subdir: '.'
+        }, {
+          type: 'lcov',
+          subdir: '.'
+        }, {
+          type: 'text-summary'
+        }
       ]
     },
 
@@ -65,17 +73,11 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     // browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'Safari', 'PhantomJS', 'Opera', 'IE'],
-    browsers: ['ChromeHeadless', 'FirefoxHeadless', 'Edge'],
+    browsers: [
+      'ChromeHeadless', 'FirefoxHeadless'
+    ],
 
     customLaunchers: {
-      ChromeHeadlessWithoutSecurity: {
-        base: 'ChromeHeadless',
-        flags: ['--disable-web-security']
-      },
-      ChromeWithoutSecurity: {
-        base: 'Chromium',
-        flags: ['--disable-web-security']
-      },
       FirefoxHeadless: {
         base: 'Firefox',
         flags: ['-headless']
