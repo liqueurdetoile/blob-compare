@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const base = require('./base.js');
 
 module.exports = merge(base, {
@@ -7,5 +7,5 @@ module.exports = merge(base, {
   output: {
     devtoolModuleFilenameTemplate: '[absolute-resource-path]',
     devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
-  }
+  },
 });

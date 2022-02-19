@@ -1,27 +1,24 @@
 'use strict';
 
 const path = require('path');
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir);
-}
+const CircularDependencyPlugin = require('circular-dependency-plugin')
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  entry: './src/index.js',
   output: {
     library: 'blobCompare',
     libraryTarget: "umd"
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /(\.js)$/,
         loader: 'babel-loader',
         exclude: /node_modules|tests|benchmarks/
       },
       {
-        test: /(\.worker.js)$/,
+        test: /(worker\.js)$/,
         loader: 'worker-loader',
+        options: { inline: isProduction ? "no-fallback" : "fallback" },
         exclude: /node_modules/
       },
       {
@@ -39,5 +36,11 @@ module.exports = {
     alias: {
       '@': path.resolve('./src')
     }
-  }
+  },
+  plugins: [
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      failOnError: true
+    }),
+  ]
 };
